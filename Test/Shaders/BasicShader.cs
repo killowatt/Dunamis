@@ -37,13 +37,13 @@ namespace Test.Shaders
             updateTexture("diffuse", diffuse);
         }
         public BasicShader(Matrix4 model, Camera camera, float updaterate, Texture tex)
-            : base(File.ReadAllText("Shaders/BasicVertex.txt"), File.ReadAllText("Shaders/BasicFragment.txt"), ShaderState.Static)
+            : base(File.ReadAllText("Shaders/BasicVertex.txt"), File.ReadAllText("Shaders/BasicFragment.txt"), ShaderState.Dynamic)
         {
             Model = model;
             Projection = camera.Projection;
             View = camera.View;
             diffuse = tex;
-            this.updaterate = updaterate;
+            this.updaterate = updaterate / 250;
         }
     }
 }

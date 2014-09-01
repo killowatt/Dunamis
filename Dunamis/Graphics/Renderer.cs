@@ -1,6 +1,8 @@
 ﻿using System;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using Dunamis.Common.Meshes;
+using Dunamis.Common.Shaders;
 
 namespace Dunamis.Graphics
 {
@@ -8,12 +10,16 @@ namespace Dunamis.Graphics
     public class Renderer
     {
         GraphicsContext graphicsContext;
-        Window currentWindow;
 
         #region Fields
+        Window currentWindow;
+
         int currentVertexArray;
         int currentIndexBuffer;
         int currentShader;
+
+        RenderTextureMesh renderTextureMesh;
+        RenderTextureShader renderTextureShader;
         #endregion
 
         #region Properties
@@ -54,6 +60,14 @@ namespace Dunamis.Graphics
                 }
             }
         }
+        public Window Window
+        {
+            get
+            {
+                return currentWindow;
+            }
+            // TODO: set current window
+        }
         #endregion
 
         #region Methods
@@ -88,8 +102,15 @@ namespace Dunamis.Graphics
 
             GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
         }
+        public void DrawTexture(Texture texture)
+        {
+            renderTextureShader.Texture = texture;
+            renderTextureMesh.Shader = renderTextureShader; // TODO: optimize this
+            DrawMesh(renderTextureMesh);
+        }
         public void Clear()
         {
+            GL.Viewport(0, 0, currentWindow.Width, currentWindow.Height);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
         public void Display()
@@ -98,16 +119,19 @@ namespace Dunamis.Graphics
         }
         #endregion
 
-        public Renderer(Window window)
+        public Renderer(Window window, bool verticalSync)
         {
             currentWindow = window;
             graphicsContext = new GraphicsContext(GraphicsMode.Default, window.WindowInfo);
             graphicsContext.MakeCurrent(currentWindow.WindowInfo);
             graphicsContext.LoadAll();
 
+            renderTextureShader = new RenderTextureShader();
+            renderTextureMesh = new RenderTextureMesh(renderTextureShader);
+
             GL.Enable(EnableCap.DepthTest);
 
-            VerticalSync = false;
+            VerticalSync = verticalSync;
         }
     }
 }

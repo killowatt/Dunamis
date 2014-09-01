@@ -4,4 +4,5 @@ A work-in-progress framework planned to be comprised of audio, graphics, content
 
 ## Libraries
 OpenTK - https://github.com/thefiddler/opentk
+
 AssimpNET - https://www.nuget.org/packages/AssimpNet/

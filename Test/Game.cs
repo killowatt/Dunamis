@@ -10,6 +10,7 @@ namespace Test
     {
         Window window;
         Renderer renderer;
+        RenderTexture renderTexture;
 
         ResourceManager resourceManager;
 
@@ -23,24 +24,29 @@ namespace Test
         }
         public void Render()
         {
+            renderTexture.Clear();
+
+            renderer.DrawMesh(mesh);
+
+            renderTexture.Finish();
+
+            // SPLIT
+
             renderer.Clear();
 
-           // for (int i = 0; i <= 10000; i++)
-           // {
-                renderer.DrawMesh(mesh);
-            //}
-            //renderer.DrawMesh(mesh2);
+            renderer.DrawTexture(renderTexture.Color);
 
             renderer.Display();
-            
             //Console.WriteLine("OpenGL Error: " + OpenTK.Graphics.OpenGL.GL.GetError());
         }
 
         public Game()
         {
             window = new Window(1280, 720, "Test", WindowType.Window, Window.DefaultDisplay, true);
-            renderer = new Renderer(window);
+            renderer = new Renderer(window, false);
             renderer.ClearColor = new Color3(37, 37, 56);
+
+            renderTexture = new RenderTexture(2560, 1440);
 
             resourceManager = new ResourceManager();
             resourceManager.AddLoader(new Dunamis.Content.Loaders.TextureLoader());

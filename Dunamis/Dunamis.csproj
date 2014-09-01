@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Color3.cs" />
+    <Compile Include="Common\Meshes\RenderTextureMesh.cs" />
+    <Compile Include="Common\Shaders\RenderTextureShader.cs" />
     <Compile Include="Content\ILoader.cs" />
     <Compile Include="Content\Loaders\ModelLoader.cs" />
     <Compile Include="Content\Loaders\TextureLoader.cs" />
@@ -43,6 +45,7 @@
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\Mesh.cs" />
     <Compile Include="Graphics\Renderer.cs" />
+    <Compile Include="Graphics\RenderTexture.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\ShaderState.cs" />
     <Compile Include="Graphics\ShaderType.cs" />
@@ -62,6 +65,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureFragment.txt" />
+    <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureVertex.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

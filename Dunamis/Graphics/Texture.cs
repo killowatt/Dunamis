@@ -16,6 +16,10 @@ namespace Dunamis.Graphics
             {
                 return width;
             }
+            internal set
+            {
+                width = value;
+            }
         }
         public int Height
         {
@@ -23,7 +27,13 @@ namespace Dunamis.Graphics
             {
                 return height;
             }
+            internal set
+            {
+                height = value;
+            }
         }
+
+        // TODO: get pixels
 
         public Texture(byte[] pixels, int width, int height) // TODO: add desc; format RGBA in UNSIGNED BYTES
         {
@@ -43,6 +53,24 @@ namespace Dunamis.Graphics
             //GL.GenerateMipmap(GenerateMipmapTarget.Texture2D); // TODO: see how this works
 
             GL.BindTexture(TextureTarget.Texture2D, 0);
+        }
+        public Texture(int width, int height)
+        {
+            GL.GenTextures(1, out TextureID);
+            GL.BindTexture(TextureTarget.Texture2D, TextureID);
+
+            this.width = width;
+            this.height = height;
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, width, height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, IntPtr.Zero);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear); // TODO: wouldn't this be nearest? (for framebuffer)
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+            GL.BindTexture(TextureTarget.Texture2D, 0);
+        }
+        internal Texture()
+        {
+            GL.GenTextures(1, out TextureID);
         }
     }
 }

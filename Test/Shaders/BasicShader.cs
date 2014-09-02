@@ -17,7 +17,7 @@ namespace Test.Shaders
         public Texture diffuse;
 
         float updaterate = 0;
-        float angle = 0;
+        public float angle = 0;
 
         public override void Initialize()
         {
@@ -30,7 +30,7 @@ namespace Test.Shaders
         public override void Update()
         {
             cust = Model * Matrix4.CreateRotationY(angle);
-            angle += updaterate;
+            //angle += updaterate;
             updateUniform("model", cust, false);
             updateUniform("projection", Projection, false);
             updateUniform("view", View, false);

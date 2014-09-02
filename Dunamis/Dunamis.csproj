@@ -52,6 +52,8 @@
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\Window.cs" />
     <Compile Include="Graphics\WindowType.cs" />
+    <Compile Include="Input\Key.cs" />
+    <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Vector2.cs" />
     <Compile Include="Vector3.cs" />
   </ItemGroup>

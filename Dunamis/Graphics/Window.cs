@@ -1,13 +1,14 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics;
+using OpenTK.Input;
 using OpenTK.Platform;
 
 namespace Dunamis.Graphics
 {
     public class Window
     {
-        NativeWindow nativeWindow;
+        internal NativeWindow NativeWindow;
         public static readonly int DefaultDisplay = -1;
 
         #region Properties
@@ -15,48 +16,48 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return nativeWindow.Width;
+                return NativeWindow.Width;
             }
             set
             {
-                nativeWindow.Width = value;
+                NativeWindow.Width = value;
             }
         }
         public int Height
         {
             get
             {
-                return nativeWindow.Height;
+                return NativeWindow.Height;
             }
             set
             {
-                nativeWindow.Height = value;
+                NativeWindow.Height = value;
             }
         }
         public string Title
         {
             get
             {
-                return nativeWindow.Title;
+                return NativeWindow.Title;
             }
             set
             {
-                nativeWindow.Title = value;
+                NativeWindow.Title = value;
             }
         }
         public WindowType Type
         {
             get
             {
-                if (nativeWindow.WindowBorder == WindowBorder.Fixed && nativeWindow.WindowState == WindowState.Normal)
+                if (NativeWindow.WindowBorder == WindowBorder.Fixed && NativeWindow.WindowState == WindowState.Normal)
                 {
                     return WindowType.Window;
                 }
-                if (nativeWindow.WindowBorder == WindowBorder.Hidden && nativeWindow.WindowState == WindowState.Normal)
+                if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Normal)
                 {
                     return WindowType.BorderlessWindow;
                 }
-                if (nativeWindow.WindowBorder == WindowBorder.Hidden && nativeWindow.WindowState == WindowState.Fullscreen)
+                if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Fullscreen)
                 {
                     return WindowType.Fullscreen;
                 }
@@ -66,18 +67,18 @@ namespace Dunamis.Graphics
             {
                 if (value == WindowType.Window)
                 {
-                    nativeWindow.WindowBorder = WindowBorder.Fixed;
-                    nativeWindow.WindowState = WindowState.Normal;
+                    NativeWindow.WindowBorder = WindowBorder.Fixed;
+                    NativeWindow.WindowState = WindowState.Normal;
                 }
                 else if (value == WindowType.BorderlessWindow)
                 {
-                    nativeWindow.WindowBorder = WindowBorder.Hidden;
-                    nativeWindow.WindowState = WindowState.Normal;
+                    NativeWindow.WindowBorder = WindowBorder.Hidden;
+                    NativeWindow.WindowState = WindowState.Normal;
                 }
                 else if (value == WindowType.Fullscreen)
                 {
-                    nativeWindow.WindowBorder = WindowBorder.Hidden;
-                    nativeWindow.WindowState = WindowState.Fullscreen;
+                    NativeWindow.WindowBorder = WindowBorder.Hidden;
+                    NativeWindow.WindowState = WindowState.Fullscreen;
                 }
             }
         }
@@ -85,18 +86,11 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return nativeWindow.Visible;
+                return NativeWindow.Visible;
             }
             set
             {
-                nativeWindow.Visible = value;
-            }
-        }
-        internal IWindowInfo WindowInfo
-        {
-            get
-            {
-                return nativeWindow.WindowInfo;
+                NativeWindow.Visible = value;
             }
         }
         #endregion
@@ -104,13 +98,13 @@ namespace Dunamis.Graphics
         #region Methods
         public void Update()
         {
-            nativeWindow.ProcessEvents();
+            NativeWindow.ProcessEvents();
         }
         #endregion
 
         public Window(int width, int height, string title, WindowType type, int display, bool visible)
         {
-            nativeWindow = new NativeWindow(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.GetDisplay((DisplayIndex)display));
+            NativeWindow = new NativeWindow(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.GetDisplay((DisplayIndex)display));
             Type = type;
             Visible = visible;
         }

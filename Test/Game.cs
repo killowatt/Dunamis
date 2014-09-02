@@ -2,6 +2,7 @@
 using Dunamis;
 using Dunamis.Content;
 using Dunamis.Graphics;
+using Dunamis.Input;
 using Test.Shaders;
 
 namespace Test
@@ -18,9 +19,16 @@ namespace Test
         Texture tex;
         BasicShader shader;
 
+        Keyboard keyboard;
+
         public void Update()
         {
             window.Update();
+
+            if (keyboard.IsKeyDown(Key.Space))
+            {
+                shader.angle += 0.05f / 250;
+            }
         }
         public void Render()
         {
@@ -46,7 +54,7 @@ namespace Test
             renderer = new Renderer(window, false);
             renderer.ClearColor = new Color3(37, 37, 56);
 
-            renderTexture = new RenderTexture(2560, 1440);
+            renderTexture = new RenderTexture(2560, 1440); // HIGH RESOLUTION
 
             resourceManager = new ResourceManager();
             resourceManager.AddLoader(new Dunamis.Content.Loaders.TextureLoader());
@@ -59,6 +67,8 @@ namespace Test
             camera.LookAt(new Vector3(0, 0, 0));
             shader = new BasicShader(mesh.ModelMatrix, camera, 0.05f, tex);
             mesh.Shader = shader;
+
+            keyboard = new Keyboard(window);
 
             Console.WriteLine("Vertex Shader Status: " + shader.GetCompileStatus(ShaderType.Vertex));
             Console.WriteLine("Vertex Shader Log: " + shader.GetCompileLog(ShaderType.Vertex));

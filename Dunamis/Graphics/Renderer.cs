@@ -122,8 +122,8 @@ namespace Dunamis.Graphics
         public Renderer(Window window, bool verticalSync)
         {
             currentWindow = window;
-            graphicsContext = new GraphicsContext(GraphicsMode.Default, window.WindowInfo);
-            graphicsContext.MakeCurrent(currentWindow.WindowInfo);
+            graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
+            graphicsContext.MakeCurrent(currentWindow.NativeWindow.WindowInfo);
             graphicsContext.LoadAll();
 
             renderTextureShader = new RenderTextureShader();

@@ -52,7 +52,7 @@ namespace Test
         {
             window = new Window(1280, 720, "Test", WindowType.Window, Window.DefaultDisplay, true);
             renderer = new Renderer(window, false);
-            renderer.ClearColor = new Color3(37, 37, 56);
+            renderer.ClearColor = new Color3(59, 79, 114);
 
             renderTexture = new RenderTexture(2560, 1440); // HIGH RESOLUTION
 

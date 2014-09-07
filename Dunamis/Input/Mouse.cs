@@ -50,7 +50,6 @@ namespace Dunamis.Input
         #region Events
         private void move(object sender, MouseEventArgs arguments)
         {
-            
         }
         #endregion
 

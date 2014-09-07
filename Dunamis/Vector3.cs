@@ -9,7 +9,7 @@ namespace Dunamis
         public float Z;
         // TODO: implement implicit conversions to all opentk types
 
-        public OpenTK.Vector3 ToToolkit()
+        public OpenTK.Vector3 ToToolkit() // TODO: is this needed?
         {
             return new OpenTK.Vector3(X, Y, Z);
         }

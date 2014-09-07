@@ -120,7 +120,7 @@ namespace Dunamis.Graphics
             textureCoordinates = new float[] { };
             normals = new float[] { };
             indices = new uint[] { };
-            ModelMatrix = Matrix4.CreateTranslation(0, 0, 0);
+            ModelMatrix = OpenTK.Matrix4.CreateTranslation(0, 0, 0);
         }
     }
 }

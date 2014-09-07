@@ -42,6 +42,8 @@
     <Compile Include="Content\Loaders\ModelLoader.cs" />
     <Compile Include="Content\Loaders\TextureLoader.cs" />
     <Compile Include="Content\ResourceManager.cs" />
+    <Compile Include="Graphics\Animation.cs" />
+    <Compile Include="Graphics\Bone.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\Mesh.cs" />
     <Compile Include="Graphics\Renderer.cs" />
@@ -55,7 +57,9 @@
     <Compile Include="Input\Key.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
+    <Compile Include="Matrix4.cs" />
     <Compile Include="Vector2.cs" />
+    <Compile Include="Vector4.cs" />
     <Compile Include="Vector3.cs" />
   </ItemGroup>
   <ItemGroup>

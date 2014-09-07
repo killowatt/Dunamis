@@ -1,6 +1,6 @@
 ﻿using System;
-using OpenTK;
 using System.IO;
+using OpenTK;
 using Dunamis;
 using Dunamis.Graphics;
 
@@ -29,7 +29,7 @@ namespace Test.Shaders
         }
         public override void Update()
         {
-            cust = Model * Matrix4.CreateRotationY(angle);
+            cust = Model * OpenTK.Matrix4.CreateRotationZ(angle);
             //angle += updaterate;
             updateUniform("model", cust, false);
             updateUniform("projection", Projection, false);

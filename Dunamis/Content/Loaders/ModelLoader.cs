@@ -17,42 +17,40 @@ namespace Dunamis.Content.Loaders
             List<float> normals = new List<float>();
             List<uint> indices = new List<uint>();
 
-            foreach (Mesh currentMesh in scene.Meshes)
+            Mesh currentMesh = scene.Meshes[1];
+            if (currentMesh.HasVertices)
             {
-                if (currentMesh.HasVertices)
+                foreach (Vector3D vector in currentMesh.Vertices)
                 {
-                    foreach (Vector3D vector in currentMesh.Vertices)
-                    {
-                        vertices.Add(vector.X);
-                        vertices.Add(vector.Y);
-                        vertices.Add(vector.Z);
-                    }
+                    vertices.Add(vector.X);
+                    vertices.Add(vector.Y);
+                    vertices.Add(vector.Z);
                 }
-                if (currentMesh.HasTextureCoords(0))
+            }
+            if (currentMesh.HasTextureCoords(0))
+            {
+                foreach (Vector3D textureCoordinate in currentMesh.TextureCoordinateChannels[0])
                 {
-                    foreach (Vector3D textureCoordinate in currentMesh.TextureCoordinateChannels[0])
-                    {
-                        textureCoordinates.Add(textureCoordinate.X);
-                        textureCoordinates.Add(textureCoordinate.Y);
-                    }
+                    textureCoordinates.Add(textureCoordinate.X);
+                    textureCoordinates.Add(textureCoordinate.Y);
                 }
-                if (currentMesh.HasNormals)
+            }
+            if (currentMesh.HasNormals)
+            {
+                foreach (Vector3D normal in currentMesh.Normals)
                 {
-                    foreach (Vector3D normal in currentMesh.Normals)
-                    {
-                        normals.Add(normal.X);
-                        normals.Add(normal.Y);
-                        normals.Add(normal.Z);
-                    }
+                    normals.Add(normal.X);
+                    normals.Add(normal.Y);
+                    normals.Add(normal.Z);
                 }
-                if (currentMesh.HasFaces)
+            }
+            if (currentMesh.HasFaces)
+            {
+                foreach (Face face in currentMesh.Faces)
                 {
-                    foreach (Face face in currentMesh.Faces)
-                    {
-                        indices.Add((uint)face.Indices[0]);
-                        indices.Add((uint)face.Indices[1]);
-                        indices.Add((uint)face.Indices[2]);
-                    }
+                    indices.Add((uint)face.Indices[0]);
+                    indices.Add((uint)face.Indices[1]);
+                    indices.Add((uint)face.Indices[2]);
                 }
             }
 

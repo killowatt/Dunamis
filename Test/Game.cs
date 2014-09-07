@@ -61,9 +61,9 @@ namespace Test
             resourceManager.AddLoader(new Dunamis.Content.Loaders.ModelLoader());
 
             tex = resourceManager.Load<Texture>("Textures/test.png");
-            mesh = resourceManager.Load<Mesh>("Models/test.obj");
+            mesh = resourceManager.Load<Mesh>("Models/human.dae");
 
-            Camera camera = new Camera(new Vector3(2, 2, 2), new Vector2(15, 15), 75, new Vector2(1280, 720));
+            Camera camera = new Camera(new Vector3(0, -6, 0.1f), new Vector2(15, 15), 75, new Vector2(1280, 720));
             camera.LookAt(new Vector3(0, 0, 0));
             shader = new BasicShader(mesh.ModelMatrix, camera, 0.05f, tex);
             mesh.Shader = shader;

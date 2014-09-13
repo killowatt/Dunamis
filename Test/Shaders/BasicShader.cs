@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using OpenTK;
 using Dunamis;
 using Dunamis.Graphics;
 
@@ -15,6 +14,7 @@ namespace Test.Shaders
         Matrix4 cust;
 
         public Texture diffuse;
+        public Matrix4[] mbones;
 
         float updaterate = 0;
         public float angle = 0;
@@ -26,19 +26,26 @@ namespace Test.Shaders
             addUniform("projection", Projection, false);
             addUniform("view", View, false);
             addTexture("diffuse", diffuse);
+            addUniform("bones", mbones, false);
         }
         public override void Update()
         {
-            cust = Model * OpenTK.Matrix4.CreateRotationZ(angle);
+            cust = Model * Matrix4.CreateRotationZ(angle);
             //angle += updaterate;
             updateUniform("model", cust, false);
             updateUniform("projection", Projection, false);
             updateUniform("view", View, false);
             updateTexture("diffuse", diffuse);
         }
-        public BasicShader(Matrix4 model, Camera camera, float updaterate, Texture tex)
+        public BasicShader(Matrix4 model, Camera camera, float updaterate, Texture tex, Bone[] bones)
             : base(File.ReadAllText("Shaders/BasicVertex.txt"), File.ReadAllText("Shaders/BasicFragment.txt"), ShaderState.Dynamic)
         {
+            System.Collections.Generic.List<Matrix4> matrices = new System.Collections.Generic.List<Matrix4>();
+            foreach (Bone bone in bones)
+            {
+                matrices.Add(bone.Offset);
+            }
+            mbones = matrices.ToArray();
             Model = model;
             Projection = camera.Projection;
             View = camera.View;

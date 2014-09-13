@@ -7,7 +7,9 @@ namespace Dunamis
         public float X;
         public float Y;
         public float Z;
+        // TODO: upgrade vectors to matrix4 style structure
         // TODO: implement implicit conversions to all opentk types
+        // TODO: add == operator, + operator, etc. for all data types like this
 
         public OpenTK.Vector3 ToToolkit() // TODO: is this needed?
         {

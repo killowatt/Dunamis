@@ -65,7 +65,7 @@ namespace Test
 
             Camera camera = new Camera(new Vector3(0, -6, 0.1f), new Vector2(15, 15), 75, new Vector2(1280, 720));
             camera.LookAt(new Vector3(0, 0, 0));
-            shader = new BasicShader(mesh.ModelMatrix, camera, 0.05f, tex);
+            shader = new BasicShader(mesh.ModelMatrix, camera, 0.05f, tex, mesh.Bones);
             mesh.Shader = shader;
 
             keyboard = new Keyboard(window);

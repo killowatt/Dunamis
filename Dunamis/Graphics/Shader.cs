@@ -42,11 +42,25 @@ namespace Dunamis.Graphics
         {
             int uniform = GL.GetUniformLocation(ShaderProgram, identifier);
             uniforms.Add(identifier, uniform);
-            GL.UniformMatrix4(uniform, transpose, ref matrix);
+            GL.UniformMatrix4(uniform, transpose, ref matrix.Matrix);
         }
         protected void updateUniform(string identifier, Matrix4 matrix, bool transpose)
         {
-            GL.UniformMatrix4(uniforms[identifier], transpose, ref matrix);
+            GL.UniformMatrix4(uniforms[identifier], transpose, ref matrix.Matrix);
+        }
+        protected void addUniform(string identifier, Matrix4[] matrices, bool transpose)
+        {
+            int uniform = GL.GetUniformLocation(ShaderProgram, identifier);
+            uniforms.Add(identifier, uniform);
+            List<float> matrixCollection = new List<float>();
+            foreach (Matrix4 matrix in matrices)
+            {
+                foreach (float element in matrix.Array)
+                {
+                    matrixCollection.Add(element);
+                }
+            }
+            GL.UniformMatrix4(uniform, matrices.Length, false, matrixCollection.ToArray());
         }
         // TODO: make these properties?
         public bool GetCompileStatus(ShaderType type)
@@ -111,6 +125,16 @@ namespace Dunamis.Graphics
             {
                 GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * mesh.TextureCoordinates.Length));
                 GL.EnableVertexAttribArray(normal);
+            }
+
+            int boneVertex = GL.GetAttribLocation(ShaderProgram, "boneVertex");
+            int boneWeight = GL.GetAttribLocation(ShaderProgram, "boneWeight");
+            if (boneVertex > -1 || boneWeight > -1)
+            {
+                GL.VertexAttribPointer(boneVertex, 4, VertexAttribPointerType.Int, false, 0, new IntPtr(offset += sizeof(float) * mesh.Normals.Length));
+                GL.EnableVertexAttribArray(boneVertex);
+                GL.VertexAttribPointer(boneWeight, 4, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(int) * mesh.BoneIndices.Length));
+                GL.EnableVertexAttribArray(boneWeight);
             }
 
             GL.UseProgram(0);

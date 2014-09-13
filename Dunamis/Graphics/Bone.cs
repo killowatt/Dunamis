@@ -7,24 +7,15 @@ namespace Dunamis.Graphics
     {
         public string Name;
         public Matrix4 Offset;
-        public VertexWeight[] Weights;
+        public uint[] Vertices;
+        public float[] Weights;
 
-        public Bone(string name, Matrix4 offset, VertexWeight[] weights)
+        public Bone(string name, Matrix4 offset, uint[] vertices, float[] weights)
         {
             Name = name;
             Offset = offset;
+            Vertices = vertices;
             Weights = weights;
-        }
-    }
-    public struct VertexWeight
-    {
-        public int Index;
-        public float Weight;
-
-        public VertexWeight(int index, float weight)
-        {
-            Index = index;
-            Weight = weight;
         }
     }
 }

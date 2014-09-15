@@ -43,7 +43,7 @@ namespace Test.Shaders
             System.Collections.Generic.List<Matrix4> matrices = new System.Collections.Generic.List<Matrix4>();
             foreach (Bone bone in bones)
             {
-                matrices.Add(bone.Offset);
+                matrices.Add(bone.Transformation);
             }
             mbones = matrices.ToArray();
             Model = model;

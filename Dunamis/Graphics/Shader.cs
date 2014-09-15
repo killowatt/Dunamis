@@ -62,6 +62,18 @@ namespace Dunamis.Graphics
             }
             GL.UniformMatrix4(uniform, matrices.Length, false, matrixCollection.ToArray());
         }
+        protected void updateUniform(string identifier, Matrix4[] matrices, bool transpose)
+        {
+            List<float> matrixCollection = new List<float>();
+            foreach (Matrix4 matrix in matrices)
+            {
+                foreach (float element in matrix.Array)
+                {
+                    matrixCollection.Add(element);
+                }
+            }
+            GL.UniformMatrix4(uniforms[identifier], matrices.Length, transpose, matrixCollection.ToArray());
+        }
         // TODO: make these properties?
         public bool GetCompileStatus(ShaderType type)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -20,7 +21,8 @@ namespace Dunamis.Graphics
         uint[] boneIndices;
         float[] boneWeights;
 
-        Bone[] bones;
+        Dictionary<string, Bone> bones;
+        public Animation[] Animations;
 
         public Matrix4 ModelMatrix;
         private Shader shader;
@@ -62,7 +64,7 @@ namespace Dunamis.Graphics
                 update();
             }
         }
-        public Bone[] Bones
+        public Dictionary<string, Bone> Bones
         {
             get
             {
@@ -127,6 +129,10 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Methods
+        public void TEMP()
+        {
+            update();
+        }
         private void update()
         {
             GL.BindVertexArray(VertexArrayObject);
@@ -164,7 +170,7 @@ namespace Dunamis.Graphics
             vertices = new float[] { };
             textureCoordinates = new float[] { };
             normals = new float[] { };
-            bones = new Bone[] { };
+            bones = new Dictionary<string, Bone>();
             indices = new uint[] { };
             boneIndices = new uint[] { };
             boneWeights = new float[] { };

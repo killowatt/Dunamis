@@ -124,6 +124,14 @@ namespace Dunamis
         }
         #endregion
 
+        public static Matrix4 Identity
+        {
+            get
+            {
+                return OpenTK.Matrix4.Identity;
+            }
+        }
+
         public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {
             Matrix = new OpenTK.Matrix4(row0, row1, row2, row3);

@@ -36,6 +36,7 @@ namespace Test.Shaders
             updateUniform("projection", Projection, false);
             updateUniform("view", View, false);
             updateTexture("diffuse", diffuse);
+            updateUniform("bones", mbones, false);
         }
         public BasicShader(Matrix4 model, Camera camera, float updaterate, Texture tex, Bone[] bones)
             : base(File.ReadAllText("Shaders/BasicVertex.txt"), File.ReadAllText("Shaders/BasicFragment.txt"), ShaderState.Dynamic)

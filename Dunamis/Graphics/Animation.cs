@@ -46,13 +46,12 @@ namespace Dunamis.Graphics
             float animationTime = timeInTicks % (float)Duration;
 
             readNodeHierarchy(bones.Values.ToArray<Bone>()[0], bones, animationTime, identity);
-
         }
         public void readNodeHierarchy(Bone bone, Dictionary<string, Bone> bones, float time, Matrix4 parentTransform)
         {
             string nodeName = bone.Name;
 
-            Matrix4 nodeTransformation = bone.Offset;
+            Matrix4 nodeTransformation = bone.Transformation;
 
             AnimationChannel ch = findNodeAnim(nodeName);
 

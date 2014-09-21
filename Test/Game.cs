@@ -37,7 +37,15 @@ namespace Test
             float runningtime = (float)timer.ElapsedMilliseconds / 1000.0f;
             anim.Update(runningtime, mesh.Bones);
 
-            mesh.TEMP();
+            Bone[] temp = mesh.Bones.Values.Cast<Bone>().ToArray();
+            System.Collections.Generic.List<Matrix4> mat = new System.Collections.Generic.List<Matrix4>();
+            foreach (Bone b in temp)
+            {
+                mat.Add(b.Transformation);
+            }
+            shader.mbones = mat.ToArray();
+
+           // mesh.TEMP();
 
             if (timer.ElapsedMilliseconds >= 1500)
             {
@@ -80,6 +88,7 @@ namespace Test
 
             Camera camera = new Camera(new Vector3(0, -6, 0.1f), new Vector2(15, 15), 75, new Vector2(1280, 720));
             camera.LookAt(new Vector3(0, 0, 0));
+
             shader = new BasicShader(mesh.ModelMatrix, camera, 0.05f, tex, mesh.Bones.Values.Cast<Bone>().ToArray());
             mesh.Shader = shader;
 

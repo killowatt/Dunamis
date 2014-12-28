@@ -7,7 +7,6 @@ namespace Dunamis.Graphics
     public class Renderer // TODO: implement safe mode for performance
     {
         GraphicsContext graphicsContext;
-        Window currentWindow;
 
         #region Properties
         public Color3 ClearColor

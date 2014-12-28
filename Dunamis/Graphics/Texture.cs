@@ -135,6 +135,7 @@ namespace Dunamis.Graphics
         }
         #endregion
 
+        #region Constructors
         public Texture()
         {
             GL.GenTextures(1, out TextureID);
@@ -161,5 +162,6 @@ namespace Dunamis.Graphics
             : this(width, height, PixelFormat.RGB)
         {
         }
+        #endregion
     }
 }

@@ -4,6 +4,6 @@ namespace Dunamis.Graphics
 {
     public class RenderTexture
     {
-        internal int FrameBuffer;
+        //internal int FrameBuffer;
     }
 }

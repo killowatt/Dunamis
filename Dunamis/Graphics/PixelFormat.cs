@@ -2,7 +2,9 @@
 
 namespace Dunamis.Graphics
 {
-    class PixelFormat
+    public enum PixelFormat
     {
+        RGB,
+        RGBA
     }
 }

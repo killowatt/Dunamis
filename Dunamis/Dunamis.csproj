@@ -46,10 +46,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="Angle.cs" />
     <Compile Include="Color3.cs" />
     <Compile Include="Color4.cs" />
     <Compile Include="Graphics\Display.cs" />
+    <Compile Include="Graphics\PixelFormat.cs" />
     <Compile Include="Graphics\Renderer.cs" />
+    <Compile Include="Graphics\RenderTexture.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\TextureFilter.cs" />
     <Compile Include="Graphics\Window.cs" />
     <Compile Include="Graphics\WindowType.cs" />
     <Compile Include="Vector2.cs" />

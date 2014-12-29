@@ -31,6 +31,16 @@ namespace Dunamis.Graphics
             graphicsContext.SwapBuffers();
         }
 
+        public void Draw(Mesh mesh)
+        {
+            GL.BindVertexArray(mesh.VertexArrayObject);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, mesh.VertexBufferObject);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.IndexBufferObject);
+            GL.UseProgram(mesh.Shader.ShaderProgram);
+
+            GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
+        }
+
         public Renderer(Window window)
         {
             graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);

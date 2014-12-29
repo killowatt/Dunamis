@@ -19,6 +19,7 @@ namespace Dunamis.Graphics
         public abstract void Initialize();
         public abstract void Update();
 
+        #region Methods
         protected void addParameter(string identifer, float value)
         {
             int location = GL.GetUniformLocation(ShaderProgram, identifer);
@@ -47,6 +48,40 @@ namespace Dunamis.Graphics
             GL.BindTexture(TextureTarget.Texture2D, texture.TextureID);
             GL.Uniform1(parameters[identifier], textures[identifier]);
         }
+        public bool GetCompileStatus(ShaderType type)
+        {
+            int status = 0;
+            if (type == ShaderType.Fragment)
+            {
+                GL.GetShader(FragmentShader, ShaderParameter.CompileStatus, out status);
+            }
+            else
+            {
+                GL.GetShader(FragmentShader, ShaderParameter.CompileStatus, out status);
+            }
+
+            switch (status)
+            {
+                case 0:
+                    return false;
+                case 1:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public string GetCompileLog(ShaderType type)
+        {
+            if (type == ShaderType.Fragment)
+            {
+                return GL.GetShaderInfoLog(FragmentShader);
+            }
+            else
+            {
+                return GL.GetShaderInfoLog(VertexShader);
+            }
+        }
+        #endregion
 
         protected Shader(string vertexSource, string fragmentSource, ShaderState state)
         {

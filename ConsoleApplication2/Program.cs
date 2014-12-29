@@ -14,25 +14,22 @@ namespace ConsoleApplication2
         static Window w;
         static Renderer r;
 
-        static Vector3 vec;
-        static Vector2 test;
-
-        static Angle a;
+        static Mesh mesh;
 
         static void Main(string[] args)
         {
             w = new Window(1280, 720);
             r = new Renderer(w);
-            r.ClearColor = new Dunamis.Color3(255, 255, 0);
+            r.ClearColor = new Dunamis.Color3(12, 12, 12);
 
-            vec = new Vector3(1.0f, 1.0f, 1.0f);
-            test = new Vector2(1.0f, 1.0f);
+            ShaderTest testshader = new ShaderTest();
+            mesh = new Mesh(new float[] { -0.5f, -0.5f, 0, 0.5f, -0.5f, 0, 0, 0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
 
-            a = Angle.CreateDegrees(180);
-            Console.WriteLine((TextureFilter)2);
-
-            float maxAnisotropy;
-            GL.GetFloat((GetPName)ExtTextureFilterAnisotropic.MaxTextureMaxAnisotropyExt, out maxAnisotropy);
+            Console.WriteLine(GL.GetError());
+            Console.WriteLine(testshader.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
+            Console.WriteLine(testshader.GetCompileLog(Dunamis.Graphics.ShaderType.Fragment));
+            Console.WriteLine(testshader.GetCompileStatus(Dunamis.Graphics.ShaderType.Vertex));
+            Console.WriteLine(testshader.GetCompileStatus(Dunamis.Graphics.ShaderType.Fragment));
 
             while (true)
             {
@@ -48,6 +45,9 @@ namespace ConsoleApplication2
         static void Render()
         {
             r.Clear();
+
+            r.Draw(mesh);
+
             r.Display();
         }
     }

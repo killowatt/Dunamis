@@ -51,6 +51,7 @@
     <Compile Include="Color4.cs" />
     <Compile Include="Graphics\Display.cs" />
     <Compile Include="Graphics\Mesh.cs" />
+    <Compile Include="Graphics\MeshType.cs" />
     <Compile Include="Graphics\PixelFormat.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\RenderTexture.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Graphics\TextureFilter.cs" />
     <Compile Include="Graphics\Window.cs" />
     <Compile Include="Graphics\WindowType.cs" />
+    <Compile Include="Matrix4.cs" />
     <Compile Include="Vector2.cs" />
     <Compile Include="Vector3.cs" />
     <Compile Include="Vector4.cs" />

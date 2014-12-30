@@ -15,15 +15,20 @@ namespace ConsoleApplication2
         static Renderer r;
 
         static Mesh mesh;
+        static Mesh mesh2;
+        static Mesh mesh3;
 
         static void Main(string[] args)
         {
             w = new Window(1280, 720);
-            r = new Renderer(w);
+            r = new Renderer(w, false);
             r.ClearColor = new Dunamis.Color3(12, 12, 12);
 
             ShaderTest testshader = new ShaderTest();
-            mesh = new Mesh(new float[] { -0.5f, -0.5f, 0, 0.5f, -0.5f, 0, 0, 0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            ShaderTest2 testshader2 = new ShaderTest2();
+            mesh = new Mesh(new float[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            mesh2 = new Mesh(new float[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
+            mesh3 = new Mesh(new float[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
 
             Console.WriteLine(GL.GetError());
             Console.WriteLine(testshader.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
@@ -47,6 +52,8 @@ namespace ConsoleApplication2
             r.Clear();
 
             r.Draw(mesh);
+            r.Draw(mesh2);
+            r.Draw(mesh3);
 
             r.Display();
         }

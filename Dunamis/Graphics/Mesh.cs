@@ -101,7 +101,7 @@ namespace Dunamis.Graphics
         {
             SetMesh(vertices, textureCoordinates, normals, indices, MeshType.Dynamic);
         }
-        public void SetShader(Shader shader)
+        public void SetShader(Shader shader) 
         {
             this.shader = shader;
 

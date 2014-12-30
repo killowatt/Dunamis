@@ -28,12 +28,20 @@ namespace Dunamis.Graphics
             {
                 return width;
             }
+            internal set
+            {
+                width = value;
+            }
         }
         public int Height
         {
             get
             {
                 return height;
+            }
+            internal set
+            {
+                height = value;
             }
         }
         public PixelFormat PixelFormat
@@ -42,6 +50,10 @@ namespace Dunamis.Graphics
             {
                 return pixelFormat;
             }
+            internal set
+            {
+                pixelFormat = value;
+            }
         }
         public TextureFilter TextureFilter
         {
@@ -49,12 +61,20 @@ namespace Dunamis.Graphics
             {
                 return textureFilter;
             }
+            internal set
+            {
+                textureFilter = value;
+            }
         }
         public bool MipmappingEnabled
         {
             get
             {
                 return mipmappingEnabled;
+            }
+            internal set
+            {
+                mipmappingEnabled = value;
             }
         }
         #endregion

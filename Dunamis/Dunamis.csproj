@@ -49,6 +49,10 @@
     <Compile Include="Angle.cs" />
     <Compile Include="Color3.cs" />
     <Compile Include="Color4.cs" />
+    <Compile Include="Common\Meshes\RenderTextureMesh.cs" />
+    <Compile Include="Common\Shaders\RenderTextureShader.cs" />
+    <Compile Include="Common\Shaders\Utility.cs" />
+    <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\Display.cs" />
     <Compile Include="Graphics\Mesh.cs" />
     <Compile Include="Graphics\MeshType.cs" />
@@ -66,6 +70,10 @@
     <Compile Include="Vector2.cs" />
     <Compile Include="Vector3.cs" />
     <Compile Include="Vector4.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureFragment.txt" />
+    <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureVertex.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

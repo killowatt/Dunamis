@@ -54,7 +54,14 @@ namespace Dunamis.Graphics
                 return shader;
             }
         }
-        //public Vector3 Position
+        public MeshType Type
+        {
+            get
+            {
+                return type;
+            }
+        }
+        //public Vector3 Position TODO: THIS
         //{
         //}
         #endregion
@@ -66,6 +73,7 @@ namespace Dunamis.Graphics
             this.textureCoordinates = textureCoordinates;
             this.normals = normals;
             this.indices = indices;
+            this.type = type;
 
             BufferUsageHint usageHint = new BufferUsageHint();
             if (type == MeshType.Static)
@@ -101,7 +109,7 @@ namespace Dunamis.Graphics
         {
             SetMesh(vertices, textureCoordinates, normals, indices, MeshType.Dynamic);
         }
-        public void SetShader(Shader shader) 
+        public void SetShader(Shader shader) // TODO: maybe put this in a property instead.
         {
             this.shader = shader;
 
@@ -160,6 +168,9 @@ namespace Dunamis.Graphics
         {
             SetMesh(vertices, textureCoordinates, normals, indices);
         }
+        //public Mesh(float[] vertices, float[] textureCoordinates, uint[] indices) TODO: this too
+        //{
+        //}
         #endregion
     }
 }

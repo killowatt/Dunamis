@@ -19,7 +19,7 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return pixels;
+                return pixels; // TODO: provide a way to get this texture directly from OpenGL instead of managing it ourselves (glGetTexImage)
             }
         }
         public int Width

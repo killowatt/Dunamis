@@ -18,6 +18,11 @@ namespace Dunamis
             return new OpenTK.Matrix4(matrix.Row0, matrix.Row1, matrix.Row2, matrix.Row3);
         }
 
+        public static Matrix4 operator *(Matrix4 left, Matrix4 right)
+        {
+            return new Matrix4(left.Row0 * right.Row0, left.Row1 * right.Row1, left.Row2 * right.Row2, left.Row3 * right.Row3);
+        }
+
         public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {
             Row0 = row0;

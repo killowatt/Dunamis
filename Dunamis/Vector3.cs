@@ -27,6 +27,23 @@ namespace Dunamis
             return new Vector3(left.X / right.X, left.Y / right.Y, left.Z / right.Z);
         }
 
+        // Equality
+        public static bool operator ==(Vector3 left, Vector3 right) // TODO: add equality operators to all dunamis value types
+        {
+            if (left.X == right.X && left.Y == right.Y && left.Z == right.Z)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator !=(Vector3 left, Vector3 right)
+        {
+            return !(left == right);
+        }
+
         // Conversion
         public static implicit operator Vector3(Vector2 vector)
         {

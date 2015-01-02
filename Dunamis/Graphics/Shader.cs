@@ -14,6 +14,9 @@ namespace Dunamis.Graphics
         Dictionary<string, int> textures;
 
         internal bool Initialized;
+        protected internal Matrix4 Model;
+        protected internal Matrix4 View;
+        protected internal Matrix4 Projection;
         public ShaderState State;
 
         public abstract void Initialize();
@@ -24,12 +27,22 @@ namespace Dunamis.Graphics
         {
             int location = GL.GetUniformLocation(ShaderProgram, identifer);
             GL.Uniform1(location, value);
-
             parameters.Add(identifer, location);
+        }
+        protected void addParameter(string identifier, Matrix4 matrix, bool transpose)
+        {
+            OpenTK.Matrix4 reference = matrix;
+            int location = GL.GetUniformLocation(ShaderProgram, identifier);
+            GL.UniformMatrix4(location, transpose, ref reference);
         }
         protected void updateParameter(string identifier, float value)
         {
             GL.Uniform1(parameters[identifier], value);
+        }
+        protected void updateParameter(string identifier, Matrix4 matrix, bool transpose)
+        {
+            OpenTK.Matrix4 reference = matrix;
+            GL.UniformMatrix4(parameters[identifier], transpose, ref reference);
         }
         protected void addTexture(string identifier, Texture texture)
         {

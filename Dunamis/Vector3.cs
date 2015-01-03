@@ -74,12 +74,12 @@ namespace Dunamis
             Y = y;
             Z = z;
         }
-        public Vector3(byte r, byte g, byte b)
-        {
-            X = r / 255;
-            Y = g / 255;
-            Z = b / 255;
-        }
+        //public Vector3(byte r, byte g, byte b)
+        //{
+        //    X = r / 255;
+        //    Y = g / 255;
+        //    Z = b / 255;
+        //}
         #endregion
     }
 }

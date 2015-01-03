@@ -23,8 +23,9 @@ namespace ConsoleApplication2
             w = new Window(1280, 720);
             r = new Renderer(w, false);
             r.ClearColor = new Dunamis.Color3(12, 12, 12);
-            r.Camera.Yaw = 4.6905f * 1;
-            r.Camera.Position = new Vector3(0f, 0f, 2f);
+    
+            r.Camera.Position = new Vector3(0f, 0f, 1f);
+            r.Camera.Yaw = Angle.CreateDegrees(360).Radians;
 
             ShaderTest3 testshader = new ShaderTest3();
             ShaderTest3 testshader2 = new ShaderTest3();

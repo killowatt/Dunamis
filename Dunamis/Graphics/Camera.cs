@@ -10,21 +10,21 @@ namespace Dunamis.Graphics
         bool projectionCalculated;
 
         Vector3 position;
-        Vector3 direction;
-        float pitch;
-        float yaw;
-
+        Vector3 rotation;
         Angle fieldOfView;
         Vector2 aspect;
 
+        #region Properties
         public Matrix4 View
         {
             get
             {
                 if (!viewCalculated)
                 {
-                    view = OpenTK.Matrix4.LookAt(position, position + direction, new OpenTK.Vector3(0, 1, 0));
-                    //view = OpenTK.Matrix4.LookAt(new OpenTK.Vector3(0, 0, 3f), new OpenTK.Vector3(0, 0, 0), new OpenTK.Vector3(0, 1, 0));
+                    view = OpenTK.Matrix4.LookAt(position, position + new Vector3(0, 0, -1), OpenTK.Vector3.UnitY) *
+                        OpenTK.Matrix4.CreateRotationX(rotation.X) *
+                        OpenTK.Matrix4.CreateRotationY(rotation.Y) *
+                        OpenTK.Matrix4.CreateRotationZ(rotation.Z);
                     viewCalculated = true;
                 }
                 return view;
@@ -61,17 +61,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return pitch;
+                return rotation.X;
             }
             set
             {
-                if (pitch != value)
+                if (rotation.X != value)
                 {
-                    pitch = value;
+                    rotation.X = value;
                     viewCalculated = false;
-                    direction.X = (float)Math.Cos(pitch) * (float)Math.Cos(yaw);
-                    direction.Y = (float)Math.Sin(pitch);
-                    direction.Z = (float)Math.Cos(pitch) * (float)Math.Sin(yaw);
                 }
             }
         }
@@ -79,16 +76,29 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return yaw;
+                return rotation.Y;
             }
             set
             {
-                if (yaw != value)
+                if (rotation.Y != value)
                 {
-                    yaw = value;
+                    rotation.Y = value;
                     viewCalculated = false;
-                    direction.X = (float)Math.Cos(pitch) * (float)Math.Cos(yaw);
-                    direction.Z = (float)Math.Cos(pitch) * (float)Math.Sin(yaw);
+                }
+            }
+        }
+        public float Roll
+        {
+            get
+            {
+                return rotation.Z;
+            }
+            set
+            {
+                if (rotation.Z != value)
+                {
+                    rotation.Z = value;
+                    viewCalculated = false;
                 }
             }
         }
@@ -122,22 +132,24 @@ namespace Dunamis.Graphics
                 }
             }
         }
+        #endregion
 
         public Camera()
         {
             position = new Vector3(0.0f, 0.0f, 0.0f);
-            pitch = 0f;
-            yaw = 0f;
+            rotation = new Vector3(0.0f, 0.0f, 0.0f);
             fieldOfView = Angle.CreateDegrees(90).Radians;
             aspect = new Vector2(16, 9);
         }
-        public Camera(Vector3 position, float pitch, float yaw, float fieldOfView, Vector2 aspect)
+        public Camera(Vector3 position, float pitch, float yaw, float roll, float fieldOfView, Vector2 aspect)
         {
             Position = position;
             Pitch = pitch;
             Yaw = yaw;
+            Roll = roll;
             FieldOfView = fieldOfView;
             Aspect = aspect;
         }
     }
 }
+

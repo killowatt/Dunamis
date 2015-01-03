@@ -74,6 +74,12 @@ namespace Dunamis
             Y = y;
             Z = z;
         }
+        public Vector3(float value)
+        {
+            X = value;
+            Y = value;
+            Z = value;
+        }
         //public Vector3(byte r, byte g, byte b)
         //{
         //    X = r / 255;

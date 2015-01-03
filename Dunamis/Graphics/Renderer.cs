@@ -102,6 +102,8 @@ namespace Dunamis.Graphics
             graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
             graphicsContext.LoadAll();
 
+            GL.Enable(EnableCap.DepthTest);
+
             Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 0, 90, new Vector2(window.Width, window.Height));
 
             RenderTexture = new RenderTexture(window.Width, window.Height);

@@ -29,12 +29,17 @@ namespace ConsoleApplication2
 
             ShaderTest3 testshader = new ShaderTest3();
             ShaderTest3 testshader2 = new ShaderTest3();
+            ShaderTest3 tt = new ShaderTest3(1);
             Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
             Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Fragment));
 
             mesh = new Mesh(new float[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
             mesh2 = new Mesh(new float[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
             mesh3 = new Mesh(new float[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            mesh = new Mesh(new float[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
+
+            mesh.Position = new Vector3(0, 0, 0f);
+            mesh.Yaw = Angle.CreateDegrees(45).Radians;
 
             Console.WriteLine(GL.GetError());
 
@@ -48,6 +53,7 @@ namespace ConsoleApplication2
         static void Update()
         {
             w.Update();
+            mesh.Yaw += 0.0005f;
         }
         static void Render()
         {

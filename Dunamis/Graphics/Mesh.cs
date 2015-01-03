@@ -15,8 +15,13 @@ namespace Dunamis.Graphics
         uint[] indices;
 
         Shader shader;
-        public Matrix4 Transform;
         MeshType type;
+
+        Matrix4 transform;
+        bool transformCalculated;
+        Vector3 position;
+        Vector3 rotation;
+        Vector3 scale;
 
         #region Properties
         public float[] Vertices
@@ -61,9 +66,89 @@ namespace Dunamis.Graphics
                 return type;
             }
         }
-        //public Vector3 Position TODO: THIS
-        //{
-        //}
+        public Matrix4 Transform
+        {
+            get
+            {
+                if (!transformCalculated)
+                {
+                    transform = OpenTK.Matrix4.CreateRotationX(rotation.X) *
+                        OpenTK.Matrix4.CreateRotationY(rotation.Y) *
+                        OpenTK.Matrix4.CreateRotationZ(rotation.Z) * 
+                        OpenTK.Matrix4.CreateTranslation(position) *
+                        OpenTK.Matrix4.CreateScale(scale);
+                    transformCalculated = true;
+                }
+                return transform;
+            }
+        }
+        public Vector3 Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                if (position != value)
+                {
+                    position = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public float Pitch
+        {
+            get
+            {
+                return rotation.X;
+            }
+            set
+            {
+                if (rotation.X != value)
+                {
+                    rotation.X = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public float Yaw
+        {
+            get
+            {
+                return rotation.Y;
+            }
+            set
+            {
+                if (rotation.Y != value)
+                {
+                    rotation.Y = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public float Roll
+        {
+            get
+            {
+                return rotation.Z;
+            }
+            set
+            {
+                if (rotation.Z != value)
+                {
+                    rotation.Z = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public Vector3 Scale
+        {
+            get
+            {
+                return scale;
+            }
+        }
         #endregion
 
         #region Methods
@@ -141,6 +226,22 @@ namespace Dunamis.Graphics
             GL.UseProgram(0);
             GL.BindVertexArray(0);
         }
+        public void SetScale(float scale)
+        {
+            if (new Vector3(scale) != this.scale)
+            {
+                this.scale = new Vector3(scale);
+                transformCalculated = false;
+            }
+        }
+        public void SetScale(Vector3 scale)
+        {
+            if (scale != this.scale)
+            {
+                this.scale = scale;
+                transformCalculated = false;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -156,7 +257,8 @@ namespace Dunamis.Graphics
             GL.BindBuffer(BufferTarget.ArrayBuffer, IndexBufferObject);
 
             GL.BindVertexArray(0);
-            Transform = Matrix4.Identity;
+            transform = Matrix4.Identity;
+            scale = new Vector3(1);
         }
         public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type, Shader shader)
             : this()

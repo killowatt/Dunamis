@@ -24,5 +24,9 @@ namespace ConsoleApplication2
             : base(File.ReadAllText("newvert.txt"), File.ReadAllText("frag.txt"), ShaderState.Dynamic)
         {
         }
+        public ShaderTest3(int yes)
+            : base(File.ReadAllText("newvert.txt"), File.ReadAllText("fragf.txt"), ShaderState.Dynamic)
+        {
+        }
     }
 }

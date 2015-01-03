@@ -67,6 +67,7 @@
     <Compile Include="Graphics\Window.cs" />
     <Compile Include="Graphics\WindowType.cs" />
     <Compile Include="Matrix4.cs" />
+    <Compile Include="Quaternion.cs" />
     <Compile Include="Vector2.cs" />
     <Compile Include="Vector3.cs" />
     <Compile Include="Vector4.cs" />

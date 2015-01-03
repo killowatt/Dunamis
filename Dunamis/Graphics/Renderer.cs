@@ -11,7 +11,9 @@ namespace Dunamis.Graphics
         GraphicsContext graphicsContext;
         Window window;
 
-        RenderTexture renderTexture;
+        public Camera Camera;
+        public RenderTexture RenderTexture;
+
         RenderTextureMesh renderTextureMesh;
         RenderTextureShader renderTextureShader;
 
@@ -27,17 +29,6 @@ namespace Dunamis.Graphics
             set
             {
                 GL.ClearColor(new Color4(value.R, value.G, value.B, 255));
-            }
-        }
-        public RenderTexture RenderTexture
-        {
-            get
-            {
-                return renderTexture;
-            }
-            set
-            {
-                renderTexture = value;
             }
         }
         public bool VerticalSync
@@ -68,8 +59,8 @@ namespace Dunamis.Graphics
 
         public void Clear()
         {
-            GL.Viewport(0, 0, renderTexture.Width, renderTexture.Height);
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, renderTexture.FrameBuffer);
+            GL.Viewport(0, 0, RenderTexture.Width, RenderTexture.Height);
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, RenderTexture.FrameBuffer);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
         public void Display()
@@ -86,9 +77,14 @@ namespace Dunamis.Graphics
             GL.BindVertexArray(mesh.VertexArrayObject);
             GL.UseProgram(mesh.Shader.ShaderProgram);
 
-            if (!mesh.Shader.Initialized)
+            if (!mesh.Shader.Initialized || mesh.Shader.State == ShaderState.Dynamic)
             {
                 mesh.Shader.Model = mesh.Transform;
+                mesh.Shader.View = Camera.View;
+                mesh.Shader.Projection = Camera.Projection;
+            }
+            if (!mesh.Shader.Initialized)
+            {
                 mesh.Shader.Initialize();
                 mesh.Shader.Initialized = true;
             }
@@ -106,10 +102,12 @@ namespace Dunamis.Graphics
             graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
             graphicsContext.LoadAll();
 
-            renderTexture = new RenderTexture(window.Width, window.Height);
+            Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 90, new Vector2(window.Width, window.Height));
+
+            RenderTexture = new RenderTexture(window.Width, window.Height);
             renderTextureShader = new RenderTextureShader();
             renderTextureMesh = new RenderTextureMesh(renderTextureShader);
-            renderTextureShader.Texture = renderTexture.Color;
+            renderTextureShader.Texture = RenderTexture.Color;
 
             VerticalSync = verticalSync;
         }

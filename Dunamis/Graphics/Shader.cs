@@ -34,6 +34,7 @@ namespace Dunamis.Graphics
             OpenTK.Matrix4 reference = matrix;
             int location = GL.GetUniformLocation(ShaderProgram, identifier);
             GL.UniformMatrix4(location, transpose, ref reference);
+            parameters.Add(identifier, location);
         }
         protected void updateParameter(string identifier, float value)
         {

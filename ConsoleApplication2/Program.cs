@@ -23,18 +23,19 @@ namespace ConsoleApplication2
             w = new Window(1280, 720);
             r = new Renderer(w, false);
             r.ClearColor = new Dunamis.Color3(12, 12, 12);
+            r.Camera.Yaw = 4.6905f * 1;
+            r.Camera.Position = new Vector3(0f, 0f, 2f);
 
-            ShaderTest testshader = new ShaderTest();
-            ShaderTest2 testshader2 = new ShaderTest2();
+            ShaderTest3 testshader = new ShaderTest3();
+            ShaderTest3 testshader2 = new ShaderTest3();
+            Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
+            Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Fragment));
+
             mesh = new Mesh(new float[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
             mesh2 = new Mesh(new float[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
             mesh3 = new Mesh(new float[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
 
             Console.WriteLine(GL.GetError());
-            Console.WriteLine(testshader.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
-            Console.WriteLine(testshader.GetCompileLog(Dunamis.Graphics.ShaderType.Fragment));
-            Console.WriteLine(testshader.GetCompileStatus(Dunamis.Graphics.ShaderType.Vertex));
-            Console.WriteLine(testshader.GetCompileStatus(Dunamis.Graphics.ShaderType.Fragment));
 
             while (true)
             {

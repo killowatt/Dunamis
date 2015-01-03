@@ -23,6 +23,8 @@ namespace Dunamis
             return new Matrix4(left.Row0 * right.Row0, left.Row1 * right.Row1, left.Row2 * right.Row2, left.Row3 * right.Row3);
         }
 
+        public static readonly Matrix4 Identity = OpenTK.Matrix4.Identity; // TODO: lmao
+
         public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {
             Row0 = row0;

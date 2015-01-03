@@ -63,13 +63,13 @@ namespace Dunamis
             Z = z;
             W = w;
         }
-        public Vector4(byte r, byte g, byte b, byte a)
-        {
-            X = r / 255;
-            Y = g / 255;
-            Z = b / 255;
-            W = a / 255;
-        }
+        //public Vector4(byte r, byte g, byte b, byte a)
+        //{
+        //    X = r / 255;
+        //    Y = g / 255;
+        //    Z = b / 255;
+        //    W = a / 255;
+        //}
         #endregion
     }
 }

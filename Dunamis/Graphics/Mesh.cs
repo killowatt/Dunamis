@@ -156,6 +156,7 @@ namespace Dunamis.Graphics
             GL.BindBuffer(BufferTarget.ArrayBuffer, IndexBufferObject);
 
             GL.BindVertexArray(0);
+            Transform = Matrix4.Identity;
         }
         public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type, Shader shader)
             : this()

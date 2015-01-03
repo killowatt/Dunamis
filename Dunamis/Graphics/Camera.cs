@@ -24,6 +24,7 @@ namespace Dunamis.Graphics
                 if (!viewCalculated)
                 {
                     view = OpenTK.Matrix4.LookAt(position, position + direction, new OpenTK.Vector3(0, 1, 0));
+                    //view = OpenTK.Matrix4.LookAt(new OpenTK.Vector3(0, 0, 3f), new OpenTK.Vector3(0, 0, 0), new OpenTK.Vector3(0, 1, 0));
                     viewCalculated = true;
                 }
                 return view;
@@ -35,7 +36,7 @@ namespace Dunamis.Graphics
             {
                 if (!projectionCalculated)
                 {
-                    projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView((fieldOfView.Radians * (float)Math.PI / 180), aspect.X / aspect.Y, 0.5f, 1024); // TODO: investigate znear and zfar more
+                    projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(fieldOfView.Radians, aspect.X / aspect.Y, 0.5f, 1024); // TODO: investigate znear and zfar more
                     projectionCalculated = true;
                 }
                 return projection;
@@ -124,6 +125,19 @@ namespace Dunamis.Graphics
 
         public Camera()
         {
+            position = new Vector3(0.0f, 0.0f, 0.0f);
+            pitch = 0f;
+            yaw = 0f;
+            fieldOfView = Angle.CreateDegrees(90).Radians;
+            aspect = new Vector2(16, 9);
+        }
+        public Camera(Vector3 position, float pitch, float yaw, float fieldOfView, Vector2 aspect)
+        {
+            Position = position;
+            Pitch = pitch;
+            Yaw = yaw;
+            FieldOfView = fieldOfView;
+            Aspect = aspect;
         }
     }
 }

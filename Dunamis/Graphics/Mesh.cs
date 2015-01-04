@@ -152,7 +152,7 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Methods
-        public void SetMesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type)
+        public void SetMesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type) // TODO: include documentation that states how meshtype works with relation to how often you via this method
         {
             this.vertices = vertices;
             this.textureCoordinates = textureCoordinates;

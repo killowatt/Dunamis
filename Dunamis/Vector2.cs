@@ -33,10 +33,7 @@ namespace Dunamis
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         public static bool operator !=(Vector2 left, Vector2 right)
         {

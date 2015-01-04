@@ -6,7 +6,7 @@ namespace Dunamis.Graphics
 {
     public class Window
     {
-        internal NativeWindow NativeWindow;
+        internal NativeWindow NativeWindow; // TODO: maybe move to a standard .net window and hook the context into it?
 
         #region Properties
         public int Width
@@ -91,10 +91,7 @@ namespace Dunamis.Graphics
                 {
                     return WindowType.Fullscreen;
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
             set
             {
@@ -129,7 +126,7 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Events
-        void closed(object o, EventArgs e)
+        void closed(object o, EventArgs arguments)
         {
             Close();
         }

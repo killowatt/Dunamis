@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Dunamis;
 using Dunamis.Graphics;
+using Dunamis.Input;
 using OpenTK.Graphics.OpenGL;
+
 
 namespace ConsoleApplication2
 {
@@ -17,6 +19,9 @@ namespace ConsoleApplication2
         static Mesh mesh;
         static Mesh mesh2;
         static Mesh mesh3;
+
+        static Keyboard k;
+        static Mouse m;
 
         static void Main(string[] args)
         {
@@ -43,6 +48,9 @@ namespace ConsoleApplication2
 
             Console.WriteLine(GL.GetError());
 
+            k = new Keyboard(w);
+            m = new Mouse(w);
+
             while (true)
             {
                 Update();
@@ -54,6 +62,8 @@ namespace ConsoleApplication2
         {
             w.Update();
             mesh.Yaw += 0.0005f;
+
+
         }
         static void Render()
         {

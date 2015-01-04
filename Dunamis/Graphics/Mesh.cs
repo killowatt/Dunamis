@@ -97,6 +97,51 @@ namespace Dunamis.Graphics
                 }
             }
         }
+        public float X
+        {
+            get
+            {
+                return position.X;
+            }
+            set
+            {
+                if (position.X != value)
+                {
+                    position.X = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public float Y
+        {
+            get
+            {
+                return position.Y;
+            }
+            set
+            {
+                if (position.Y != value)
+                {
+                    position.Y = value;
+                    transformCalculated = false;
+                }
+            }
+        }
+        public float Z
+        {
+            get
+            {
+                return position.Z;
+            }
+            set
+            {
+                if (position.Z != value)
+                {
+                    position.Z = value;
+                    transformCalculated = false;
+                }
+            }
+        }
         public float Pitch
         {
             get

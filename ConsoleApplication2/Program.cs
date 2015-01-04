@@ -29,7 +29,7 @@ namespace ConsoleApplication2
             r = new Renderer(w, false);
             r.ClearColor = new Dunamis.Color3(12, 12, 12);
     
-            r.Camera.Position = new Vector3(0f, 0f, 1f);
+            r.Camera.Position = new Vector3(0f, 0f, 1.5f);
             r.Camera.Yaw = Angle.CreateDegrees(360).Radians;
 
             ShaderTest3 testshader = new ShaderTest3();
@@ -61,9 +61,39 @@ namespace ConsoleApplication2
         static void Update()
         {
             w.Update();
-            mesh.Yaw += 0.0005f;
+            if (k.IsKeyDown(Key.A))
+            {
+                mesh.Yaw += 0.0005f;
+            }
+            if (k.IsKeyDown(Key.D))
+            {
+                mesh.Yaw -= 0.0005f;
+            }
+            if (k.IsKeyDown(Key.W))
+            {
+                mesh.Pitch += 0.0005f;
+            }
+            if (k.IsKeyDown(Key.S))
+            {
+                mesh.Pitch -= 0.0005f;
+            }
 
-
+            if (k.IsKeyDown(Key.Right))
+            {
+                mesh.X += 0.0005f;
+            }
+            if (k.IsKeyDown(Key.Left))
+            {
+                mesh.X -= 0.0005f;
+            }
+            if (k.IsKeyDown(Key.Up))
+            {
+                mesh.Y += 0.0005f;
+            }
+            if (k.IsKeyDown(Key.Down))
+            {
+                mesh.Y -= 0.0005f;
+            }
         }
         static void Render()
         {

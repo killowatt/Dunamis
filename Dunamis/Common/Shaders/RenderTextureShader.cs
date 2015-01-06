@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Dunamis.Graphics;
+﻿using Dunamis.Graphics;
 
 namespace Dunamis.Common.Shaders
 {
@@ -11,11 +8,11 @@ namespace Dunamis.Common.Shaders
 
         public override void Initialize()
         {
-            addTexture("Texture", Texture);
+            AddTexture("Texture", Texture);
         }
         public override void Update()
         {
-            updateTexture("Texture", Texture);
+            UpdateTexture("Texture", Texture);
         }
 
         public RenderTextureShader()

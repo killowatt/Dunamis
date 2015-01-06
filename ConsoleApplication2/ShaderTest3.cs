@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Dunamis.Graphics;
 
 namespace ConsoleApplication2
@@ -9,15 +8,15 @@ namespace ConsoleApplication2
 
         public override void Initialize()
         {
-            addParameter("Model", Model, false);
-            addParameter("View", View, false);
-            addParameter("Projection", Projection, false);
+            AddParameter("Model", Model, false);
+            AddParameter("View", View, false);
+            AddParameter("Projection", Projection, false);
         }
         public override void Update()
         {
-            updateParameter("Model", Model, false);
-            updateParameter("View", View, false);
-            updateParameter("Projection", Projection, false);
+            UpdateParameter("Model", Model, false);
+            UpdateParameter("View", View, false);
+            UpdateParameter("Projection", Projection, false);
         }
 
         public ShaderTest3()

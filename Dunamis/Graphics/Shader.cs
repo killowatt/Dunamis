@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
@@ -10,8 +9,8 @@ namespace Dunamis.Graphics
         internal int VertexShader;
         internal int FragmentShader;
 
-        Dictionary<string, int> parameters;
-        Dictionary<string, int> textures;
+        Dictionary<string, int> _parameters;
+        Dictionary<string, int> _textures;
 
         internal bool Initialized;
         protected internal Matrix4 Model;
@@ -19,48 +18,48 @@ namespace Dunamis.Graphics
         protected internal Matrix4 Projection;
         public ShaderState State;
 
-        public abstract void Initialize();
+        public abstract void Initialize(); // TODO: prevent outside classes from calling this whilst letting renderer call them
         public abstract void Update();
 
         #region Methods
-        protected void addParameter(string identifer, float value)
+        protected void AddParameter(string identifer, float value)
         {
             int location = GL.GetUniformLocation(ShaderProgram, identifer);
             GL.Uniform1(location, value);
-            parameters.Add(identifer, location);
+            _parameters.Add(identifer, location);
         }
-        protected void addParameter(string identifier, Matrix4 matrix, bool transpose)
+        protected void AddParameter(string identifier, Matrix4 matrix, bool transpose)
         {
             OpenTK.Matrix4 reference = matrix;
             int location = GL.GetUniformLocation(ShaderProgram, identifier);
             GL.UniformMatrix4(location, transpose, ref reference);
-            parameters.Add(identifier, location);
+            _parameters.Add(identifier, location);
         }
-        protected void updateParameter(string identifier, float value)
+        protected void UpdateParameter(string identifier, float value)
         {
-            GL.Uniform1(parameters[identifier], value);
+            GL.Uniform1(_parameters[identifier], value);
         }
-        protected void updateParameter(string identifier, Matrix4 matrix, bool transpose)
+        protected void UpdateParameter(string identifier, Matrix4 matrix, bool transpose)
         {
             OpenTK.Matrix4 reference = matrix;
-            GL.UniformMatrix4(parameters[identifier], transpose, ref reference);
+            GL.UniformMatrix4(_parameters[identifier], transpose, ref reference);
         }
-        protected void addTexture(string identifier, Texture texture)
+        protected void AddTexture(string identifier, Texture texture)
         {
-            int number = textures.Count;
+            int number = _textures.Count;
             int location = GL.GetUniformLocation(ShaderProgram, identifier);
             GL.ActiveTexture((TextureUnit)33984 + number);
-            GL.BindTexture(TextureTarget.Texture2D, texture.TextureID);
+            GL.BindTexture(TextureTarget.Texture2D, texture.TextureId);
             GL.Uniform1(location, number);
 
-            parameters.Add(identifier, location);
-            textures.Add(identifier, number);
+            _parameters.Add(identifier, location);
+            _textures.Add(identifier, number);
         }
-        protected void updateTexture(string identifier, Texture texture)
+        protected void UpdateTexture(string identifier, Texture texture)
         {
-            GL.ActiveTexture((TextureUnit)33984 + textures[identifier]);
-            GL.BindTexture(TextureTarget.Texture2D, texture.TextureID);
-            GL.Uniform1(parameters[identifier], textures[identifier]);
+            GL.ActiveTexture((TextureUnit)33984 + _textures[identifier]);
+            GL.BindTexture(TextureTarget.Texture2D, texture.TextureId);
+            GL.Uniform1(_parameters[identifier], _textures[identifier]);
         }
         public bool GetCompileStatus(ShaderType type)
         {
@@ -90,11 +89,9 @@ namespace Dunamis.Graphics
             {
                 return GL.GetShaderInfoLog(FragmentShader);
             }
-            else
-            {
-                return GL.GetShaderInfoLog(VertexShader);
-            }
+            return GL.GetShaderInfoLog(VertexShader);
         }
+
         #endregion
 
         protected Shader(string vertexSource, string fragmentSource, ShaderState state)
@@ -113,8 +110,8 @@ namespace Dunamis.Graphics
             GL.BindFragDataLocation(ShaderProgram, 0, "color");
             GL.LinkProgram(ShaderProgram);
 
-            parameters = new Dictionary<string, int>();
-            textures = new Dictionary<string, int>();
+            _parameters = new Dictionary<string, int>();
+            _textures = new Dictionary<string, int>();
 
             State = state;
             Initialized = false;

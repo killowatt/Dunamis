@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 
@@ -6,7 +7,9 @@ namespace Dunamis.Graphics
 {
     public class Window
     {
-        internal NativeWindow NativeWindow; // TODO: maybe move to a standard .net window and hook the context into it?
+        internal NativeWindow NativeWindow;
+
+        public event EventHandler Closing;
 
         #region Properties
         public int Width
@@ -75,6 +78,28 @@ namespace Dunamis.Graphics
                 NativeWindow.Visible = value;
             }
         }
+        public bool CursorVisible
+        {
+            get
+            {
+                return NativeWindow.CursorVisible;
+            }
+            set
+            {
+                NativeWindow.CursorVisible = value;
+            }
+        }
+        public Icon Icon
+        {
+            get
+            {
+                return NativeWindow.Icon;
+            }
+            set
+            {
+                NativeWindow.Icon = value;
+            }
+        }
         public WindowType Type
         {
             get
@@ -83,11 +108,11 @@ namespace Dunamis.Graphics
                 {
                     return WindowType.Window;
                 }
-                else if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Normal)
+                if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Normal)
                 {
                     return WindowType.BorderlessWindow;
                 }
-                else if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Fullscreen)
+                if (NativeWindow.WindowBorder == WindowBorder.Hidden && NativeWindow.WindowState == WindowState.Fullscreen)
                 {
                     return WindowType.Fullscreen;
                 }
@@ -126,8 +151,16 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Events
-        void closed(object o, EventArgs arguments)
+        void IsClosing()
         {
+            if (Closing != null)
+            {
+                Closing(this, EventArgs.Empty);
+            }
+        }
+        void WindowClosing(object o, EventArgs arguments)
+        {
+            IsClosing();
             Close();
         }
         #endregion
@@ -136,8 +169,8 @@ namespace Dunamis.Graphics
         public Window(int width, int height, string title, WindowType type, int display, bool visible)
         {
             NativeWindow = new NativeWindow(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.GetDisplay((DisplayIndex)display));
-            NativeWindow.Closed += new EventHandler<EventArgs>(closed);
-            
+            NativeWindow.Closing += WindowClosing;
+
             Type = type;
             Visible = visible;
         }

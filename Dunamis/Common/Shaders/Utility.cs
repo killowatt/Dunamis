@@ -1,17 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Dunamis.Graphics;
 
 namespace Dunamis.Common.Shaders
 {
     public static class Utility
     {
-        static Assembly assembly = Assembly.GetExecutingAssembly();
+        static readonly Assembly Assembly = Assembly.GetExecutingAssembly();
         public static string GetSource(string file)
         {
-            StreamReader streamReader = new StreamReader(assembly.GetManifestResourceStream(file));
-            return streamReader.ReadToEnd();
+            using (var resourceStream = Assembly.GetManifestResourceStream(file))
+            {
+                if (resourceStream != null)
+                {
+                    StreamReader streamReader = new StreamReader(resourceStream);
+                    return streamReader.ReadToEnd();
+                }
+                throw new ArgumentException("File could not be loaded.");
+            }
         }
     }
 }

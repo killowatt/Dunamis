@@ -1,59 +1,57 @@
-﻿using System;
-
-namespace Dunamis.Graphics
+﻿namespace Dunamis.Graphics
 {
     public class Camera
     {
-        Matrix4 view;      
-        Matrix4 projection;
-        bool viewCalculated;
-        bool projectionCalculated;
+        Matrix4 _view;      
+        Matrix4 _projection;
+        bool _viewCalculated;
+        bool _projectionCalculated;
 
-        Vector3 position;
-        Vector3 rotation;
-        Angle fieldOfView;
-        Vector2 aspect;
+        Vector3 _position;
+        Vector3 _rotation;
+        Angle _fieldOfView;
+        Vector2 _aspect;
 
         #region Properties
         public Matrix4 View
         {
             get
             {
-                if (!viewCalculated)
+                if (!_viewCalculated)
                 {
-                    view = OpenTK.Matrix4.LookAt(position, position + new Vector3(0, 0, -1), OpenTK.Vector3.UnitY) *
-                        OpenTK.Matrix4.CreateRotationX(rotation.X) *
-                        OpenTK.Matrix4.CreateRotationY(rotation.Y) *
-                        OpenTK.Matrix4.CreateRotationZ(rotation.Z);
-                    viewCalculated = true;
+                    _view = OpenTK.Matrix4.LookAt(_position, _position + new Vector3(0, 0, -1), OpenTK.Vector3.UnitY) *
+                        OpenTK.Matrix4.CreateRotationX(_rotation.X) *
+                        OpenTK.Matrix4.CreateRotationY(_rotation.Y) *
+                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z);
+                    _viewCalculated = true;
                 }
-                return view;
+                return _view;
             }
         }
         public Matrix4 Projection
         {
             get
             {
-                if (!projectionCalculated)
+                if (!_projectionCalculated)
                 {
-                    projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(fieldOfView.Radians, aspect.X / aspect.Y, 0.5f, 1024); // TODO: investigate znear and zfar more
-                    projectionCalculated = true;
+                    _projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(_fieldOfView.Radians, _aspect.X / _aspect.Y, 0.5f, 1024); // TODO: investigate znear and zfar more
+                    _projectionCalculated = true;
                 }
-                return projection;
+                return _projection;
             }
         }
         public Vector3 Position
         {
             get
             {
-                return position;
+                return _position;
             }
             set
             {
-                if (position != value)
+                if (_position != value)
                 {
-                    position = value;
-                    viewCalculated = false;
+                    _position = value;
+                    _viewCalculated = false;
                 }
             }
         }
@@ -61,14 +59,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.X;
+                return _rotation.X;
             }
             set
             {
-                if (rotation.X != value)
+                if (_rotation.X != value)
                 {
-                    rotation.X = value;
-                    viewCalculated = false;
+                    _rotation.X = value;
+                    _viewCalculated = false;
                 }
             }
         }
@@ -76,14 +74,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.Y;
+                return _rotation.Y;
             }
             set
             {
-                if (rotation.Y != value)
+                if (_rotation.Y != value)
                 {
-                    rotation.Y = value;
-                    viewCalculated = false;
+                    _rotation.Y = value;
+                    _viewCalculated = false;
                 }
             }
         }
@@ -91,14 +89,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.Z;
+                return _rotation.Z;
             }
             set
             {
-                if (rotation.Z != value)
+                if (_rotation.Z != value)
                 {
-                    rotation.Z = value;
-                    viewCalculated = false;
+                    _rotation.Z = value;
+                    _viewCalculated = false;
                 }
             }
         }
@@ -106,14 +104,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return fieldOfView.Degrees;
+                return _fieldOfView.Degrees;
             }
             set
             {
-                if (fieldOfView.Degrees != value)
+                if (_fieldOfView.Degrees != value)
                 {
-                    fieldOfView.Degrees = value;
-                    projectionCalculated = false;
+                    _fieldOfView.Degrees = value;
+                    _projectionCalculated = false;
                 }
             }
         }
@@ -121,14 +119,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return aspect;
+                return _aspect;
             }
             set
             {
-                if (aspect != value)
+                if (_aspect != value)
                 {
-                    aspect = value;
-                    projectionCalculated = false;
+                    _aspect = value;
+                    _projectionCalculated = false;
                 }
             }
         }
@@ -136,10 +134,10 @@ namespace Dunamis.Graphics
 
         public Camera()
         {
-            position = new Vector3(0.0f, 0.0f, 0.0f);
-            rotation = new Vector3(0.0f, 0.0f, 0.0f);
-            fieldOfView = Angle.CreateDegrees(90).Radians;
-            aspect = new Vector2(16, 9);
+            _position = new Vector3(0.0f, 0.0f, 0.0f);
+            _rotation = new Vector3(0.0f, 0.0f, 0.0f);
+            _fieldOfView = Angle.CreateDegrees(90).Radians;
+            _aspect = new Vector2(16, 9);
         }
         public Camera(Vector3 position, float pitch, float yaw, float roll, float fieldOfView, Vector2 aspect)
         {

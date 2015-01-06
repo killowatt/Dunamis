@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dunamis.Input
+﻿namespace Dunamis.Input
 {
     public enum Button
     {

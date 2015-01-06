@@ -1,12 +1,33 @@
-﻿using System;
-
-namespace Dunamis
+﻿namespace Dunamis
 {
     public struct Vector3
     {
         public float X;
         public float Y;
         public float Z;
+
+        #region Methods
+        public bool Equals(Vector3 other)
+        {
+            return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Vector3 && Equals((Vector3)obj);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = X.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Z.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
 
         #region Operators
         // Math

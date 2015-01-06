@@ -1,58 +1,20 @@
 ﻿#pragma warning disable 612
-using System;
+#pragma warning disable 618
 using System.Collections.Generic;
-using OpenTK.Input;
 using Dunamis.Graphics;
+using OpenTK.Input;
 
 namespace Dunamis.Input
 {
-    public class Keyboard // TODO: implement events
+    public class Keyboard
     {
         KeyboardDevice device;
-        HashSet<Key> downKeys;
-
-        #region Properties
-        public HashSet<Key> DownKeys
-        {
-            get
-            {
-                return downKeys;
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return device.Description;
-            }
-        }
-        public int KeyCount
-        {
-            get
-            {
-                return device.NumberOfKeys;
-            }
-        }
-        public int FunctionKeyCount
-        {
-            get
-            {
-                return device.NumberOfFunctionKeys;
-            }
-        }
-        public int LedCount
-        {
-            get
-            {
-                return device.NumberOfLeds;
-            }
-        }
-        #endregion
+        HashSet<Key> _downKeys;
 
         #region Methods
         public bool IsKeyDown(Key key)
         {
-            if (downKeys.Contains(key))
+            if (_downKeys.Contains(key))
             {
                 return true;
             }
@@ -65,13 +27,13 @@ namespace Dunamis.Input
         #endregion
 
         #region Events
-        private void keyDown(object sender, KeyboardKeyEventArgs arguments)
+        private void KeyDown(object sender, KeyboardKeyEventArgs arguments)
         {
-            downKeys.Add((Key)arguments.Key);
+            _downKeys.Add((Key)arguments.Key);
         }
-        private void keyUp(object sender, KeyboardKeyEventArgs arguments)
+        private void KeyUp(object sender, KeyboardKeyEventArgs arguments)
         {
-            downKeys.Remove((Key)arguments.Key);
+            _downKeys.Remove((Key)arguments.Key);
         }
         #endregion
 
@@ -80,10 +42,10 @@ namespace Dunamis.Input
             IInputDriver driver = window.NativeWindow.InputDriver; // TODO: if keyboard.count <= 0 o no
             device = driver.Keyboard[0];
 
-            downKeys = new HashSet<Key>();
+            _downKeys = new HashSet<Key>();
 
-            device.KeyDown += new EventHandler<KeyboardKeyEventArgs>(keyDown);
-            device.KeyUp += new EventHandler<KeyboardKeyEventArgs>(keyUp);
+            device.KeyDown += KeyDown;
+            device.KeyUp += KeyUp;
         }
     }
 }

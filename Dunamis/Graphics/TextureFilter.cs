@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace Dunamis.Graphics
+﻿namespace Dunamis.Graphics
 {
     public enum TextureFilter
     {
         Nearest,
         Linear,
-        Anisotropic2x = 2,
-        Anisotropic4x = 4,
-        Anisotropic8x = 8,
-        Anisotropic16x = 16
+        Anisotropic2X = 2,
+        Anisotropic4X = 4,
+        Anisotropic8X = 8,
+        Anisotropic16X = 16
     }
 }

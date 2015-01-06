@@ -1,4 +1,4 @@
-﻿using System;
+﻿using OpenTK;
 
 namespace Dunamis
 {
@@ -49,9 +49,9 @@ namespace Dunamis
         {
             return new Vector4(vector.X, vector.Y, vector.Z, vector.W);
         }
-        public static implicit operator OpenTK.Vector4d(Vector4 vector)
+        public static implicit operator Vector4d(Vector4 vector)
         {
-            return new OpenTK.Vector4d(vector.X, vector.Y, vector.Z, vector.W);
+            return new Vector4d(vector.X, vector.Y, vector.Z, vector.W);
         }
         #endregion
 

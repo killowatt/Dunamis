@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dunamis.Graphics
+﻿namespace Dunamis.Graphics
 {
     public enum MeshType
     {

@@ -9,91 +9,91 @@ namespace Dunamis.Graphics
         internal int VertexBufferObject;
         internal int IndexBufferObject;
 
-        float[] vertices;
-        float[] textureCoordinates;
-        float[] normals;
-        uint[] indices;
+        float[] _vertices;
+        float[] _textureCoordinates;
+        float[] _normals;
+        uint[] _indices;
 
-        Shader shader;
-        MeshType type;
+        Shader _shader;
+        MeshType _type;
 
-        Matrix4 transform;
-        bool transformCalculated;
-        Vector3 position;
-        Vector3 rotation;
-        Vector3 scale;
+        Matrix4 _transform;
+        bool _transformCalculated;
+        Vector3 _position;
+        Vector3 _rotation;
+        Vector3 _scale;
 
         #region Properties
         public float[] Vertices
         {
             get
             {
-                return vertices;
+                return _vertices;
             }
         }
         public float[] TextureCoordinates
         {
             get
             {
-                return textureCoordinates;
+                return _textureCoordinates;
             }
         }
         public float[] Normals
         {
             get
             {
-                return normals;
+                return _normals;
             }
         }
         public uint[] Indices
         {
             get
             {
-                return indices;
+                return _indices;
             }
         }
         public Shader Shader
         {
             get
             {
-                return shader;
+                return _shader;
             }
         }
         public MeshType Type
         {
             get
             {
-                return type;
+                return _type;
             }
         }
         public Matrix4 Transform
         {
             get
             {
-                if (!transformCalculated)
+                if (!_transformCalculated)
                 {
-                    transform = OpenTK.Matrix4.CreateRotationX(rotation.X) *
-                        OpenTK.Matrix4.CreateRotationY(rotation.Y) *
-                        OpenTK.Matrix4.CreateRotationZ(rotation.Z) * 
-                        OpenTK.Matrix4.CreateTranslation(position) *
-                        OpenTK.Matrix4.CreateScale(scale);
-                    transformCalculated = true;
+                    _transform = OpenTK.Matrix4.CreateRotationX(_rotation.X) *
+                        OpenTK.Matrix4.CreateRotationY(_rotation.Y) *
+                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z) * 
+                        OpenTK.Matrix4.CreateTranslation(_position) *
+                        OpenTK.Matrix4.CreateScale(_scale);
+                    _transformCalculated = true;
                 }
-                return transform;
+                return _transform;
             }
         }
         public Vector3 Position
         {
             get
             {
-                return position;
+                return _position;
             }
             set
             {
-                if (position != value)
+                if (_position != value)
                 {
-                    position = value;
-                    transformCalculated = false;
+                    _position = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -101,14 +101,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return position.X;
+                return _position.X;
             }
             set
             {
-                if (position.X != value)
+                if (_position.X != value)
                 {
-                    position.X = value;
-                    transformCalculated = false;
+                    _position.X = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -116,14 +116,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return position.Y;
+                return _position.Y;
             }
             set
             {
-                if (position.Y != value)
+                if (_position.Y != value)
                 {
-                    position.Y = value;
-                    transformCalculated = false;
+                    _position.Y = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -131,14 +131,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return position.Z;
+                return _position.Z;
             }
             set
             {
-                if (position.Z != value)
+                if (_position.Z != value)
                 {
-                    position.Z = value;
-                    transformCalculated = false;
+                    _position.Z = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -146,14 +146,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.X;
+                return _rotation.X;
             }
             set
             {
-                if (rotation.X != value)
+                if (_rotation.X != value)
                 {
-                    rotation.X = value;
-                    transformCalculated = false;
+                    _rotation.X = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -161,14 +161,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.Y;
+                return _rotation.Y;
             }
             set
             {
-                if (rotation.Y != value)
+                if (_rotation.Y != value)
                 {
-                    rotation.Y = value;
-                    transformCalculated = false;
+                    _rotation.Y = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -176,14 +176,14 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return rotation.Z;
+                return _rotation.Z;
             }
             set
             {
-                if (rotation.Z != value)
+                if (_rotation.Z != value)
                 {
-                    rotation.Z = value;
-                    transformCalculated = false;
+                    _rotation.Z = value;
+                    _transformCalculated = false;
                 }
             }
         }
@@ -191,7 +191,7 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return scale;
+                return _scale;
             }
         }
         #endregion
@@ -199,11 +199,11 @@ namespace Dunamis.Graphics
         #region Methods
         public void SetMesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type) // TODO: include documentation that states how meshtype works with relation to how often you via this method
         {
-            this.vertices = vertices;
-            this.textureCoordinates = textureCoordinates;
-            this.normals = normals;
-            this.indices = indices;
-            this.type = type;
+            _vertices = vertices;
+            _textureCoordinates = textureCoordinates;
+            _normals = normals;
+            _indices = indices;
+            _type = type;
 
             BufferUsageHint usageHint = new BufferUsageHint();
             if (type == MeshType.Static)
@@ -241,7 +241,7 @@ namespace Dunamis.Graphics
         }
         public void SetShader(Shader shader) // TODO: maybe put this in a property instead.
         {
-            this.shader = shader;
+            _shader = shader;
 
             GL.BindVertexArray(VertexArrayObject);
             GL.UseProgram(shader.ShaderProgram);
@@ -259,13 +259,13 @@ namespace Dunamis.Graphics
             int textureCoordinate = GL.GetAttribLocation(shader.ShaderProgram, "textureCoordinate");
             if (textureCoordinate > -1)
             {
-                GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * vertices.Length));
+                GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * _vertices.Length));
                 GL.EnableVertexAttribArray(textureCoordinate);
             }
             int normal = GL.GetAttribLocation(shader.ShaderProgram, "normal");
             if (normal > -1)
             {
-                GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * textureCoordinates.Length));
+                GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length));
             }
 
             GL.UseProgram(0);
@@ -273,18 +273,18 @@ namespace Dunamis.Graphics
         }
         public void SetScale(float scale)
         {
-            if (new Vector3(scale) != this.scale)
+            if (new Vector3(scale) != _scale)
             {
-                this.scale = new Vector3(scale);
-                transformCalculated = false;
+                _scale = new Vector3(scale);
+                _transformCalculated = false;
             }
         }
         public void SetScale(Vector3 scale)
         {
-            if (scale != this.scale)
+            if (scale != _scale)
             {
-                this.scale = scale;
-                transformCalculated = false;
+                _scale = scale;
+                _transformCalculated = false;
             }
         }
         #endregion
@@ -302,8 +302,8 @@ namespace Dunamis.Graphics
             GL.BindBuffer(BufferTarget.ArrayBuffer, IndexBufferObject);
 
             GL.BindVertexArray(0);
-            transform = Matrix4.Identity;
-            scale = new Vector3(1);
+            _transform = Matrix4.Identity;
+            _scale = new Vector3(1);
         }
         public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type, Shader shader)
             : this()

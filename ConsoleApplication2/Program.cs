@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dunamis;
 using Dunamis.Graphics;
 using Dunamis.Input;
 using OpenTK.Graphics.OpenGL;
-
+using ShaderType = Dunamis.Graphics.ShaderType;
 
 namespace ConsoleApplication2
 {
@@ -20,28 +16,41 @@ namespace ConsoleApplication2
         static Mesh mesh2;
         static Mesh mesh3;
 
+        static bool running;
+
         static Keyboard k;
         static Mouse m;
+        
 
+        static void CLOSING(object o, EventArgs e)
+        {
+            Console.WriteLine("OH SHIT");
+            running = false;
+        }
         static void Main(string[] args)
         {
+            Console.WriteLine("what");
+            //Console.ReadKey();
+
             w = new Window(1280, 720);
+            w.Closing += CLOSING;
             r = new Renderer(w, false);
-            r.ClearColor = new Dunamis.Color3(12, 12, 12);
-    
+            r.ClearColor = new Color3(12, 12, 12);
+
+
             r.Camera.Position = new Vector3(0f, 0f, 1.5f);
             r.Camera.Yaw = Angle.CreateDegrees(360).Radians;
 
             ShaderTest3 testshader = new ShaderTest3();
             ShaderTest3 testshader2 = new ShaderTest3();
             ShaderTest3 tt = new ShaderTest3(1);
-            Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Vertex));
-            Console.WriteLine(testshader2.GetCompileLog(Dunamis.Graphics.ShaderType.Fragment));
+            Console.WriteLine(testshader2.GetCompileLog(ShaderType.Vertex));
+            Console.WriteLine(testshader2.GetCompileLog(ShaderType.Fragment));
 
-            mesh = new Mesh(new float[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
-            mesh2 = new Mesh(new float[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
-            mesh3 = new Mesh(new float[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
-            mesh = new Mesh(new float[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
+            mesh = new Mesh(new[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            mesh2 = new Mesh(new[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
+            mesh3 = new Mesh(new[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            mesh = new Mesh(new[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
 
             mesh.Position = new Vector3(0, 0, 0f);
             mesh.Yaw = Angle.CreateDegrees(45).Radians;
@@ -51,7 +60,8 @@ namespace ConsoleApplication2
             k = new Keyboard(w);
             m = new Mouse(w);
 
-            while (true)
+            running = true;
+            while (running)
             {
                 Update();
                 Render();
@@ -60,22 +70,21 @@ namespace ConsoleApplication2
         }
         static void Update()
         {
-            w.Update();
             if (k.IsKeyDown(Key.A))
             {
-                mesh.Yaw += 0.0005f;
+                r.Camera.Yaw -= 0.0005f;
             }
             if (k.IsKeyDown(Key.D))
             {
-                mesh.Yaw -= 0.0005f;
+                r.Camera.Yaw += 0.0005f;
             }
             if (k.IsKeyDown(Key.W))
             {
-                mesh.Pitch += 0.0005f;
+                r.Camera.Pitch -= 0.0005f;
             }
             if (k.IsKeyDown(Key.S))
             {
-                mesh.Pitch -= 0.0005f;
+                r.Camera.Pitch += 0.0005f;
             }
 
             if (k.IsKeyDown(Key.Right))
@@ -94,6 +103,9 @@ namespace ConsoleApplication2
             {
                 mesh.Y -= 0.0005f;
             }
+            
+            //Console.WriteLine(krkkr.IsKeyDown(Key.RightShift));
+            //mesh.Yaw += 0.0005f;
         }
         static void Render()
         {
@@ -104,6 +116,7 @@ namespace ConsoleApplication2
             r.Draw(mesh3);
 
             r.Display();
+            w.Update();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-
-namespace Dunamis.Input
+﻿namespace Dunamis.Input
 {
     public enum Key
     {
+        // Thanks, OpenTK. This might be temporary, though.
+
         Unknown = 0,
 
         // Modifiers
@@ -154,7 +154,7 @@ namespace Dunamis.Input
         Period,
         Slash,
         BackSlash,
-        NonUSBackSlash,
+        NonUsBackSlash,
         LastKey
     }
 }

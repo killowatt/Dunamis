@@ -1,20 +1,20 @@
 ﻿using System;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using Dunamis.Common.Meshes;
 using Dunamis.Common.Shaders;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
     public class Renderer // TODO: implement safe mode for performance
     {
-        GraphicsContext graphicsContext;
-        Window window;
+        GraphicsContext _graphicsContext;
+        Window _window;
 
         public Camera Camera;
         public RenderTexture RenderTexture;
 
-        RenderTextureMesh renderTextureMesh;
+        RenderTextureMesh _renderTextureMesh;
         RenderTextureShader renderTextureShader;
 
         #region Properties
@@ -35,7 +35,7 @@ namespace Dunamis.Graphics
         {
             get
             {
-                switch (graphicsContext.SwapInterval)
+                switch (_graphicsContext.SwapInterval)
                 {
                     case 1:
                         return true;
@@ -43,16 +43,9 @@ namespace Dunamis.Graphics
                         return false;
                 }
             }
-            set
+            set 
             {
-                if (value)
-                {
-                    graphicsContext.SwapInterval = 1;
-                }
-                else
-                {
-                    graphicsContext.SwapInterval = 0;
-                }
+                _graphicsContext.SwapInterval = value ? 1 : 0;
             }
         }
         #endregion
@@ -66,10 +59,10 @@ namespace Dunamis.Graphics
         public void Display()
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
-            GL.Viewport(0, 0, window.Width, window.Height);
+            GL.Viewport(0, 0, _window.Width, _window.Height);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-            Draw(renderTextureMesh);
-            graphicsContext.SwapBuffers();
+            Draw(_renderTextureMesh);
+            _graphicsContext.SwapBuffers();
         }
 
         public void Draw(Mesh mesh) // TODO: Include a way to override mesh shader through this method.
@@ -98,9 +91,9 @@ namespace Dunamis.Graphics
 
         public Renderer(Window window, bool verticalSync)
         {
-            this.window = window;
-            graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
-            graphicsContext.LoadAll();
+            _window = window;
+            _graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
+            _graphicsContext.LoadAll();
 
             GL.Enable(EnableCap.DepthTest);
 
@@ -108,7 +101,7 @@ namespace Dunamis.Graphics
 
             RenderTexture = new RenderTexture(window.Width, window.Height);
             renderTextureShader = new RenderTextureShader();
-            renderTextureMesh = new RenderTextureMesh(renderTextureShader);
+            _renderTextureMesh = new RenderTextureMesh(renderTextureShader);
             renderTextureShader.Texture = RenderTexture.Color;
 
             VerticalSync = verticalSync;

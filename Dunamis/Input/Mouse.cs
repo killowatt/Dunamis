@@ -1,26 +1,17 @@
 ﻿#pragma warning disable 612
-using System;
+#pragma warning disable 618
 using System.Collections.Generic;
-using OpenTK.Input;
 using Dunamis.Graphics;
+using OpenTK.Input;
 
 namespace Dunamis.Input
 {
-    public class Mouse // TODO: implement events
+    public class Mouse
     {
         MouseDevice device;
         HashSet<Button> downButtons;
-        float deltaX;
-        float deltaY;
 
         #region Properties
-        public HashSet<Button> DownButtons
-        {
-            get
-            {
-                return downButtons;
-            }
-        }
         public int X
         {
             get
@@ -42,34 +33,6 @@ namespace Dunamis.Input
                 return device.WheelPrecise;
             }
         }
-        public float DeltaX
-        {
-            get
-            {
-                return deltaX;
-            }
-        }
-        public float DeltaY
-        {
-            get
-            {
-                return deltaY;
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return device.Description;
-            }
-        }
-        public int ButtonCount
-        {
-            get
-            {
-                return device.NumberOfButtons;
-            }
-        }
         #endregion
 
         #region Methods
@@ -88,31 +51,25 @@ namespace Dunamis.Input
         #endregion
 
         #region Events
-        private void buttonDown(object sender, MouseButtonEventArgs arguments)
+        private void ButtonDown(object sender, MouseButtonEventArgs arguments)
         {
             downButtons.Add((Button)arguments.Button);
         }
-        private void buttonUp(object sender, MouseButtonEventArgs arguments)
+        private void ButtonUp(object sender, MouseButtonEventArgs arguments)
         {
             downButtons.Remove((Button)arguments.Button);
-        }
-        private void move(object sender, MouseMoveEventArgs arguments)
-        {
-            deltaX = arguments.XDelta;
-            deltaY = arguments.YDelta;   
         }
         #endregion
 
         public Mouse(Window window)
         {
-            IInputDriver driver = window.NativeWindow.InputDriver; // TODO: switch to OpenTK.Input.Keyboard/Mouse
+            IInputDriver driver = window.NativeWindow.InputDriver;
             device = driver.Mouse[0];
 
             downButtons = new HashSet<Button>();
 
-            device.ButtonDown += new EventHandler<MouseButtonEventArgs>(buttonDown);
-            device.ButtonUp += new EventHandler<MouseButtonEventArgs>(buttonUp);
-            device.Move += new EventHandler<MouseMoveEventArgs>(move);
+            device.ButtonDown += ButtonDown;
+            device.ButtonUp += ButtonUp;
         }
     }
 }

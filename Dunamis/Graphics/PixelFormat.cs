@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Dunamis.Graphics
+﻿namespace Dunamis.Graphics
 {
     public enum PixelFormat
     {
-        RGB,
-        RGBA
+        Rgb,
+        Rgba
     }
 }

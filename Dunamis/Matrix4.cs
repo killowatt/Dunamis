@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dunamis
+﻿namespace Dunamis
 {
     public struct Matrix4
     {

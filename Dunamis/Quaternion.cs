@@ -1,61 +1,59 @@
-﻿using System;
-
-namespace Dunamis
+﻿namespace Dunamis
 {
     public struct Quaternion
     {
-        Vector4 quaternion;
+        Vector4 _quaternion;
 
         #region Properties
         public float X
         {
             get
             {
-                return quaternion.X;
+                return _quaternion.X;
             }
             set
             {
-                quaternion.X = value;
+                _quaternion.X = value;
             }
         }
         public float Y
         {
             get
             {
-                return quaternion.Y;
+                return _quaternion.Y;
             }
             set
             {
-                quaternion.Y = value;
+                _quaternion.Y = value;
             }
         }
         public float Z
         {
             get
             {
-                return quaternion.Z;
+                return _quaternion.Z;
             }
             set
             {
-                quaternion.Z = value;
+                _quaternion.Z = value;
             }
         }
         public float W
         {
             get
             {
-                return quaternion.W;
+                return _quaternion.W;
             }
             set
             {
-                quaternion.W = value;
+                _quaternion.W = value;
             }
         }
         #endregion
 
         public Quaternion(float x, float y, float z, float w)
         {
-            quaternion = new Vector4(x, y, z, w);
+            _quaternion = new Vector4(x, y, z, w);
         }
     }
 }

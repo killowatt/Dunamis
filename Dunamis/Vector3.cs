@@ -49,14 +49,11 @@
         }
 
         // Equality
-        public static bool operator ==(Vector3 left, Vector3 right) // TODO: add equality operators to all dunamis value types
+        public static bool operator ==(Vector3 left, Vector3 right)
         {
-            if (left.X == right.X && left.Y == right.Y && left.Z == right.Z)
-            {
-                return true;
-            }
-            return false;
+            return left.X == right.X && left.Y == right.Y && left.Z == right.Z;
         }
+
         public static bool operator !=(Vector3 left, Vector3 right)
         {
             return !(left == right);
@@ -71,10 +68,10 @@
         {
             return new Vector3(vector.X, vector.Y, vector.Z);
         }
-        public static implicit operator Vector3(Color3 color)
-        {
-            return new Vector3(color.R, color.G, color.B);
-        }
+        //public static implicit operator Vector3(Color3 color)
+        //{
+        //    return new Vector3(color.R, color.G, color.B);
+        //}
         public static implicit operator OpenTK.Vector3(Vector3 vector)
         {
             return new OpenTK.Vector3(vector.X, vector.Y, vector.Z);

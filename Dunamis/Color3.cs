@@ -6,7 +6,45 @@
         public byte G;
         public byte B;
 
+        #region Methods
+        public bool Equals(Color3 other)
+        {
+            return R == other.R && G == other.G && B == other.B;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Color3 && Equals((Color3)obj);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = R.GetHashCode();
+                hashCode = (hashCode * 397) ^ G.GetHashCode();
+                hashCode = (hashCode * 397) ^ B.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
+
         #region Operators
+        // Math
+        // TODO: these
+
+        // Equality
+        public static bool operator ==(Color3 left, Color3 right)
+        {
+            return left.R == right.R && left.G == right.G && left.B == right.B;
+        }
+
+        public static bool operator !=(Color3 left, Color3 right)
+        {
+            return !(left == right);
+        }
+
+        // Conversion
         public static explicit operator Color3(Color4 color)
         {
             return new Color3(color.R, color.G, color.B);

@@ -8,6 +8,20 @@
         public byte A;
 
         #region Operators
+        // Math
+        // TODO: these
+
+        // Equality
+        public static bool operator ==(Color4 left, Color4 right)
+        {
+            return left.R == right.R && left.G == right.G && left.B == right.B && left.A == right.A;
+        }
+
+        public static bool operator !=(Color4 left, Color4 right)
+        {
+            return !(left == right);
+        }
+
         public static implicit operator Color4(Color3 color)
         {
             return new Color4(color.R, color.G, color.B, 255);

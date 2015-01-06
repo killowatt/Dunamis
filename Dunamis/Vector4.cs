@@ -9,6 +9,30 @@ namespace Dunamis
         public float Z;
         public float W;
 
+        #region Methods
+        public bool Equals(Vector4 other)
+        {
+            return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z) && W.Equals(other.W);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Vector4 && Equals((Vector4)obj);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = X.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Z.GetHashCode();
+                hashCode = (hashCode * 397) ^ W.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
+
         #region Operators
         // Math
         public static Vector4 operator +(Vector4 left, Vector4 right)
@@ -26,6 +50,17 @@ namespace Dunamis
         public static Vector4 operator /(Vector4 left, Vector4 right)
         {
             return new Vector4(left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
+        }
+
+        // Equality
+        public static bool operator ==(Vector4 left, Vector4 right) // TODO: add equality operators to all dunamis value types
+        {
+            return left.X == right.X && left.Y == right.Y && left.Z == right.Z && left.W == right.W;
+        }
+
+        public static bool operator !=(Vector4 left, Vector4 right)
+        {
+            return !(left == right);
         }
 
         // Conversion

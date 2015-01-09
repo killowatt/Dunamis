@@ -38,12 +38,9 @@ namespace Dunamis.Input
         #region Methods
         public bool IsButtonDown(Button button)
         {
-            if (downButtons.Contains(button))
-            {
-                return true;
-            }
-            return false;
+            return downButtons.Contains(button);
         }
+
         public bool IsButtonUp(Button button)
         {
             return !IsButtonDown(button);

@@ -46,11 +46,15 @@
         }
         public static Matrix4 operator *(Matrix4 left, Matrix4 right)
         {
-            return new Matrix4(left.Row0 * right.Row0, left.Row1 * right.Row1, left.Row2 * right.Row2, left.Row3 * right.Row3);
+            return OpenTK.Matrix4.Mult(left, right);
         }
         public static Matrix4 operator /(Matrix4 left, Matrix4 right)
         {
             return new Matrix4(left.Row0 / right.Row0, left.Row1 / right.Row1, left.Row2 / right.Row2, left.Row3 / right.Row3);
+        }
+        public static Matrix4 operator *(Matrix4 left, float right)
+        {
+            return new Matrix4(left.Row0 * right, left.Row1 * right, left.Row2 * right, left.Row3 * right);
         }
 
         // Equality

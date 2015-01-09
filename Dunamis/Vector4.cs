@@ -51,6 +51,10 @@ namespace Dunamis
         {
             return new Vector4(left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
         }
+        public static Vector4 operator *(Vector4 left, float right)
+        {
+            return new Vector4(left.X * right, left.Y * right, left.Z * right, left.W * right);
+        }
 
         // Equality
         public static bool operator ==(Vector4 left, Vector4 right) // TODO: add equality operators to all dunamis value types

@@ -14,12 +14,9 @@ namespace Dunamis.Input
         #region Methods
         public bool IsKeyDown(Key key)
         {
-            if (_downKeys.Contains(key))
-            {
-                return true;
-            }
-            return false;
+            return _downKeys.Contains(key);
         }
+
         public bool IsKeyUp(Key key)
         {
             return !IsKeyDown(key);

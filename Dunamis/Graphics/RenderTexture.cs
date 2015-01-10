@@ -12,6 +12,8 @@ namespace Dunamis.Graphics
         Texture _color;
         Texture _depth;
 
+        public RenderTextureShader Shader;
+
         #region Properties
         public int Width
         {
@@ -50,11 +52,12 @@ namespace Dunamis.Graphics
             _color = new Texture();
             _depth = new Texture();
         }
-        public RenderTexture(int width, int height)
+        public RenderTexture(int width, int height, RenderTextureShader renderTextureShader)
             : this()
         {
             _width = width;
             _height = height;
+            Shader = new Common.Shaders.DefaultRenderTextureShader();
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, FrameBuffer);
 
             _color.Width = width;
@@ -76,6 +79,11 @@ namespace Dunamis.Graphics
             GL.BindTexture(TextureTarget.Texture2D, 0);
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         }
+        public RenderTexture(int width, int height)
+            : this(width, height, new Common.Shaders.DefaultRenderTextureShader())
+        {
+        }
+
         #endregion
 
     }

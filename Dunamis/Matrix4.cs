@@ -14,13 +14,11 @@
         {
             return Row0.Equals(other.Row0) && Row1.Equals(other.Row1) && Row2.Equals(other.Row2) && Row3.Equals(other.Row3);
         }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj is Matrix4 && Equals((Matrix4)obj);
         }
-
         public override int GetHashCode()
         {
             unchecked

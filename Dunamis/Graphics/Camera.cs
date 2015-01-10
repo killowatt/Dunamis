@@ -20,9 +20,9 @@
                 if (!_viewCalculated)
                 {
                     _view = OpenTK.Matrix4.LookAt(_position, _position + new Vector3(0, 0, -1), OpenTK.Vector3.UnitY) *
-                        OpenTK.Matrix4.CreateRotationX(_rotation.X) *
+                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z) *
                         OpenTK.Matrix4.CreateRotationY(_rotation.Y) *
-                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z);
+                        OpenTK.Matrix4.CreateRotationX(_rotation.X);
                     _viewCalculated = true;
                 }
                 return _view;

@@ -12,10 +12,10 @@ namespace Dunamis.Graphics
         Window _window;
 
         public Camera Camera;
-        public RenderTexture RenderTexture;
 
+        RenderTexture _renderTexture;
         RenderTextureMesh _renderTextureMesh;
-        RenderTextureShader renderTextureShader;
+        RenderTextureShader _renderTextureShader;
 
         #region Properties
         public Color3 ClearColor
@@ -29,6 +29,17 @@ namespace Dunamis.Graphics
             set
             {
                 GL.ClearColor(new Color4(value.R, value.G, value.B, 255));
+            }
+        }
+        public RenderTexture RenderTexture
+        {
+            get { return _renderTexture; }
+            set
+            {
+                _renderTexture = value;
+                _renderTextureShader = _renderTexture.Shader;
+                _renderTextureMesh.SetShader(_renderTexture.Shader);
+                _renderTextureShader.Texture = _renderTexture.Color;
             }
         }
         public bool VerticalSync
@@ -89,7 +100,7 @@ namespace Dunamis.Graphics
             GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
         }
 
-        public Renderer(Window window, bool verticalSync)
+        public Renderer(Window window, bool verticalSync) // TODO: add additional constructors
         {
             _window = window;
             _graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
@@ -99,10 +110,9 @@ namespace Dunamis.Graphics
 
             Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 0, 90, new Vector2(window.Width, window.Height));
 
-            RenderTexture = new RenderTexture(window.Width, window.Height);
-            renderTextureShader = new RenderTextureShader();
-            _renderTextureMesh = new RenderTextureMesh(renderTextureShader);
-            renderTextureShader.Texture = RenderTexture.Color;
+            DefaultRenderTextureShader defaultRenderTextureShader = new DefaultRenderTextureShader();
+            _renderTextureMesh = new RenderTextureMesh(defaultRenderTextureShader);
+            RenderTexture = new RenderTexture(window.Width, window.Height, defaultRenderTextureShader);
 
             VerticalSync = verticalSync;
         }

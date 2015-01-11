@@ -228,8 +228,8 @@ namespace Dunamis.Graphics
 
             GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(size), IntPtr.Zero, usageHint);
             GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset), new IntPtr(sizeof(float) * _vertices.Length), _vertices);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _vertices.Length), new IntPtr(sizeof(float) * _textureCoordinates.Length), textureCoordinates);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length), new IntPtr(sizeof(float) * _normals.Length), normals);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _vertices.Length), new IntPtr(sizeof(float) * _textureCoordinates.Length), _textureCoordinates);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length), new IntPtr(sizeof(float) * _normals.Length), _normals);
 
             GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(uint) * _indices.Length), indices, usageHint);
 
@@ -247,21 +247,24 @@ namespace Dunamis.Graphics
             long offset = 0;
 
             int vertex = GL.GetAttribLocation(shader.ShaderProgram, "vertex");
-            if (vertex > -1)
+            if (vertex > -1 && _vertices.Length >= 3)
             {
                 GL.VertexAttribPointer(vertex, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(vertex);
             }
+            offset += sizeof(float) * _vertices.Length;
             int textureCoordinate = GL.GetAttribLocation(shader.ShaderProgram, "textureCoordinate");
-            if (textureCoordinate > -1)
+            if (textureCoordinate > -1 && _textureCoordinates.Length >= 2)
             {
-                GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * _vertices.Length));
+                GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(textureCoordinate);
             }
+            offset += sizeof(float) * _textureCoordinates.Length;
             int normal = GL.GetAttribLocation(shader.ShaderProgram, "normal");
-            if (normal > -1)
+            if (normal > -1 && _normals.Length >= 3)
             {
                 GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length));
+                GL.EnableVertexAttribArray(normal);
             }
 
             GL.UseProgram(0);

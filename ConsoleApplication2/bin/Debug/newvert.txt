@@ -12,6 +12,6 @@ out vec3 fVertex;
 
 void main()
 {
-	fVertex = vertex;
+	fVertex = normal;
 	gl_Position = Projection * View * Model * vec4(vertex, 1.0);
 }

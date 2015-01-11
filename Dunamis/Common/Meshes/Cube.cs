@@ -5,7 +5,7 @@ namespace Dunamis.Common.Meshes
 {
     public class Cube : Mesh
     { // TODO: readonly these
-        public new static float[] Vertices =
+        public static readonly float[] Vertices =
         {
             -1, 1, -1,
             -1, 1, 1,
@@ -16,7 +16,7 @@ namespace Dunamis.Common.Meshes
             -1, -1, 1,
             -1, -1, -1
         };
-        public new static uint[] Indices =
+        public static readonly uint[] Indices =
         {
             0, 1, 2,
             2, 3, 0,

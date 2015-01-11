@@ -247,21 +247,21 @@ namespace Dunamis.Graphics
             long offset = 0;
 
             int vertex = GL.GetAttribLocation(shader.ShaderProgram, "vertex");
-            if (vertex > -1 && _vertices.Length >= 3)
+            if (vertex > -1)
             {
                 GL.VertexAttribPointer(vertex, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(vertex);
             }
             offset += sizeof(float) * _vertices.Length;
             int textureCoordinate = GL.GetAttribLocation(shader.ShaderProgram, "textureCoordinate");
-            if (textureCoordinate > -1 && _textureCoordinates.Length >= 2)
+            if (textureCoordinate > -1)
             {
                 GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(textureCoordinate);
             }
             offset += sizeof(float) * _textureCoordinates.Length;
             int normal = GL.GetAttribLocation(shader.ShaderProgram, "normal");
-            if (normal > -1 && _normals.Length >= 3)
+            if (normal > -1)
             {
                 GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(normal);

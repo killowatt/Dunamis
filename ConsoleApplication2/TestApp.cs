@@ -22,7 +22,6 @@ namespace ConsoleApplication2
             cube = new Cube(ourShader); // Create our cube using our shader.
             cube.SetMesh(Cube.Vertices, cube.TextureCoordinates,
                 new float[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,}, Cube.Indices);
-            cube.SetShader(cube.Shader);
 
             renderer.Camera.Position = new Vector3(2, 2, 2); // Set our camera position to 2, 2, 2 (XYZ)
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.

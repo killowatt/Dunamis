@@ -4,7 +4,7 @@ using Dunamis.Graphics;
 namespace Dunamis.Common.Meshes
 {
     public class RenderTextureMesh : Mesh
-    {
+    { // TODO: readonly these
         public static new float[] Vertices = {
                 -1, -1, 0,
                 1, -1, 0,

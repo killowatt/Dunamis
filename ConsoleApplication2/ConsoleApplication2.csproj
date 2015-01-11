@@ -49,6 +49,7 @@
     <Compile Include="ShaderTest3.cs" />
     <Compile Include="ShaderTest - Copy.cs" />
     <Compile Include="ShaderTest.cs" />
+    <Compile Include="TestApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dunamis\Dunamis.csproj">

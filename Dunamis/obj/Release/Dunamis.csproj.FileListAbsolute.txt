@@ -1,0 +1,6 @@
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Release\Dunamis.dll
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Release\Dunamis.pdb
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Release\OpenTK.dll
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Release\Dunamis.csprojResolveAssemblyReference.cache
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Release\Dunamis.dll
+C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Release\Dunamis.pdb

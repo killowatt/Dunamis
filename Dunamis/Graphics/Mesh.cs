@@ -197,12 +197,12 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Methods
-        public void SetMesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type) // TODO: include documentation that states how meshtype works with relation to how often you via this method
+        public void SetMesh(float[] vertices = null, float[] textureCoordinates = null, float[] normals = null, uint[] indices = null, MeshType type = MeshType.Static) // TODO: include documentation that states how meshtype works with relation to how often you via this method
         {
-            _vertices = vertices;
-            _textureCoordinates = textureCoordinates;
-            _normals = normals;
-            _indices = indices;
+            _vertices = vertices ?? new float[0];
+            _textureCoordinates = textureCoordinates ?? new float[0];
+            _normals = normals ?? new float[0];
+            _indices = indices ?? new uint[0];
             _type = type;
 
             BufferUsageHint usageHint = new BufferUsageHint();
@@ -223,21 +223,17 @@ namespace Dunamis.Graphics
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBufferObject);
 
-            long size = sizeof(float) * (vertices.Length + textureCoordinates.Length + normals.Length);
+            long size = sizeof(float) * (_vertices.Length + _textureCoordinates.Length + _normals.Length);
             long offset = 0;
 
             GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(size), IntPtr.Zero, usageHint);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset), new IntPtr(sizeof(float) * vertices.Length), vertices);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * vertices.Length), new IntPtr(sizeof(float) * textureCoordinates.Length), textureCoordinates);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * textureCoordinates.Length), new IntPtr(sizeof(float) * normals.Length), normals);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset), new IntPtr(sizeof(float) * _vertices.Length), _vertices);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _vertices.Length), new IntPtr(sizeof(float) * _textureCoordinates.Length), textureCoordinates);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length), new IntPtr(sizeof(float) * _normals.Length), normals);
 
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(uint) * indices.Length), indices, usageHint);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(uint) * _indices.Length), indices, usageHint);
 
             GL.BindVertexArray(0);
-        }
-        public void SetMesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices)
-        {
-            SetMesh(vertices, textureCoordinates, normals, indices, MeshType.Dynamic);
         }
         public void SetShader(Shader shader) // TODO: maybe put this in a property instead.
         {
@@ -305,20 +301,12 @@ namespace Dunamis.Graphics
             _transform = Matrix4.Identity;
             _scale = new Vector3(1);
         }
-        public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, MeshType type, Shader shader)
+        public Mesh(float[] vertices = null, float[] textureCoordinates = null, float[] normals = null, uint[] indices = null, MeshType type = MeshType.Static, Shader shader = null) // TODO: CREATE A DEFAULT SHADER
             : this()
         {
             SetMesh(vertices, textureCoordinates, normals, indices, type);
             SetShader(shader);
         }
-        public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices)
-            : this()
-        {
-            SetMesh(vertices, textureCoordinates, normals, indices);
-        }
-        //public Mesh(float[] vertices, float[] textureCoordinates, uint[] indices) TODO: this too
-        //{
-        //}
         #endregion
     }
 }

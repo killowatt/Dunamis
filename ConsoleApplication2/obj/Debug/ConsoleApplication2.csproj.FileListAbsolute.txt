@@ -1,0 +1,8 @@
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Debug\ConsoleApplication2.csprojResolveAssemblyReference.cache
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Debug\ConsoleApplication2.pdb
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Debug\Dunamis.dll
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Debug\Dunamis.pdb
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Debug\ConsoleApplication2.exe
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Debug\ConsoleApplication2.pdb
+C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Debug\OpenTK.dll

@@ -20,7 +20,8 @@ namespace ConsoleApplication2
 
         static Keyboard k;
         static Mouse m;
-        
+
+        static Dunamis.Common.Meshes.Cube xCube;
 
         static void CLOSING(object o, EventArgs e)
         {
@@ -29,6 +30,13 @@ namespace ConsoleApplication2
         }
         static void Main(string[] args)
         {
+
+
+            TestApp x = new TestApp();
+            x.Do();
+
+            Console.ReadKey();
+
             Console.WriteLine("what");
             //Console.ReadKey();
 
@@ -51,6 +59,12 @@ namespace ConsoleApplication2
             mesh2 = new Mesh(new[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
             mesh3 = new Mesh(new[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
             mesh = new Mesh(new[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
+
+
+            xCube = new Dunamis.Common.Meshes.Cube(tt);
+            r.Camera.Position = new Vector3(2, 2, 2);
+            r.Camera.Pitch = Angle.CreateDegrees(35);
+            r.Camera.Yaw = Angle.CreateDegrees(315);
 
             mesh.Position = new Vector3(0, 0, 0f);
             mesh.Yaw = Angle.CreateDegrees(45).Radians;
@@ -111,9 +125,10 @@ namespace ConsoleApplication2
         {
             r.Clear();
 
-            r.Draw(mesh);
-            r.Draw(mesh2);
-            r.Draw(mesh3);
+           // r.Draw(mesh);
+           // r.Draw(mesh2);
+            //r.Draw(mesh3);
+            r.Draw(xCube);
 
             r.Display();
             w.Update();

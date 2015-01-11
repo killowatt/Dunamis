@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
-    public abstract class Shader
+    public abstract class Shader // TODO: automatically add input and camera uniforms at top of shader and tell user to write just main?
     {
         internal int ShaderProgram;
         internal int VertexShader;

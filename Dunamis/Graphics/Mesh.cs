@@ -263,7 +263,7 @@ namespace Dunamis.Graphics
             int normal = GL.GetAttribLocation(shader.ShaderProgram, "normal");
             if (normal > -1 && _normals.Length >= 3)
             {
-                GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length));
+                GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
                 GL.EnableVertexAttribArray(normal);
             }
 

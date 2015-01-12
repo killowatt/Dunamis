@@ -8,10 +8,10 @@ uniform mat4 Model;
 uniform mat4 View;
 uniform mat4 Projection;
 
-out vec3 fVertex;
+out vec2 fTexCoord;
 
 void main()
 {
-	fVertex = normal;
+	fTexCoord = textureCoordinate;
 	gl_Position = Projection * View * Model * vec4(vertex, 1.0);
 }

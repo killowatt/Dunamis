@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShaderTest3 - Copy.cs" />
     <Compile Include="ShaderTest3.cs" />
     <Compile Include="ShaderTest - Copy.cs" />
     <Compile Include="ShaderTest.cs" />

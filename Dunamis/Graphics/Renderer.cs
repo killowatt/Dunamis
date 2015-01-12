@@ -38,7 +38,7 @@ namespace Dunamis.Graphics
             {
                 _renderTexture = value;
                 _renderTextureShader = _renderTexture.Shader;
-                _renderTextureMesh.SetShader(_renderTexture.Shader);
+                _renderTextureMesh.Shader = _renderTexture.Shader;
                 _renderTextureShader.Texture = _renderTexture.Color;
             }
         }

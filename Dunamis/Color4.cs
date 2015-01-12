@@ -7,6 +7,29 @@
         public byte B;
         public byte A;
 
+        #region Methods
+        public bool Equals(Color4 other)
+        {
+            return A == other.A && B == other.B && G == other.G && R == other.R;
+        }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Color4 && Equals((Color4) obj);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = A.GetHashCode();
+                hashCode = (hashCode * 397) ^ B.GetHashCode();
+                hashCode = (hashCode * 397) ^ G.GetHashCode();
+                hashCode = (hashCode * 397) ^ R.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
+
         #region Operators
         // Math
         // TODO: these
@@ -16,7 +39,6 @@
         {
             return left.R == right.R && left.G == right.G && left.B == right.B && left.A == right.A;
         }
-
         public static bool operator !=(Color4 left, Color4 right)
         {
             return !(left == right);

@@ -5,7 +5,7 @@ namespace Dunamis.Graphics
 {
     public abstract class Shader // TODO: automatically add input and camera uniforms at top of shader and tell user to write just main?
     {
-        internal int ShaderProgram;
+        internal int ShaderProgram; // TODO: IDisposable shader/mesh/texture?
         internal int VertexShader;
         internal int FragmentShader;
 
@@ -115,6 +115,12 @@ namespace Dunamis.Graphics
 
             State = state;
             Initialized = false;
+        }
+        ~Shader()
+        {
+            GL.DeleteProgram(ShaderProgram);
+            GL.DeleteShader(FragmentShader);
+            GL.DeleteShader(VertexShader);
         }
     }
 }

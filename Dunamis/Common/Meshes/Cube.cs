@@ -5,7 +5,7 @@ namespace Dunamis.Common.Meshes
 {
     public class Cube : Mesh
     { // TODO: readonly these
-        public static readonly float[] Vertices =
+        public static readonly new float[] Vertices =
         {
             -1, 1, -1,
             -1, 1, 1,
@@ -16,7 +16,18 @@ namespace Dunamis.Common.Meshes
             -1, -1, 1,
             -1, -1, -1
         };
-        public static readonly uint[] Indices =
+        public new static readonly float[] TextureCoordinates =
+        {
+            0, 0,
+            0, 1,
+            0, 1,
+            0, 0,
+            0, 1,
+            1, 0,
+            0, 1,
+            1, 1
+        };
+        public static readonly new uint[] Indices =
         {
             0, 1, 2,
             2, 3, 0,
@@ -31,7 +42,7 @@ namespace Dunamis.Common.Meshes
             7, 4, 3,
             0, 7, 3
         }; // TOOD: REMOVE THIS PARAM SINCE WE USE DEFAULT SAHDER ANYWAY
-        public Cube(Shader shader) : base(Vertices, indices: Indices, type: MeshType.Static, shader: shader)
+        public Cube(Shader shader) : base(Vertices, TextureCoordinates, indices: Indices, type: MeshType.Static, shader: shader)
         {
         }
     }

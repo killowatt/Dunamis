@@ -10,7 +10,7 @@ namespace ConsoleApplication2
         Window window;
 
         Cube cube;
-        ShaderTest3 ourShader;
+        ShaderTest4 ourShader;
 
         public void Do()
         {
@@ -18,10 +18,13 @@ namespace ConsoleApplication2
             renderer = new Renderer(window, true); // Create our renderer using our window, enabling vsync.
             renderer.ClearColor = new Color3(12, 12, 12); // Set our clear color to an almost black color.
 
-            ourShader = new ShaderTest3(1); // Create our shader.
+            Texture t = new Texture("Untitled.png", TextureFilter.Anisotropic16X, true);
+
+            ourShader = new ShaderTest4(); // Create our shader.
+            ourShader.Texture = t;
             cube = new Cube(ourShader); // Create our cube using our shader.
-            cube.SetMesh(Cube.Vertices, cube.TextureCoordinates,
-                new float[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,}, Cube.Indices);
+            cube.SetMesh(RenderTextureMesh.Vertices, RenderTextureMesh.TextureCoordinates, indices: RenderTextureMesh.Indices);
+            //cube.SetShader(ourShader);
 
             renderer.Camera.Position = new Vector3(2, 2, 2); // Set our camera position to 2, 2, 2 (XYZ)
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.

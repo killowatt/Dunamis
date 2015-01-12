@@ -56,7 +56,10 @@
     <Compile Include="Common\Meshes\RenderTextureMesh.cs" />
     <Compile Include="Common\Shaders\DefaultRenderTextureShader.cs" />
     <Compile Include="Common\Shaders\Utility.cs" />
+    <Compile Include="Content\ILoader.cs" />
+    <Compile Include="Content\ResourceManager.cs" />
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\DepthTexture.cs" />
     <Compile Include="Graphics\Display.cs" />
     <Compile Include="Graphics\Mesh.cs" />
     <Compile Include="Graphics\MeshType.cs" />

@@ -1,8 +1,11 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
-    public class Texture
+    public partial class Texture
     {
         internal int TextureId;
 
@@ -166,6 +169,38 @@ namespace Dunamis.Graphics
         public Texture(int width, int height)
             : this(width, height, PixelFormat.Rgb)
         {
+        }
+        public Texture(string filename, TextureFilter textureFilter, bool mipmappingEnabled) : this() // TODO: fix textures loading upside down
+        {
+            Bitmap bitmap = new Bitmap(filename);
+            BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+
+            int length = data.Stride * data.Height;
+            byte[] image = new byte[length];
+
+            Marshal.Copy(data.Scan0, image, 0, length);
+            bitmap.UnlockBits(data);
+
+            byte[] pixels = new byte[length];
+            for (int index = 0; index <= image.Length - 4; index += 4)
+            {
+                byte R = image[index + 2];
+                byte G = image[index + 1];
+                byte B = image[index];
+                byte A = image[index + 3];
+
+                pixels[index] = R;
+                pixels[index + 1] = G;
+                pixels[index + 2] = B;
+                pixels[index + 3] = A;
+            }
+
+            SetTexture(pixels, bitmap.Width, bitmap.Height, PixelFormat.Rgba);
+            SetParameters(textureFilter, mipmappingEnabled);
+        }
+        ~Texture()
+        {
+            GL.DeleteTextures(1, ref TextureId);
         }
         #endregion
     }

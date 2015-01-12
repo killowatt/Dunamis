@@ -186,5 +186,5 @@ FakesAssemblies/
 *.nvuser
 
 ## Exceptions
-!/Libraries/ILMerge.exe
-!/Libraries/OpenTK.dll
+#!/Libraries/ILMerge.exe
+#!/Libraries/OpenTK.dll

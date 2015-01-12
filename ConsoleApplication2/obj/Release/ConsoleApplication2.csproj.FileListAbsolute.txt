@@ -1,7 +1,0 @@
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Release\ConsoleApplication2.exe
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Release\ConsoleApplication2.pdb
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Release\Dunamis.dll
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\bin\Release\Dunamis.pdb
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Release\ConsoleApplication2.csprojResolveAssemblyReference.cache
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Release\ConsoleApplication2.exe
-C:\Users\Rob\Desktop\Projects\Dunamis\ConsoleApplication2\obj\Release\ConsoleApplication2.pdb

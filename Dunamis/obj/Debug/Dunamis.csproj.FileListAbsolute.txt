@@ -1,6 +1,0 @@
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Debug\Dunamis.dll
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Debug\Dunamis.pdb
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Debug\Dunamis.dll
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Debug\Dunamis.pdb
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\bin\Debug\OpenTK.dll
-C:\Users\Rob\Desktop\Projects\Dunamis\Dunamis\obj\Debug\Dunamis.csprojResolveAssemblyReference.cache

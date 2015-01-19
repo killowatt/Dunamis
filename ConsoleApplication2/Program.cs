@@ -35,51 +35,51 @@ namespace ConsoleApplication2
             TestApp x = new TestApp();
             x.Do();
 
-            Console.ReadKey();
-
-            Console.WriteLine("what");
             //Console.ReadKey();
 
-            w = new Window(1280, 720);
-            w.Closing += CLOSING;
-            r = new Renderer(w, false);
-            r.ClearColor = new Color3(12, 12, 12);
+            //Console.WriteLine("what");
+            ////Console.ReadKey();
+
+            //w = new Window(1280, 720);
+            //w.Closing += CLOSING;
+            //r = new Renderer(w, false);
+            //r.ClearColor = new Color3(12, 12, 12);
 
 
-            r.Camera.Position = new Vector3(0f, 0f, 1.5f);
-            r.Camera.Yaw = Angle.CreateDegrees(360).Radians;
+            //r.Camera.Position = new Vector3(0f, 0f, 1.5f);
+            //r.Camera.Yaw = Angle.CreateDegrees(360).Radians;
 
-            ShaderTest3 testshader = new ShaderTest3();
-            ShaderTest3 testshader2 = new ShaderTest3();
-            ShaderTest3 tt = new ShaderTest3(1);
-            Console.WriteLine(testshader2.GetCompileLog(ShaderType.Vertex));
-            Console.WriteLine(testshader2.GetCompileLog(ShaderType.Fragment));
+            //ShaderTest3 testshader = new ShaderTest3();
+            //ShaderTest3 testshader2 = new ShaderTest3();
+            //ShaderTest3 tt = new ShaderTest3(1);
+            //Console.WriteLine(testshader2.GetCompileLog(ShaderType.Vertex));
+            //Console.WriteLine(testshader2.GetCompileLog(ShaderType.Fragment));
 
-            mesh = new Mesh(new[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
-            mesh2 = new Mesh(new[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
-            mesh3 = new Mesh(new[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
-            mesh = new Mesh(new[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
+            //mesh = new Mesh(new[] { -0.75f, 0.25f, 0, -0.25f, 0.25f, 0, -0.5f, 0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            //mesh2 = new Mesh(new[] { 0.75f, -0.25f, 0, 0.25f, -0.25f, 0, 0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader2);
+            //mesh3 = new Mesh(new[] { -0.75f, -0.25f, 0, -0.25f, -0.25f, 0, -0.5f, -0.75f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, testshader);
+            //mesh = new Mesh(new[] { -0.5f, -0.5f, 0, 0, 0.5f, 0, 0.5f, -0.5f, 0 }, new float[] { }, new float[] { }, new uint[] { 0, 1, 2 }, MeshType.Static, tt);
 
 
-            xCube = new Dunamis.Common.Meshes.Cube(tt);
-            r.Camera.Position = new Vector3(2, 2, 2);
-            r.Camera.Pitch = Angle.CreateDegrees(35);
-            r.Camera.Yaw = Angle.CreateDegrees(315);
+            //xCube = new Dunamis.Common.Meshes.Cube(tt);
+            //r.Camera.Position = new Vector3(2, 2, 2);
+            //r.Camera.Pitch = Angle.CreateDegrees(35);
+            //r.Camera.Yaw = Angle.CreateDegrees(315);
 
-            mesh.Position = new Vector3(0, 0, 0f);
-            mesh.Yaw = Angle.CreateDegrees(45).Radians;
+            //mesh.Position = new Vector3(0, 0, 0f);
+            //mesh.Yaw = Angle.CreateDegrees(45).Radians;
 
-            Console.WriteLine(GL.GetError());
+            //Console.WriteLine(GL.GetError());
 
-            k = new Keyboard(w);
-            m = new Mouse(w);
+            //k = new Keyboard(w);
+            //m = new Mouse(w);
 
-            running = true;
-            while (running)
-            {
-                Update();
-                Render();
-            }
+            //running = true;
+            //while (running)
+            //{
+            //    Update();
+            //    Render();
+            //}
 
         }
         static void Update()

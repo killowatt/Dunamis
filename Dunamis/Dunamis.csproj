@@ -73,6 +73,7 @@
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TextureFilter.cs" />
+    <Compile Include="Graphics\VertexArray.cs" />
     <Compile Include="Graphics\Window.cs" />
     <Compile Include="Graphics\WindowType.cs" />
     <Compile Include="Input\Button.cs" />

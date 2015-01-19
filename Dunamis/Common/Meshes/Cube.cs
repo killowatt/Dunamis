@@ -1,11 +1,12 @@
-﻿using Dunamis.Common.Shaders;
+﻿using System.IO.IsolatedStorage;
+using Dunamis.Common.Shaders;
 using Dunamis.Graphics;
 
 namespace Dunamis.Common.Meshes
 {
     public class Cube : Mesh
     { // TODO: readonly these
-        public static readonly new float[] Vertices =
+        public static readonly new float[] AVertices = // TODO: FIX THIS SHIT
         {
             -1, 1, -1,
             -1, 1, 1,
@@ -16,7 +17,7 @@ namespace Dunamis.Common.Meshes
             -1, -1, 1,
             -1, -1, -1
         };
-        public new static readonly float[] TextureCoordinates =
+        public new static readonly float[] ATextureCoordinates =
         {
             0, 0,
             0, 1,
@@ -27,7 +28,7 @@ namespace Dunamis.Common.Meshes
             0, 1,
             1, 1
         };
-        public static readonly new uint[] Indices =
+        public static readonly new uint[] AIndices =
         {
             0, 1, 2,
             2, 3, 0,
@@ -42,7 +43,7 @@ namespace Dunamis.Common.Meshes
             7, 4, 3,
             0, 7, 3
         }; // TOOD: REMOVE THIS PARAM SINCE WE USE DEFAULT SAHDER ANYWAY
-        public Cube(Shader shader) : base(Vertices, TextureCoordinates, indices: Indices, type: MeshType.Static, shader: shader)
+        public Cube(Shader shader) : base(AVertices, ATextureCoordinates, new float[0], AIndices, shader)
         {
         }
     }

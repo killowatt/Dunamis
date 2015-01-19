@@ -198,10 +198,6 @@ namespace Dunamis.Graphics
             SetTexture(pixels, bitmap.Width, bitmap.Height, PixelFormat.Rgba);
             SetParameters(textureFilter, mipmappingEnabled);
         }
-        ~Texture()
-        {
-            GL.DeleteTextures(1, ref TextureId);
-        }
         #endregion
     }
 }

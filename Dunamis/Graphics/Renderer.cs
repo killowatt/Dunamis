@@ -75,14 +75,13 @@ namespace Dunamis.Graphics
             Draw(_renderTextureMesh);
             _graphicsContext.SwapBuffers();
         }
-
         public void Draw(Mesh mesh) // TODO: Include a way to override mesh shader through this method.
         {
-            GL.BindVertexArray(mesh.VertexArrayObject);
+            GL.BindVertexArray(mesh.VertexArray.VertexArrayObject);
             GL.UseProgram(mesh.Shader.ShaderProgram);
 
             if (!mesh.Shader.Initialized || mesh.Shader.State == ShaderState.Dynamic)
-            {
+            { 
                 mesh.Shader.Model = mesh.Transform;
                 mesh.Shader.View = Camera.View;
                 mesh.Shader.Projection = Camera.Projection;
@@ -96,7 +95,7 @@ namespace Dunamis.Graphics
             {
                 mesh.Shader.Update();
             }
-
+       
             GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
         }
 

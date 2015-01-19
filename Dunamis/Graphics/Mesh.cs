@@ -5,17 +5,8 @@ namespace Dunamis.Graphics
 {
     public class Mesh // TODO: recreate mesh class with ideas in mind.
     {
-        internal int VertexArrayObject;
-        internal int VertexBufferObject;
-        internal int IndexBufferObject;
-
-        float[] _vertices;
-        float[] _textureCoordinates;
-        float[] _normals;
-        uint[] _indices;
-
-        Shader _shader;
-        MeshType _type;
+        internal VertexArray VertexArray;
+        public Shader Shader;
 
         Matrix4 _transform;
         bool _transformCalculated;
@@ -26,51 +17,23 @@ namespace Dunamis.Graphics
         #region Properties
         public float[] Vertices
         {
-            get
-            {
-                return _vertices;
-            }
+            get { return VertexArray.Vertices; }
+            set { VertexArray.Vertices = value; }
         }
         public float[] TextureCoordinates
         {
-            get
-            {
-                return _textureCoordinates;
-            }
+            get { return VertexArray.TextureCoordinates; }
+            set { VertexArray.TextureCoordinates = value; }
         }
         public float[] Normals
         {
-            get
-            {
-                return _normals;
-            }
+            get { return VertexArray.Normals; }
+            set { VertexArray.Normals = value; }
         }
         public uint[] Indices
         {
-            get
-            {
-                return _indices;
-            }
-        }
-        public Shader Shader
-        {
-            get { return _shader; }
-            set
-            {
-                _shader = value;
-                GL.UseProgram(_shader.ShaderProgram);
-                GL.BindVertexArray(VertexArrayObject);
-                updateVertexAttributes();
-                GL.BindVertexArray(VertexArrayObject);
-                GL.UseProgram(0);
-            }
-        }
-        public MeshType Type
-        {
-            get
-            {
-                return _type;
-            }
+            get { return VertexArray.Indices; }
+            set { VertexArray.Indices = value; }
         }
         public Matrix4 Transform
         {
@@ -80,7 +43,7 @@ namespace Dunamis.Graphics
                 {
                     _transform = OpenTK.Matrix4.CreateRotationX(_rotation.X) *
                         OpenTK.Matrix4.CreateRotationY(_rotation.Y) *
-                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z) * 
+                        OpenTK.Matrix4.CreateRotationZ(_rotation.Z) *
                         OpenTK.Matrix4.CreateTranslation(_position) *
                         OpenTK.Matrix4.CreateScale(_scale);
                     _transformCalculated = true;
@@ -202,72 +165,7 @@ namespace Dunamis.Graphics
         }
         #endregion
 
-        #region Methods  
-        public void SetMesh(float[] vertices = null, float[] textureCoordinates = null, float[] normals = null, uint[] indices = null, MeshType type = MeshType.Static) // TODO: include documentation that states how meshtype works with relation to how often you via this method
-        {
-            _vertices = vertices ?? new float[0]; // TODO: also fuck optional params, just make multiple methods maybe
-            _textureCoordinates = textureCoordinates ?? new float[0];
-            _normals = normals ?? new float[0];
-            _indices = indices ?? new uint[0];
-            _type = type;
-
-            BufferUsageHint usageHint = new BufferUsageHint();
-            if (type == MeshType.Static)
-            {
-                usageHint = BufferUsageHint.StaticDraw;
-            }
-            else if (type == MeshType.Dynamic)
-            {
-                usageHint = BufferUsageHint.DynamicDraw;
-            }
-            else if (type == MeshType.Stream)
-            {
-                usageHint = BufferUsageHint.StreamDraw;
-            }
-
-            GL.BindVertexArray(VertexArrayObject);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBufferObject);
-
-            long size = sizeof(float) * (_vertices.Length + _textureCoordinates.Length + _normals.Length);
-            long offset = 0;
-
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(size), IntPtr.Zero, usageHint);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset), new IntPtr(sizeof(float) * _vertices.Length), _vertices);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _vertices.Length), new IntPtr(sizeof(float) * _textureCoordinates.Length), _textureCoordinates);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, new IntPtr(offset += sizeof(float) * _textureCoordinates.Length), new IntPtr(sizeof(float) * _normals.Length), _normals);
-
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(uint) * _indices.Length), _indices, usageHint);
-
-            updateVertexAttributes();
-
-            GL.BindVertexArray(0);
-        }
-        void updateVertexAttributes()
-        {
-            long offset = 0;
-
-            int vertex = GL.GetAttribLocation(_shader.ShaderProgram, "vertex");
-            if (vertex > -1)
-            {
-                GL.VertexAttribPointer(vertex, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
-                GL.EnableVertexAttribArray(vertex);
-            }
-            offset += sizeof(float) * _vertices.Length;
-            int textureCoordinate = GL.GetAttribLocation(_shader.ShaderProgram, "textureCoordinate");
-            if (textureCoordinate > -1)
-            {
-                GL.VertexAttribPointer(textureCoordinate, 2, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
-                GL.EnableVertexAttribArray(textureCoordinate);
-            }
-            offset += sizeof(float) * _textureCoordinates.Length;
-            int normal = GL.GetAttribLocation(_shader.ShaderProgram, "normal");
-            if (normal > -1)
-            {
-                GL.VertexAttribPointer(normal, 3, VertexAttribPointerType.Float, false, 0, new IntPtr(offset));
-                GL.EnableVertexAttribArray(normal);
-            }
-        }
+        #region Methods
         public void SetScale(float scale)
         {
             if (new Vector3(scale) != _scale)
@@ -287,32 +185,12 @@ namespace Dunamis.Graphics
         #endregion
 
         #region Constructors
-        public Mesh()
+        public Mesh(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices, Shader shader) // TODO: CREATE A DEFAULT SHADER
         {
-            GL.GenVertexArrays(1, out VertexArrayObject);
-            GL.BindVertexArray(VertexArrayObject);
-
-            GL.GenBuffers(1, out VertexBufferObject);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-
-            GL.GenBuffers(1, out IndexBufferObject);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, IndexBufferObject);
-
-            GL.BindVertexArray(0);
+            Shader = shader;
+            VertexArray = new VertexArray(vertices, textureCoordinates, normals, indices);
             _transform = Matrix4.Identity;
             _scale = new Vector3(1);
-        }
-        public Mesh(float[] vertices = null, float[] textureCoordinates = null, float[] normals = null, uint[] indices = null, MeshType type = MeshType.Static, Shader shader = null) // TODO: CREATE A DEFAULT SHADER
-            : this()
-        {
-            _shader = shader;
-            SetMesh(vertices, textureCoordinates, normals, indices, type);
-        }
-        ~Mesh()
-        {
-            GL.DeleteVertexArrays(1, ref VertexArrayObject);
-            GL.DeleteBuffers(1, ref VertexBufferObject);
-            GL.DeleteBuffers(1, ref IndexBufferObject);
         }
         #endregion
     }

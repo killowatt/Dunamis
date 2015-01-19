@@ -107,7 +107,12 @@ namespace Dunamis.Graphics
             ShaderProgram = GL.CreateProgram();
             GL.AttachShader(ShaderProgram, VertexShader);
             GL.AttachShader(ShaderProgram, FragmentShader);
-            GL.BindFragDataLocation(ShaderProgram, 0, "color");
+
+            GL.BindFragDataLocation(ShaderProgram, 0, "color"); // TODO: remove
+            GL.BindAttribLocation(ShaderProgram, 0, "vertex");
+            GL.BindAttribLocation(ShaderProgram, 1, "textureCoordinate");
+            GL.BindAttribLocation(ShaderProgram, 2, "normal");
+
             GL.LinkProgram(ShaderProgram);
 
             _parameters = new Dictionary<string, int>();
@@ -115,12 +120,6 @@ namespace Dunamis.Graphics
 
             State = state;
             Initialized = false;
-        }
-        ~Shader()
-        {
-            GL.DeleteProgram(ShaderProgram);
-            GL.DeleteShader(FragmentShader);
-            GL.DeleteShader(VertexShader);
         }
     }
 }

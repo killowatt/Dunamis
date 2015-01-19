@@ -98,6 +98,40 @@ namespace Dunamis.Graphics
        
             GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
         }
+        public void Draw(Sprite sprite)
+        {
+
+            if (!sprite.Buffered)
+            {
+                sprite.Mesh.Vertices = sprite.Vertices;
+                sprite.Buffered = true;
+            }
+
+            GL.BindVertexArray(sprite.Mesh.VertexArray.VertexArrayObject);
+            GL.UseProgram(sprite.Mesh.Shader.ShaderProgram);
+
+            if (!sprite.Mesh.Shader.Initialized || sprite.Mesh.Shader.State == ShaderState.Dynamic)
+            {
+                //mesh.Shader.Model = mesh.Transform;
+                sprite.Mesh.Shader.Projection = Camera.Projection2D;
+                //mesh.Shader.Projection = Camera.Projection;
+            }
+            if (!sprite.Mesh.Shader.Initialized)
+            {
+                sprite.Mesh.Shader.Initialize();
+                sprite.Mesh.Shader.Initialized = true;
+            }
+            if (sprite.Mesh.Shader.State == ShaderState.Dynamic)
+            {
+                sprite.Mesh.Shader.Update();
+            }
+
+            GL.DrawElements(PrimitiveType.Triangles, sprite.Mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
+        }
+        public void Draw(Text text)
+        {
+            Draw(text.Sprite);
+        }
 
         public Renderer(Window window, bool verticalSync) // TODO: add additional constructors
         {

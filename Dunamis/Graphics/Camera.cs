@@ -1,6 +1,6 @@
 ﻿namespace Dunamis.Graphics
 {
-    public class Camera
+    public class Camera // TODO: convert to quat (gltut)
     {
         Matrix4 _view;      
         Matrix4 _projection;
@@ -12,6 +12,9 @@
         Angle _fieldOfView;
         Vector2 _aspect;
 
+        internal Matrix4 Projection2D;
+
+        // TODO: add errors if didn't clear/display?
         #region Properties
         public Matrix4 View
         {
@@ -32,7 +35,7 @@
         {
             get
             {
-                if (!_projectionCalculated)
+                if (!_projectionCalculated) // TODO: prevent arugment out of range exception
                 {
                     _projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(_fieldOfView.Radians, _aspect.X / _aspect.Y, 0.5f, 1024); // TODO: investigate znear and zfar more
                     _projectionCalculated = true;
@@ -147,6 +150,8 @@
             Roll = roll;
             FieldOfView = fieldOfView;
             Aspect = aspect;
+
+            Projection2D = OpenTK.Matrix4.CreateOrthographicOffCenter(-0.5f, 1280 - 0.5f, 720 - 0.5f, -0.5f, 0, 1); // TODO: 0.375
         }
     }
 }

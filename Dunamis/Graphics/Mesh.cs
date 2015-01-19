@@ -192,6 +192,10 @@ namespace Dunamis.Graphics
             _transform = Matrix4.Identity;
             _scale = new Vector3(1);
         }
+        public Mesh(Shader shader)
+            : this(new float[0], new float[0], new float[0], new uint[0], shader)
+        {
+        }
         #endregion
     }
 }

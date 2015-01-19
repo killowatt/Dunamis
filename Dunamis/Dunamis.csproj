@@ -55,6 +55,7 @@
     <Compile Include="Common\Meshes\Cube.cs" />
     <Compile Include="Common\Meshes\RenderTextureMesh.cs" />
     <Compile Include="Common\Shaders\DefaultRenderTextureShader.cs" />
+    <Compile Include="Common\Shaders\SpriteShader.cs" />
     <Compile Include="Common\Shaders\Utility.cs" />
     <Compile Include="Content\ILoader.cs" />
     <Compile Include="Content\ResourceManager.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Graphics\ShaderState.cs" />
     <Compile Include="Graphics\ShaderType.cs" />
     <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\Text.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TextureFilter.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
@@ -90,6 +92,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureFragment.txt" />
     <EmbeddedResource Include="Common\Shaders\Sources\RenderTextureVertex.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Shaders\Sources\SpriteVertex.txt" />
+    <EmbeddedResource Include="Common\Shaders\Sources\SpriteFragment.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

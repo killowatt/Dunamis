@@ -17,16 +17,18 @@ namespace Dunamis.Graphics
         float[] _normals;
         uint[] _indices;
 
-        public float[] Vertices
+        public float[] Vertices // TODO: ONLY SETUP VERTEX ATTRIB IF DATA EXISTS?
         {
             get { return _vertices; }
             set
             {
                 _vertices = value;
+                GL.BindVertexArray(VertexArrayObject);
                 GL.BindBuffer(BufferTarget.ArrayBuffer, verticesID);
                 GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(sizeof(float) * _vertices.Length), _vertices, BufferUsageHint.StaticDraw);
                 GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
                 GL.EnableVertexAttribArray(0);
+                GL.BindVertexArray(0);
             }
         }
         public float[] TextureCoordinates
@@ -35,10 +37,12 @@ namespace Dunamis.Graphics
             set
             {
                 _textureCoordinates = value;
+                GL.BindVertexArray(VertexArrayObject);
                 GL.BindBuffer(BufferTarget.ArrayBuffer, textureCoordinatesID);
                 GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(sizeof(float) * _textureCoordinates.Length), _textureCoordinates, BufferUsageHint.StaticDraw);
                 GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 0, 0);
                 GL.EnableVertexAttribArray(1);
+                GL.BindVertexArray(0);
             }
         }
         public float[] Normals
@@ -47,10 +51,12 @@ namespace Dunamis.Graphics
             set
             {
                 _normals = value;
+                GL.BindVertexArray(VertexArrayObject);
                 GL.BindBuffer(BufferTarget.ArrayBuffer, normalsID);
                 GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(sizeof(float) * _normals.Length), _normals, BufferUsageHint.StaticDraw);
                 GL.VertexAttribPointer(2, 3, VertexAttribPointerType.Float, false, 0, 0);
                 GL.EnableVertexAttribArray(2);
+                GL.BindVertexArray(0);
             }
         }
         public uint[] Indices
@@ -59,9 +65,11 @@ namespace Dunamis.Graphics
             set
             {
                 _indices = value;
+                GL.BindVertexArray(VertexArrayObject);
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, indicesID);
                 GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(sizeof(uint) * _indices.Length), _indices,
                     BufferUsageHint.StaticDraw);
+                GL.BindVertexArray(0);
             }
         }
 

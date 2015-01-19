@@ -11,7 +11,7 @@ namespace Dunamis.Common.Meshes
                 1, 1, 0,
                 -1, 1, 0
             };
-        public static readonly float[] ATextureCoordinates = { // TODO: FIX THIS GARBAGE
+        public static readonly float[] ATextureCoordinates = { // TODO: COPY. PRIVATE READONLY THIS, THEN MAKE A PROPERTY THAT COPIES THE ARRAY AND RETURNS IT
                 0, 0,
                 1, 0,
                 1, 1,

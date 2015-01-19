@@ -12,13 +12,17 @@ namespace ConsoleApplication2
 
         Mesh cube;
         ShaderTest4 ourShader;
+        ShaderTest4 xxxx;
 
         Keyboard k;
+        Sprite sprite;
+
+        Mesh xxxxddddd;
 
         public void Do()
         {
             window = new Window(1280, 720); // Create a window with the resolution 1280x720.
-            renderer = new Renderer(window, true); // Create our renderer using our window, enabling vsync.
+            renderer = new Renderer(window, false); // Create our renderer using our window, enabling vsync.
             renderer.ClearColor = new Color3(12, 12, 12); // Set our clear color to an almost black color.
 
             k = new Keyboard(window);
@@ -27,24 +31,46 @@ namespace ConsoleApplication2
 
             ourShader = new ShaderTest4(); // Create our shader.
             ourShader.Texture = t;
+            xxxx = new ShaderTest4();
+            ourShader.Texture = t;
             //cube = new Cube(ourShader); // Create our cube using our shader.
             cube = new Mesh(RenderTextureMesh.AVertices, RenderTextureMesh.ATextureCoordinates, new float[0],
-                RenderTextureMesh.AIndices, ourShader); 
+                RenderTextureMesh.AIndices, ourShader);
+            xxxxddddd = new Mesh(RenderTextureMesh.AVertices, RenderTextureMesh.ATextureCoordinates, new float[0],
+                RenderTextureMesh.AIndices, ourShader);
+            sprite = new Sprite(200, 200, t);
+            sprite.X = 0;
+            sprite.Y = 200;
+            sprite.Width = 400;
 
             renderer.Camera.Position = new Vector3(2, 2, 2); // Set our camera position to 2, 2, 2 (XYZ)
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.
             renderer.Camera.Yaw = Angle.CreateDegrees(315); // Set our camera's yaw.
 
+            Text x = new Text();
+            x.String = "HELLO";
+
             while (true)
             {
-                cube.Yaw += 0.01f;
+                cube.Yaw += 0.0005f;
                 renderer.Clear(); // Clear the screen.
 
                 renderer.Draw(cube); // Draw our cube.
+                renderer.Draw(xxxxddddd); // TODO: fix texture not switching to empty
+                renderer.Draw(sprite);
+                renderer.Draw(x);
 
                 renderer.Display(); // Display the result.
                 window.Update(); // Update window events.
 
+                if (k.IsKeyDown(Key.Z))
+                {
+                    renderer.Camera.FieldOfView -= 0.05f;
+                }
+                if (k.IsKeyDown(Key.X))
+                {
+                    renderer.Camera.FieldOfView += 0.05f;
+                }
                 if (k.IsKeyDown(Key.A))
                 {
                     renderer.Camera.Yaw -= 0.0005f;

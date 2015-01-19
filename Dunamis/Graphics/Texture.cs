@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
-    public partial class Texture
+    public class Texture // TODO: refactor like mesh
     {
         internal int TextureId;
 

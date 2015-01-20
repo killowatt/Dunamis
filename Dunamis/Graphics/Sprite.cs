@@ -67,7 +67,7 @@ namespace Dunamis.Graphics
             }
         }
 
-        public Sprite(int width, int height, Texture texture)
+        public Sprite(int width, int height, int x, int y, Texture texture)
         {
             Shader = new SpriteShader();
             Shader.Texture = texture;
@@ -77,7 +77,13 @@ namespace Dunamis.Graphics
             vertices = new float[12];
             Width = width;
             Height = height;
+            X = x;
+            Y = y;
             Texture = texture;
+        }
+        public Sprite(int width, int height, Texture texture)
+            : this(width, height, 0, 0, texture)
+        {
         }
     }
 }

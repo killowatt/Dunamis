@@ -1,4 +1,6 @@
-﻿using Dunamis;
+﻿using System;
+using System.IO;
+using Dunamis;
 using Dunamis.Common.Meshes;
 using Dunamis.Graphics;
 using Dunamis.Input;
@@ -27,7 +29,7 @@ namespace ConsoleApplication2
 
             k = new Keyboard(window);
 
-            Texture t = new Texture("Untitled.png", TextureFilter.Anisotropic16X, true);
+            Texture t = new Texture("Untitled.png", TextureFilter.Nearest, true);
 
             ourShader = new ShaderTest4(); // Create our shader.
             ourShader.Texture = t;
@@ -47,8 +49,8 @@ namespace ConsoleApplication2
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.
             renderer.Camera.Yaw = Angle.CreateDegrees(315); // Set our camera's yaw.
 
-            Text x = new Text();
-            x.String = "HELLO";
+            Text x = new Text("DUNAMIS SUPER FUCKING COOL FONT RENDERING", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 200, 200);
+          //  x.String = "HELLO";
 
             while (true)
             {

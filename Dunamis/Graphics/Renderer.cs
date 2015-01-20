@@ -100,6 +100,7 @@ namespace Dunamis.Graphics
         }
         public void Draw(Sprite sprite)
         {
+            GL.Disable(EnableCap.DepthTest); // TODO: maybe do this better?
 
             if (!sprite.Buffered)
             {
@@ -127,6 +128,8 @@ namespace Dunamis.Graphics
             }
 
             GL.DrawElements(PrimitiveType.Triangles, sprite.Mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
+
+            GL.Enable(EnableCap.DepthTest);
         }
         public void Draw(Text text)
         {
@@ -140,6 +143,8 @@ namespace Dunamis.Graphics
             _graphicsContext.LoadAll();
 
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
             Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 0, 90, new Vector2(window.Width, window.Height));
 

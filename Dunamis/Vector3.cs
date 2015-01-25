@@ -1,4 +1,6 @@
-﻿namespace Dunamis
+﻿using System;
+
+namespace Dunamis
 {
     public struct Vector3
     {
@@ -6,12 +8,46 @@
         public float Y;
         public float Z;
 
+        public static readonly Vector3 UnitX = new Vector3(1, 0, 0);
+        public static readonly Vector3 UnitY = new Vector3(0, 1, 0);
+        public static readonly Vector3 UnitZ = new Vector3(0, 0, 1);
+        public static readonly Vector3 Zero = new Vector3(0, 0, 0);
+        public static readonly Vector3 One = new Vector3(1, 1, 1);
+
+        #region Properties
+        public float Length
+        {
+            get
+            {
+                return (float)System.Math.Sqrt(X * X + Y * Y + Z * Z);
+            }
+        }
+        public float this[int index]
+        {
+            get
+            {
+                if (index == 0) return X;
+                if (index == 1) return Y;
+                if (index == 2) return Z;
+                throw new IndexOutOfRangeException("Index out of range: " + index);
+            }
+            set
+            {
+                if (index == 0) X = value;
+                else if (index == 1) Y = value;
+                else if (index == 2) Z = value;
+                else throw new IndexOutOfRangeException("Index out of range: " + index);
+            }
+        }
+        #endregion
+
         #region Methods
+
+        #region Override
         public bool Equals(Vector3 other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
         }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -29,37 +65,97 @@
         }
         #endregion
 
+        #region Math
+        public void Normalize()
+        {
+            float scale = 1.0f / Length;
+            X *= scale;
+            Y *= scale;
+            Z *= scale;
+        }
+        public static float Dot(Vector3 left, Vector3 right)
+        {
+            return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
+        }
+        public static Vector3 Lerp(Vector3 left, Vector3 right, float blend)
+        {
+            left.X = blend * (right.X - left.X) + left.X;
+            left.Y = blend * (right.Y - left.Y) + left.Y;
+            left.Z = blend * (right.Z - left.Z) + left.Z;
+            return left;
+        }
+        #endregion
+
+        #endregion
+
         #region Operators
-        // Math
+
+        #region Math
         public static Vector3 operator +(Vector3 left, Vector3 right)
         {
-            return new Vector3(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+            left.X += right.X;
+            left.Y += right.Y;
+            left.Z += right.Z;
+            return left;
         }
         public static Vector3 operator -(Vector3 left, Vector3 right)
         {
-            return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+            left.X -= right.X;
+            left.Y -= right.Y;
+            left.Z -= right.Z;
+            return left;
         }
         public static Vector3 operator *(Vector3 left, Vector3 right)
         {
-            return new Vector3(left.X * right.X, left.Y * right.Y, left.Z * right.Z);
+            left.X *= right.X;
+            left.Y *= right.Y;
+            left.Z *= right.Z;
+            return left;
+        }
+        public static Vector3 operator *(Vector3 vector, float scale)
+        {
+            vector.X *= scale;
+            vector.Y *= scale;
+            vector.Z *= scale;
+            return vector;
         }
         public static Vector3 operator /(Vector3 left, Vector3 right)
         {
-            return new Vector3(left.X / right.X, left.Y / right.Y, left.Z / right.Z);
+            left.X *= right.X;
+            left.Y *= right.Y;
+            left.Z *= right.Z;
+            return left;
         }
+        public static Vector3 operator /(Vector3 vector, float scale)
+        {
+            float multiply = 1.0f / scale;
+            vector.X *= multiply;
+            vector.Y *= multiply;
+            vector.Z *= multiply;
+            return vector;
+        }
+        public static Vector3 operator -(Vector3 vector)
+        {
+            vector.X = -vector.X;
+            vector.Y = -vector.Y;
+            vector.Z = -vector.Z;
+            return vector;
+        }
+        #endregion
 
-        // Equality
+        #region Equality
         public static bool operator ==(Vector3 left, Vector3 right)
         {
-            return left.X == right.X && left.Y == right.Y && left.Z == right.Z;
+            return left.Equals(right);
         }
 
         public static bool operator !=(Vector3 left, Vector3 right)
         {
-            return !(left == right);
+            return !left.Equals(right);
         }
+        #endregion
 
-        // Conversion
+        #region Conversion
         public static implicit operator Vector3(Vector2 vector)
         {
             return new Vector3(vector.X, vector.Y, 0);
@@ -68,10 +164,6 @@
         {
             return new Vector3(vector.X, vector.Y, vector.Z);
         }
-        //public static implicit operator Vector3(Color3 color)
-        //{
-        //    return new Vector3(color.R, color.G, color.B);
-        //}
         public static implicit operator OpenTK.Vector3(Vector3 vector)
         {
             return new OpenTK.Vector3(vector.X, vector.Y, vector.Z);
@@ -80,6 +172,8 @@
         {
             return new Vector3(vector.X, vector.Y, vector.Z);
         }
+        #endregion
+
         #endregion
 
         #region Constructors
@@ -95,12 +189,24 @@
             Y = value;
             Z = value;
         }
-        //public Vector3(byte r, byte g, byte b)
-        //{
-        //    X = r / 255;
-        //    Y = g / 255;
-        //    Z = b / 255;
-        //}
+        public Vector3(Vector2 vector)
+        {
+            X = vector.X;
+            Y = vector.Y;
+            Z = 0.0f;
+        }
+        public Vector3(Vector3 vector)
+        {
+            X = vector.X;
+            Y = vector.Y;
+            Z = vector.Z;
+        }
+        public Vector3(Vector4 vector)
+        {
+            X = vector.X;
+            Y = vector.Y;
+            Z = vector.Z;
+        }
         #endregion
     }
 }

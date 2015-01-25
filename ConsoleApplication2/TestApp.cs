@@ -21,7 +21,7 @@ namespace ConsoleApplication2
 
         Mesh xxxxddddd;
 
-        public void Do()
+        public TestApp()
         {
             window = new Window(1280, 720); // Create a window with the resolution 1280x720.
             renderer = new Renderer(window, false); // Create our renderer using our window, enabling vsync.
@@ -49,8 +49,8 @@ namespace ConsoleApplication2
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.
             renderer.Camera.Yaw = Angle.CreateDegrees(315); // Set our camera's yaw.
 
-            Text x = new Text("DUNAMIS SUPER FUCKING COOL FONT RENDERING", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 200, 200);
-          //  x.String = "HELLO";
+            Text x = new Text("DUNAMIS", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 0, 0);
+            //  x.String = "HELLO";
 
             while (true)
             {

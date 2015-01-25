@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms.VisualStyles;
 using OpenTK.Graphics.OpenGL;
 
-namespace Dunamis.Graphics
+namespace Dunamis.Graphics // TODO: maybe convert text rendering to wpf?
 {
     public class Text // TODO: make rlly efficient??
     {
@@ -170,7 +170,7 @@ namespace Dunamis.Graphics
                         graphics.SmoothingMode = SmoothingMode.None;
                     }
                     graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    graphics.PixelOffsetMode = PixelOffsetMode.None;
                     graphics.DrawString(text, drawnFont, new SolidBrush(color), 0, 0);
                     graphics.Flush();
 

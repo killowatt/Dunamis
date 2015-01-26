@@ -187,3 +187,4 @@ FakesAssemblies/
 
 ## Exceptions
 !/Libraries/OpenTK.dll
+!/Libraries/SharpFont.dll

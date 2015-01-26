@@ -52,6 +52,9 @@ namespace ConsoleApplication2
             Text x = new Text("DUNAMIS", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 0, 0);
             //  x.String = "HELLO";
 
+
+            NewText.Test();
+
             while (true)
             {
                 cube.Yaw += 0.0005f;

@@ -66,6 +66,11 @@ namespace Dunamis.Graphics
                 Buffered = false;
             }
         }
+        public float Rotation
+        {
+            get { return Mesh.Roll; }
+            set { Mesh.Roll = value; }
+        }
 
         public Sprite(int width, int height, int x, int y, Texture texture)
         {

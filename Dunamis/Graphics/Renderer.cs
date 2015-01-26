@@ -3,12 +3,13 @@ using Dunamis.Common.Meshes;
 using Dunamis.Common.Shaders;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Platform;
 
 namespace Dunamis.Graphics
 {
     public class Renderer // TODO: implement safe mode for performance
-    {
-        GraphicsContext _graphicsContext;
+    { // TODO: window switching? additional settings i.e. transparencY?
+        internal GraphicsContext GraphicsContext;
         Window _window;
 
         public Camera Camera;
@@ -46,7 +47,7 @@ namespace Dunamis.Graphics
         {
             get
             {
-                switch (_graphicsContext.SwapInterval)
+                switch (GraphicsContext.SwapInterval)
                 {
                     case 1:
                         return true;
@@ -56,7 +57,7 @@ namespace Dunamis.Graphics
             }
             set 
             {
-                _graphicsContext.SwapInterval = value ? 1 : 0;
+                GraphicsContext.SwapInterval = value ? 1 : 0;
             }
         }
         #endregion
@@ -73,7 +74,7 @@ namespace Dunamis.Graphics
             GL.Viewport(0, 0, _window.Width, _window.Height);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
             Draw(_renderTextureMesh);
-            _graphicsContext.SwapBuffers();
+            GraphicsContext.SwapBuffers();
         }
         public void Draw(Mesh mesh) // TODO: Include a way to override mesh shader through this method.
         {
@@ -135,12 +136,11 @@ namespace Dunamis.Graphics
         {
             Draw(text.Sprite);
         }
-
         public Renderer(Window window, bool verticalSync) // TODO: add additional constructors
         {
             _window = window;
-            _graphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
-            _graphicsContext.LoadAll();
+            GraphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
+            GraphicsContext.LoadAll();
 
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);

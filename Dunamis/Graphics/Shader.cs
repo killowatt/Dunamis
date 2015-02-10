@@ -8,6 +8,7 @@ namespace Dunamis.Graphics
         internal int ShaderProgram; // TODO: IDisposable shader/mesh/texture?
         internal int VertexShader;
         internal int FragmentShader;
+        internal int GeometryShader = -1;
 
         Dictionary<string, int> _parameters;
         Dictionary<string, int> _textures;
@@ -94,7 +95,7 @@ namespace Dunamis.Graphics
 
         #endregion
 
-        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
+        private void Setup(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
         {
             VertexShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.VertexShader);
             GL.ShaderSource(VertexShader, vertexSource);
@@ -104,9 +105,17 @@ namespace Dunamis.Graphics
             GL.ShaderSource(FragmentShader, fragmentSource);
             GL.CompileShader(FragmentShader);
 
+            if(geometrySource != null)
+            {
+                GeometryShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.GeometryShader);
+                GL.ShaderSource(GeometryShader, geometrySource);
+                GL.CompileShader(GeometryShader);
+            }
+
             ShaderProgram = GL.CreateProgram();
             GL.AttachShader(ShaderProgram, VertexShader);
             GL.AttachShader(ShaderProgram, FragmentShader);
+            if (geometrySource != null) GL.AttachShader(ShaderProgram, GeometryShader);
 
             GL.BindFragDataLocation(ShaderProgram, 0, "color"); // TODO: remove
             GL.BindAttribLocation(ShaderProgram, 0, "vertex");
@@ -120,6 +129,16 @@ namespace Dunamis.Graphics
 
             State = state;
             Initialized = false;
+        }
+
+        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
+        {
+            Setup(vertexSource, fragmentSource, null, state);
+        }
+
+        protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
+        {
+            Setup(vertexSource, fragmentSource, geometrySource, state);
         }
     }
 }

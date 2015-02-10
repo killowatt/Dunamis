@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
-    public class Mesh // TODO: recreate mesh class with ideas in mind.
+    public class Mesh 
     {
         internal VertexArray VertexArray;
         public Shader Shader;

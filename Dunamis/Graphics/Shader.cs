@@ -95,7 +95,7 @@ namespace Dunamis.Graphics
 
         #endregion
 
-        private void Setup(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
+        protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
         {
             VertexShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.VertexShader);
             GL.ShaderSource(VertexShader, vertexSource);
@@ -105,7 +105,7 @@ namespace Dunamis.Graphics
             GL.ShaderSource(FragmentShader, fragmentSource);
             GL.CompileShader(FragmentShader);
 
-            if(geometrySource != null)
+            if (geometrySource != null)
             {
                 GeometryShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.GeometryShader);
                 GL.ShaderSource(GeometryShader, geometrySource);
@@ -130,15 +130,9 @@ namespace Dunamis.Graphics
             State = state;
             Initialized = false;
         }
-
         protected Shader(string vertexSource, string fragmentSource, ShaderState state)
+            : this(vertexSource, fragmentSource, null, state)
         {
-            Setup(vertexSource, fragmentSource, null, state);
-        }
-
-        protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
-        {
-            Setup(vertexSource, fragmentSource, geometrySource, state);
         }
     }
 }

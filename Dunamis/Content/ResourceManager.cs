@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dunamis.Content
@@ -11,7 +12,7 @@ namespace Dunamis.Content
         {
             if (!HasLoader<ILoader<T>>())
             {
-                return default(T); // TODO: throw error
+                throw new ArgumentException("The loader of type " + typeof(T) + " was not found.");
             }
             return loaders.OfType<ILoader<T>>().FirstOrDefault().Load(filename);
         }
@@ -31,7 +32,7 @@ namespace Dunamis.Content
         {
             if (!HasLoader<ILoader<T>>())
             {
-                return default(T); // TODO: error
+                throw new ArgumentException("The loader of type " + typeof(T) + " was not found.");
             }
             return loaders.OfType<T>().FirstOrDefault(); // TODO: if default, wat?
         }

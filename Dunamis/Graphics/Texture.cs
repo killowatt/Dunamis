@@ -170,9 +170,9 @@ namespace Dunamis.Graphics
             : this(width, height, PixelFormat.Rgb)
         {
         }
-        public Texture(string filename, TextureFilter textureFilter, bool mipmappingEnabled) : this() // TODO: fix textures loading upside down
+        public Texture(Bitmap bitmap, TextureFilter textureFilter, bool mipmappingEnabled)
+            : this()
         {
-            Bitmap bitmap = new Bitmap(filename);
             BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
 
             int length = data.Stride * data.Height;
@@ -197,6 +197,10 @@ namespace Dunamis.Graphics
 
             SetTexture(pixels, bitmap.Width, bitmap.Height, PixelFormat.Rgba);
             SetParameters(textureFilter, mipmappingEnabled);
+        }
+        public Texture(string filename, TextureFilter textureFilter, bool mipmappingEnabled) 
+            : this(new Bitmap(filename), textureFilter, mipmappingEnabled) // TODO: fix textures loading upside down
+        {
         }
         #endregion
     }

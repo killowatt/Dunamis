@@ -10,7 +10,8 @@ namespace Dunamis.Graphics
     public class Renderer // TODO: implement safe mode for performance
     { // TODO: window switching? additional settings i.e. transparencY?
         internal GraphicsContext GraphicsContext;
-        Window _window;
+        int renderHeight;
+        int renderWidth;
 
         public Camera Camera;
 
@@ -71,7 +72,7 @@ namespace Dunamis.Graphics
         public void Display()
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
-            GL.Viewport(0, 0, _window.Width, _window.Height);
+            GL.Viewport(0, 0, renderWidth, renderHeight);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
             Draw(_renderTextureMesh);
             GraphicsContext.SwapBuffers();
@@ -134,24 +135,34 @@ namespace Dunamis.Graphics
         }
         public void Draw(Text text)
         {
-            Draw(text.Sprite);
+           // Draw(text.Sprite);
         }
-        public Renderer(Window window, bool verticalSync) // TODO: add additional constructors
+        public Renderer(IntPtr handle, int width, int height) // TODO: make a not terrible constructor
         {
-            _window = window;
-            GraphicsContext = new GraphicsContext(GraphicsMode.Default, window.NativeWindow.WindowInfo);
+            renderWidth = width;
+            renderHeight = height;
+
+            GraphicsContext = new GraphicsContext(GraphicsMode.Default, Utilities.CreateWindowsWindowInfo(handle));
             GraphicsContext.LoadAll();
 
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-            Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 0, 90, new Vector2(window.Width, window.Height));
+            Camera = new Camera(new Vector3(0.0f, 0.0f, 0.0f), 0, 0, 0, 90, new Vector2(width, height));
 
             DefaultRenderTextureShader defaultRenderTextureShader = new DefaultRenderTextureShader();
             _renderTextureMesh = new RenderTextureMesh(defaultRenderTextureShader);
-            RenderTexture = new RenderTexture(window.Width, window.Height, defaultRenderTextureShader);
-
+            RenderTexture = new RenderTexture(width, height, defaultRenderTextureShader);
+        }
+        public Renderer(Window window, bool verticalSync)
+            : this(window.NativeWindow.WindowInfo.Handle, window.Width, window.Height)
+        {
+            VerticalSync = verticalSync;
+        }
+        public Renderer(DunamisControl control, bool verticalSync)
+            : this(control.Handle, control.Width, control.Height)
+        {
             VerticalSync = verticalSync;
         }
     }

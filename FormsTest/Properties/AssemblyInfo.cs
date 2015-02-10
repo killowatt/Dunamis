@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Dunamis")]
-[assembly: AssemblyDescription("a framework comprised of audio, graphics, content, input, and other tools.")]
+[assembly: AssemblyTitle("FormsTest")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Dunamis")]
-[assembly: AssemblyCopyright("Copyright © William Yates 2014")]
+[assembly: AssemblyProduct("FormsTest")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("16016918-6FD2-4228-B7B8-C690555C92DD")]
+[assembly: Guid("ee719607-f8e4-4338-9a7b-cc77d7ce0742")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +29,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-// Bypass Silly OpenTK
-[assembly: InternalsVisibleTo("Dunamis")]

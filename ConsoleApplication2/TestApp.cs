@@ -49,9 +49,8 @@ namespace ConsoleApplication2
             renderer.Camera.Pitch = Angle.CreateDegrees(35); // Set our camera's pitch.
             renderer.Camera.Yaw = Angle.CreateDegrees(315); // Set our camera's yaw.
 
-            Text x = new Text("DUNAMIS", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 0, 0);
+            //Text x = new Text("DUNAMIS", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 0, 0);
             //  x.String = "HELLO";
-
 
             NewText.Test();
 
@@ -63,7 +62,8 @@ namespace ConsoleApplication2
                 renderer.Draw(cube); // Draw our cube.
                 renderer.Draw(xxxxddddd); // TODO: fix texture not switching to empty
                 renderer.Draw(sprite);
-                renderer.Draw(x);
+               // renderer.Draw(x);
+                renderer.Draw(NewText.xxx);
 
                 renderer.Display(); // Display the result.
                 window.Update(); // Update window events.

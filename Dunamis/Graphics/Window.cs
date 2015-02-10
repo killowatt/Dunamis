@@ -2,6 +2,7 @@
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
@@ -147,6 +148,10 @@ namespace Dunamis.Graphics
         public void Close()
         {
             NativeWindow.Close();
+        }
+        public bool IsSupported(string extension)
+        {
+            return GL.GetString(StringName.Extensions).Contains(extension);
         }
         #endregion
 

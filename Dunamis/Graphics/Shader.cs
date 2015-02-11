@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
@@ -95,21 +96,38 @@ namespace Dunamis.Graphics
 
         #endregion
 
-        private void Setup(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
+        private void CheckShaderLog(ShaderType type, int shader)
+        {
+            int status;
+            GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
+            if (status != 0) return;
+            string message = GL.GetShaderInfoLog(shader);
+            throw new Exception("Error compiling " + type + " shader: " + message);
+        }
+
+        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
+            : this(vertexSource,fragmentSource, null, state)
+        {
+        }
+
+        protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
         {
             VertexShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.VertexShader);
             GL.ShaderSource(VertexShader, vertexSource);
             GL.CompileShader(VertexShader);
+            CheckShaderLog(ShaderType.Vertex, VertexShader);
 
             FragmentShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.FragmentShader);
             GL.ShaderSource(FragmentShader, fragmentSource);
             GL.CompileShader(FragmentShader);
+            CheckShaderLog(ShaderType.Fragment, FragmentShader);
 
-            if(geometrySource != null)
+            if (geometrySource != null)
             {
                 GeometryShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.GeometryShader);
                 GL.ShaderSource(GeometryShader, geometrySource);
                 GL.CompileShader(GeometryShader);
+                CheckShaderLog(ShaderType.Geometry, GeometryShader);
             }
 
             ShaderProgram = GL.CreateProgram();
@@ -123,22 +141,16 @@ namespace Dunamis.Graphics
             GL.BindAttribLocation(ShaderProgram, 2, "normal");
 
             GL.LinkProgram(ShaderProgram);
+            int status;
+            GL.GetProgram(ShaderProgram, GetProgramParameterName.LinkStatus, out status);
+            if (status == 0)
+                throw new Exception("Error linking shader program: " + GL.GetProgramInfoLog(ShaderProgram));
 
             _parameters = new Dictionary<string, int>();
             _textures = new Dictionary<string, int>();
 
             State = state;
             Initialized = false;
-        }
-
-        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
-        {
-            Setup(vertexSource, fragmentSource, null, state);
-        }
-
-        protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
-        {
-            Setup(vertexSource, fragmentSource, geometrySource, state);
         }
     }
 }

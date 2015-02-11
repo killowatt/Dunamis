@@ -45,6 +45,13 @@ namespace Dunamis.Graphics
         }
         #endregion
 
+        #region Methods
+        public bool IsSupported(string extension)
+        {
+            return GL.GetString(StringName.Extensions).Contains(extension);
+        }
+        #endregion
+
         #region Constructors
         public RenderTexture()
         {

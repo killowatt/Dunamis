@@ -105,11 +105,6 @@ namespace Dunamis.Graphics
             throw new Exception("Error compiling " + type + " shader: " + message);
         }
 
-        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
-            : this(vertexSource,fragmentSource, null, state)
-        {
-        }
-
         protected Shader(string vertexSource, string fragmentSource, string geometrySource, ShaderState state)
         {
             VertexShader = GL.CreateShader(OpenTK.Graphics.OpenGL.ShaderType.VertexShader);
@@ -151,6 +146,11 @@ namespace Dunamis.Graphics
 
             State = state;
             Initialized = false;
+        }
+
+        protected Shader(string vertexSource, string fragmentSource, ShaderState state)
+            : this(vertexSource, fragmentSource, null, state)
+        {
         }
     }
 }

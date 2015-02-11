@@ -11,6 +11,8 @@
         Vector3 _rotation;
         Angle _fieldOfView;
         Vector2 _aspect;
+        float _zNear;
+        float _zFar;
 
         internal Matrix4 Projection2D;
 
@@ -129,6 +131,36 @@
                 if (_aspect != value)
                 {
                     _aspect = value;
+                    _projectionCalculated = false;
+                }
+            }
+        }
+        public float ZNear
+        {
+            get
+            {
+                return _zNear;
+            }
+            set
+            {
+                if (_zNear != value)
+                {
+                    _zNear = value;
+                    _projectionCalculated = false;
+                }
+            }
+        }
+        public float ZFar
+        {
+            get
+            {
+                return _zFar;
+            }
+            set
+            {
+                if (_zFar != value)
+                {
+                    _zFar = value;
                     _projectionCalculated = false;
                 }
             }

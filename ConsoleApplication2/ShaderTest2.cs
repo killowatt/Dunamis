@@ -4,18 +4,18 @@ using Dunamis.Graphics;
 
 namespace DunamisExamples
 {
-    public class ShaderTest : Shader
+    public class ShaderTest2 : Shader
     {
         public override void Initialize()
         {
-            Console.WriteLine("hey!");
+            Console.WriteLine("sup!");
         }
         public override void Update()
         {
         }
 
-        public ShaderTest()
-            : base(File.ReadAllText("Resources/vert.txt"), File.ReadAllText("Resources/frag.txt"), ShaderState.Static)
+        public ShaderTest2()
+            : base(File.ReadAllText("Resources/vert.txt"), File.ReadAllText("Resources/frag2.txt"), ShaderState.Static)
         {
         }
     }

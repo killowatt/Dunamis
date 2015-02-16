@@ -14,7 +14,11 @@ namespace Dunamis.Graphics
         int _height;
         PixelFormat _pixelFormat;
         TextureFilter _textureFilter;
-        bool _mipmappingEnabled;
+        bool _mipmappingEnabled; // TODO: implement copy method to texture and other classes
+
+        //public static readonly Texture Default = new Texture(new byte[] { 255, 255, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 255, 255, 255 }, 2, 2, PixelFormat.Rgba, TextureFilter.Nearest, false); // TODO: return COPY
+        // TODO: MAKE THIS NOT SUCK, AND CREATE AFTER RENDERER CREATION.
+        // TODO: MAKE EVERYTHING DEPENDENT ON RENDERER CREATION SHIT
 
         #region Properties
         public byte[] Pixels

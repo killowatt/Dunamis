@@ -20,7 +20,8 @@ namespace ConsoleApplication2
         Sprite sprite;
 
         Mesh xxxxddddd;
-        Shader NEWTESTSHADER;
+
+        Text testere;
 
         public TestApp()
         {
@@ -32,18 +33,15 @@ namespace ConsoleApplication2
 
             Texture t = new Texture("Untitled.png", TextureFilter.Nearest, true);
 
-            NEWTESTSHADER = new Dunamis.Common.Shaders.BasicColorShader();
-            Console.WriteLine(NEWTESTSHADER.GetCompileStatus(ShaderType.Fragment));
-
             ourShader = new ShaderTest4(); // Create our shader.
             ourShader.Texture = t;
             xxxx = new ShaderTest4();
-            ourShader.Texture = t;
+           // ourShader.Texture = Texture.Default;
             //cube = new Cube(ourShader); // Create our cube using our shader.
             cube = new Mesh(RenderTextureMesh.AVertices, RenderTextureMesh.ATextureCoordinates, new float[0],
                 RenderTextureMesh.AIndices, ourShader);
-            xxxxddddd = new Mesh(RenderTextureMesh.AVertices, RenderTextureMesh.ATextureCoordinates, new float[0],
-                RenderTextureMesh.AIndices, NEWTESTSHADER);
+            xxxxddddd = new Mesh(Cube.AVertices, Cube.ATextureCoordinates, new float[0],
+                Cube.AIndices, ourShader);
             sprite = new Sprite(200, 200, t);
             sprite.X = 0;
             sprite.Y = 200;
@@ -56,7 +54,9 @@ namespace ConsoleApplication2
             //Text x = new Text("DUNAMIS", new Font("DINRg.ttf"), 24, false, false, false, Color4.White, true, 0, 0);
             //  x.String = "HELLO";
 
-            NewText.Test();
+            testere = new Text("DUNAMIS hello", new Font("DINRg.ttf"));
+            testere.Color = Color4.White;
+            testere.Size = 54;
 
             while (true)
             {
@@ -67,7 +67,7 @@ namespace ConsoleApplication2
                 renderer.Draw(xxxxddddd); // TODO: fix texture not switching to empty
                 renderer.Draw(sprite);
                // renderer.Draw(x);
-               // renderer.Draw(NewText.xxx);
+                renderer.Draw(testere);
 
                 renderer.Display(); // Display the result.
                 window.Update(); // Update window events.

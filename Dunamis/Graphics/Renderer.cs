@@ -69,7 +69,7 @@ namespace Dunamis.Graphics
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, RenderTexture.FrameBuffer);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
-        public void Display()
+        public void Display() // TODO: implement IDRAWABLE
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
             GL.Viewport(0, 0, renderWidth, renderHeight);
@@ -135,7 +135,7 @@ namespace Dunamis.Graphics
         }
         public void Draw(Text text)
         {
-           // Draw(text.Sprite);
+            Draw(text.Sprite);
         }
         public Renderer(IntPtr handle, int width, int height) // TODO: make a not terrible constructor
         {

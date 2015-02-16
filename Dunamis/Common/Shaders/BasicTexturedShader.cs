@@ -27,7 +27,7 @@ namespace Dunamis.Common.Shaders
             this.Texture = texture;
         }
         public BasicTexturedShader()
-            : this(new Texture(new byte[] { 255, 255, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 255, 255, 255 }, 2, 2, PixelFormat.Rgba, TextureFilter.Nearest, false))
+            : this(new Texture(new byte[] { 255, 255, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 255, 255, 255 }, 2, 2, PixelFormat.Rgba, TextureFilter.Nearest, false)) // TODO: USE BUILT IN DEFAULT
         {
         }
     }

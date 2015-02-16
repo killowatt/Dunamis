@@ -29,6 +29,12 @@ namespace Dunamis.Graphics
             GL.Uniform1(location, value);
             _parameters.Add(identifer, location);
         }
+        protected void AddParameter(string identifier, Color4 color)
+        {
+            int location = GL.GetUniformLocation(ShaderProgram, identifier);
+            GL.Uniform4(location, color.R / 255, color.G / 255, color.B / 255, color.A / 255);
+            _parameters.Add(identifier, location);
+        }
         protected void AddParameter(string identifier, Matrix4 matrix, bool transpose)
         {
             OpenTK.Matrix4 reference = matrix;
@@ -39,6 +45,10 @@ namespace Dunamis.Graphics
         protected void UpdateParameter(string identifier, float value)
         {
             GL.Uniform1(_parameters[identifier], value);
+        }
+        protected void UpdateParameter(string identifier, Color4 color)
+        {
+            GL.Uniform4(_parameters[identifier], color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
         }
         protected void UpdateParameter(string identifier, Matrix4 matrix, bool transpose)
         {
@@ -65,13 +75,17 @@ namespace Dunamis.Graphics
         public bool GetCompileStatus(ShaderType type)
         {
             int status = 0;
-            if (type == ShaderType.Fragment)
+            if (type == ShaderType.Vertex)
+            {
+                GL.GetShader(VertexShader, ShaderParameter.CompileStatus, out status);
+            }
+            else if (type == ShaderType.Fragment)
             {
                 GL.GetShader(FragmentShader, ShaderParameter.CompileStatus, out status);
             }
-            else
+            else if (type == ShaderType.Geometry)
             {
-                GL.GetShader(FragmentShader, ShaderParameter.CompileStatus, out status);
+                GL.GetShader(GeometryShader, ShaderParameter.CompileStatus, out status);
             }
 
             switch (status)
@@ -90,7 +104,15 @@ namespace Dunamis.Graphics
             {
                 return GL.GetShaderInfoLog(FragmentShader);
             }
-            return GL.GetShaderInfoLog(VertexShader);
+            if (type == ShaderType.Vertex)
+            {
+                return GL.GetShaderInfoLog(VertexShader);
+            }
+            if (type == ShaderType.Geometry)
+            {
+                return GL.GetShaderInfoLog(GeometryShader);
+            }
+            return "GetCompileLog: Invalid Shader Type."; // TODO: standardize invalid method string returns? replace with error? etc.
         }
 
         #endregion

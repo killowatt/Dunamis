@@ -77,6 +77,8 @@
     <Compile Include="Color4.cs" />
     <Compile Include="Common\Meshes\Cube.cs" />
     <Compile Include="Common\Meshes\RenderTextureMesh.cs" />
+    <Compile Include="Common\Shaders\BasicColorShader.cs" />
+    <Compile Include="Common\Shaders\BasicTexturedShader.cs" />
     <Compile Include="Common\Shaders\DefaultRenderTextureShader.cs" />
     <Compile Include="Common\Shaders\SpriteShader.cs" />
     <Compile Include="Common\Shaders\Utility.cs" />
@@ -127,6 +129,22 @@
   <ItemGroup>
     <EmbeddedResource Include="Common\Shaders\Sources\SpriteVertex.txt" />
     <EmbeddedResource Include="Common\Shaders\Sources\SpriteFragment.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Shaders\Sources\BasicColorFragment.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Shaders\Sources\BasicColorVertex.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Shaders\Sources\BasicTexturedFragment.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Shaders\Sources\BasicTexturedVertex.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

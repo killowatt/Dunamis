@@ -7,9 +7,15 @@ using SharpFont;
 
 namespace Dunamis.Graphics
 {
-    public static class NewText
+    public class NewText
     {
-        public static Sprite xxx;
+        Sprite sprite;
+        Texture texture;
+
+        public Texture Texture
+        {
+            get { return texture; } // TODO: RETURN COPY
+        }
 
         public static void Test()
         {
@@ -90,7 +96,7 @@ namespace Dunamis.Graphics
 
             g.Dispose();
             
-            xxx = new Sprite((int)Math.Ceiling(width), (int)Math.Ceiling(height), 10, 10, new Texture(bmp, TextureFilter.Nearest, false));
+            //xxx = new Sprite((int)Math.Ceiling(width), (int)Math.Ceiling(height), 10, 10, new Texture(bmp, TextureFilter.Nearest, false));
         }
     }
 }

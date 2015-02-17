@@ -1,0 +1,9 @@
+#version 430
+
+in vec3 fVertex;
+out vec4 color;
+
+void main()
+{
+	color = vec4(fVertex, 1.0);
+}

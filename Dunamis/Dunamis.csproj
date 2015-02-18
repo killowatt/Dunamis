@@ -55,6 +55,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NVorbis">
+      <HintPath>..\Libraries\NVorbis.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK">
       <HintPath>..\Libraries\OpenTK.dll</HintPath>
     </Reference>
@@ -76,6 +79,7 @@
     <Compile Include="Audio\AudioEmitter.cs" />
     <Compile Include="Audio\AudioListener.cs" />
     <Compile Include="Audio\AudioSource.cs" />
+    <Compile Include="Audio\OggAudioSource.cs" />
     <Compile Include="Audio\WavAudioSource.cs" />
     <Compile Include="Color3.cs" />
     <Compile Include="Color4.cs" />

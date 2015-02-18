@@ -73,7 +73,7 @@ namespace Dunamis.Graphics
             }
         }
 
-        internal VertexArray(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices)
+        internal VertexArray(float[] vertices, float[] textureCoordinates, float[] normals, uint[] indices) // TODO: CHECK IF ARRAY NULL? I THOUGHT WE DID THIS
         {
             GL.GenVertexArrays(1, out VertexArrayObject);
             GL.BindVertexArray(VertexArrayObject);

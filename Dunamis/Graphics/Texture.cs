@@ -198,6 +198,7 @@ namespace Dunamis.Graphics
                 pixels[index + 2] = B;
                 pixels[index + 3] = A;
             }
+            
 
             SetTexture(pixels, bitmap.Width, bitmap.Height, PixelFormat.Rgba);
             SetParameters(textureFilter, mipmappingEnabled);

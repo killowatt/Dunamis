@@ -107,8 +107,11 @@ namespace Dunamis.Graphics
             }
             set
             {
-                text = value;
-                rendered = false;
+                if (text != value)
+                {
+                    text = value;
+                    rendered = false;
+                }
             }
         }
         public Font Font
@@ -119,8 +122,11 @@ namespace Dunamis.Graphics
             }
             set
             {
-                font = value;
-                rendered = false;
+                if (font != value)
+                {
+                    font = value;
+                    rendered = false;
+                }
             }
         }
         public uint Size
@@ -131,8 +137,11 @@ namespace Dunamis.Graphics
             }
             set
             {
-                size = value;
-                rendered = false;
+                if (size != value)
+                {
+                    size = value;
+                    rendered = false;
+                }
             }
         }
         public Color4 Color
@@ -143,8 +152,11 @@ namespace Dunamis.Graphics
             }
             set
             {
-                color = value;
-                rendered = false;
+                if (color != value)
+                {
+                    color = value;
+                    rendered = false;
+                }
             }
         }
 

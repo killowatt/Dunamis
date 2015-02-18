@@ -9,7 +9,8 @@ namespace DunamisExamples
     {
         public static Dictionary<string, BaseExample> examples = new Dictionary<string, BaseExample>()
         {
-            { "cube", new CubeExample() }
+            { "cube", new CubeExample() },
+            { "audio", new AudioExample() }
         };
 
         static void Main(string[] args)

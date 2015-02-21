@@ -92,6 +92,10 @@ namespace Dunamis.Graphics
                 NativeWindow.CursorVisible = value;
             }
         }
+        public bool Focused
+        {
+            get { return NativeWindow.Focused; }
+        }
         public Icon Icon
         {
             get

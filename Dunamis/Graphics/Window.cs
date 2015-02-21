@@ -2,6 +2,7 @@
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
+using Dunamis.Input;
 
 namespace Dunamis.Graphics
 {
@@ -10,6 +11,8 @@ namespace Dunamis.Graphics
         internal NativeWindow NativeWindow;
 
         public event EventHandler Closing;
+        public readonly Mouse Mouse;
+        public readonly Keyboard Keyboard;
 
         #region Properties
         public int Width
@@ -142,6 +145,8 @@ namespace Dunamis.Graphics
         #region Methods
         public void Update()
         {
+            // If the mouse doesn't move, the mouse delta values don't get updated.
+            Mouse.ResetDelta();
             NativeWindow.ProcessEvents();
         }
         public void Close()
@@ -170,6 +175,9 @@ namespace Dunamis.Graphics
         {
             NativeWindow = new NativeWindow(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.GetDisplay((DisplayIndex)display));
             NativeWindow.Closing += WindowClosing;
+
+            Keyboard = new Keyboard(this);
+            Mouse = new Mouse(this);
 
             Type = type;
             Visible = visible;

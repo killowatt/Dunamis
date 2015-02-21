@@ -88,7 +88,7 @@ namespace Dunamis.Input
         }
         #endregion
 
-        public Mouse(Window window)
+        internal Mouse(Window window)
         {
             downButtons = new HashSet<Button>();
 
@@ -96,6 +96,13 @@ namespace Dunamis.Input
             window.NativeWindow.MouseUp += ButtonUp;
             window.NativeWindow.MouseWheel += WheelMove;
             window.NativeWindow.MouseMove += MouseMove;
+        }
+
+        // Called at the end of the update to clear the mouse delta for next move.
+        internal void ResetDelta()
+        {
+            _xDelta = 0;
+            _yDelta = 0;
         }
     }
 }

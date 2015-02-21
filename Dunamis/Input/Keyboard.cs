@@ -34,7 +34,7 @@ namespace Dunamis.Input
         }
         #endregion
 
-        public Keyboard(Window window)
+        internal Keyboard(Window window)
         {
             _downKeys = new HashSet<Key>();
 

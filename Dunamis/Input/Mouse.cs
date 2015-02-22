@@ -8,7 +8,8 @@ namespace Dunamis.Input
 {
     public class Mouse
     {
-        HashSet<Button> downButtons;
+        private HashSet<Button> _downButtons;
+        private Window _window;
 
         private float _wheelPosition = 0.0f;
         private int _currentX = 0;
@@ -57,7 +58,7 @@ namespace Dunamis.Input
         #region Methods
         public bool IsButtonDown(Button button)
         {
-            return downButtons.Contains(button);
+            return _downButtons.Contains(button);
         }
 
         public bool IsButtonUp(Button button)
@@ -69,18 +70,22 @@ namespace Dunamis.Input
         #region Events
         private void ButtonDown(object sender, MouseButtonEventArgs arguments)
         {
-            downButtons.Add((Button)arguments.Button);
+            if (!_window.Focused) return;
+            _downButtons.Add((Button)arguments.Button);
         }
         private void ButtonUp(object sender, MouseButtonEventArgs arguments)
         {
-            downButtons.Remove((Button)arguments.Button);
+            if (!_window.Focused) return;
+            _downButtons.Remove((Button)arguments.Button);
         }
         private void WheelMove(object sender, MouseWheelEventArgs e)
         {
+            if (!_window.Focused) return;
             _wheelPosition = e.ValuePrecise;
         }
         private void MouseMove(object sender, MouseMoveEventArgs e)
         {
+            if (!_window.Focused) return;
             _currentX = e.X;
             _currentY = e.Y;
             _xDelta = e.XDelta;
@@ -90,8 +95,8 @@ namespace Dunamis.Input
 
         internal Mouse(Window window)
         {
-            downButtons = new HashSet<Button>();
-
+            _downButtons = new HashSet<Button>();
+            _window = window;
             window.NativeWindow.MouseDown += ButtonDown;
             window.NativeWindow.MouseUp += ButtonUp;
             window.NativeWindow.MouseWheel += WheelMove;

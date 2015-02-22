@@ -14,6 +14,14 @@ namespace Dunamis
         public static readonly Vector3 Zero = new Vector3(0, 0, 0);
         public static readonly Vector3 One = new Vector3(1, 1, 1);
 
+        // Directions
+        public static readonly Vector3 Up = new Vector3(0, 1, 0);
+        public static readonly Vector3 Down = new Vector3(0, -1, 0);
+        public static readonly Vector3 Front = new Vector3(0, 0, -1);
+        public static readonly Vector3 Back = new Vector3(0, 0, 1);
+        public static readonly Vector3 Left = new Vector3(-1, 0, 0);
+        public static readonly Vector3 Right = new Vector3(1, 0, 0);
+
         #region Properties
         public float Length
         {
@@ -73,6 +81,19 @@ namespace Dunamis
             Y *= scale;
             Z *= scale;
         }
+        public void ApplyQuaternion(Quaternion q)
+        {
+            Quaternion i = new Quaternion();
+            i.X = q.W * X + q.Y * Z - q.Z * Y;
+            i.Y = q.W * Y + q.Z * X - q.X * Z;
+            i.Z = q.W * Z + q.X * Y - q.Y * X;
+            i.W = -q.X * X - q.Y * Y - q.Z * Z;
+
+            X = i.X * q.W + i.W * -q.X + i.Y * -q.Z - i.Z * -q.Y;
+            Y = i.Y * q.W + i.W * -q.Y + i.Z * -q.X - i.X * -q.Z;
+            Z = i.Z * q.W + i.W * -q.Z + i.X * -q.Y - i.Y * -q.X;
+        }
+
         public static float Dot(Vector3 left, Vector3 right)
         {
             return left.X * right.X + left.Y * right.Y + left.Z * right.Z;

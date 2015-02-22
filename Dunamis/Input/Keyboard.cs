@@ -34,15 +34,12 @@ namespace Dunamis.Input
         }
         #endregion
 
-        public Keyboard(Window window)
+        internal Keyboard(Window window)
         {
-            IInputDriver driver = window.NativeWindow.InputDriver; // TODO: if keyboard.count <= 0 o no
-            device = driver.Keyboard[0];
-
             _downKeys = new HashSet<Key>();
 
-            device.KeyDown += KeyDown;
-            device.KeyUp += KeyUp;
+            window.NativeWindow.KeyDown += KeyDown;
+            window.NativeWindow.KeyUp += KeyUp;
         }
     }
 }

@@ -8,29 +8,48 @@ namespace Dunamis.Input
 {
     public class Mouse
     {
-        MouseDevice device;
         HashSet<Button> downButtons;
+
+        private float _wheelPosition = 0.0f;
+        private int _currentX = 0;
+        private int _currentY = 0;
+        private int _xDelta = 0;
+        private int _yDelta = 0;
 
         #region Properties
         public int X
         {
             get
             {
-                return device.X;
+                return _currentX;
+            }
+        }
+        public int XDelta
+        {
+            get
+            {
+                return _xDelta;
             }
         }
         public int Y
         {
             get
             {
-                return device.Y;
+                return _currentY;
+            }
+        }
+        public int YDelta
+        {
+            get
+            {
+                return _yDelta;
             }
         }
         public float WheelPosition
         {
             get
             {
-                return device.WheelPrecise;
+                return _wheelPosition;
             }
         }
         #endregion
@@ -56,17 +75,34 @@ namespace Dunamis.Input
         {
             downButtons.Remove((Button)arguments.Button);
         }
+        private void WheelMove(object sender, MouseWheelEventArgs e)
+        {
+            _wheelPosition = e.ValuePrecise;
+        }
+        private void MouseMove(object sender, MouseMoveEventArgs e)
+        {
+            _currentX = e.X;
+            _currentY = e.Y;
+            _xDelta = e.XDelta;
+            _yDelta = e.YDelta;
+        }
         #endregion
 
-        public Mouse(Window window)
+        internal Mouse(Window window)
         {
-            IInputDriver driver = window.NativeWindow.InputDriver;
-            device = driver.Mouse[0];
-
             downButtons = new HashSet<Button>();
 
-            device.ButtonDown += ButtonDown;
-            device.ButtonUp += ButtonUp;
+            window.NativeWindow.MouseDown += ButtonDown;
+            window.NativeWindow.MouseUp += ButtonUp;
+            window.NativeWindow.MouseWheel += WheelMove;
+            window.NativeWindow.MouseMove += MouseMove;
+        }
+
+        // Called at the end of the update to clear the mouse delta for next move.
+        internal void ResetDelta()
+        {
+            _xDelta = 0;
+            _yDelta = 0;
         }
     }
 }

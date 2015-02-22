@@ -92,6 +92,10 @@
         {
             return OpenTK.Matrix4.LookAt(eye, target, up);
         }
+        public static Matrix4 FromAxisAngle(Vector3 axis, float angle)
+        {
+            return OpenTK.Matrix4.CreateFromAxisAngle(axis, angle);
+        }
 
         public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {

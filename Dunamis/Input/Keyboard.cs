@@ -10,6 +10,12 @@ namespace Dunamis.Input
     {
         KeyboardDevice device;
         HashSet<Key> _downKeys;
+        private Window _window;
+
+        internal HashSet<Key> State
+        {
+            get { return _downKeys; }
+        }
 
         #region Methods
         public bool IsKeyDown(Key key)
@@ -26,10 +32,12 @@ namespace Dunamis.Input
         #region Events
         private void KeyDown(object sender, KeyboardKeyEventArgs arguments)
         {
+            if (!_window.Focused) return;
             _downKeys.Add((Key)arguments.Key);
         }
         private void KeyUp(object sender, KeyboardKeyEventArgs arguments)
         {
+            if (!_window.Focused) return;
             _downKeys.Remove((Key)arguments.Key);
         }
         #endregion
@@ -37,6 +45,7 @@ namespace Dunamis.Input
         internal Keyboard(Window window)
         {
             _downKeys = new HashSet<Key>();
+            _window = window;
 
             window.NativeWindow.KeyDown += KeyDown;
             window.NativeWindow.KeyUp += KeyUp;

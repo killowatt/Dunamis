@@ -105,6 +105,10 @@ namespace Dunamis
             left.Z = blend * (right.Z - left.Z) + left.Z;
             return left;
         }
+        public static Vector3 Transform(Vector3 v, Matrix4 m)
+        {
+            return OpenTK.Vector3.Transform(v, m);
+        }
         #endregion
 
         #endregion

@@ -32,6 +32,10 @@
                 }
                 return _view;
             }
+            set
+            {
+                _view = value;
+            }
         }
         public Matrix4 Projection
         {
@@ -43,6 +47,10 @@
                     _projectionCalculated = true;
                 }
                 return _projection;
+            }
+            set
+            {
+                _projection = value;
             }
         }
         public Vector3 Position

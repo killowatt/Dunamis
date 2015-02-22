@@ -76,6 +76,22 @@
             return new OpenTK.Matrix4(matrix.Row0, matrix.Row1, matrix.Row2, matrix.Row3);
         }
         #endregion
+        public static Matrix4 CreateRotationX(float angle)
+        {
+            return OpenTK.Matrix4.CreateRotationX(angle);
+        }
+        public static Matrix4 CreateRotationY(float angle)
+        {
+            return OpenTK.Matrix4.CreateRotationY(angle);
+        }
+        public static Matrix4 CreateRotationZ(float angle)
+        {
+            return OpenTK.Matrix4.CreateRotationZ(angle);
+        }
+        public static Matrix4 LookAt(Vector3 eye, Vector3 target, Vector3 up)
+        {
+            return OpenTK.Matrix4.LookAt(eye, target, up);
+        }
 
         public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {

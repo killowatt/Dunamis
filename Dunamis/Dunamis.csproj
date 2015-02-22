@@ -103,21 +103,16 @@
     </Compile>
     <Compile Include="Graphics\Font.cs" />
     <Compile Include="Graphics\Mesh.cs" />
-    <Compile Include="Graphics\MeshType.cs" />
     <Compile Include="Graphics\Text.cs" />
     <Compile Include="Graphics\PixelFormat.cs" />
     <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\RenderTexture.cs" />
     <Compile Include="Graphics\RenderTextureShader.cs" />
     <Compile Include="Graphics\Shader.cs" />
-    <Compile Include="Graphics\ShaderState.cs" />
-    <Compile Include="Graphics\ShaderType.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Texture.cs" />
-    <Compile Include="Graphics\TextureFilter.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
     <Compile Include="Graphics\Window.cs" />
-    <Compile Include="Graphics\WindowType.cs" />
     <Compile Include="Input\Button.cs" />
     <Compile Include="Input\Key.cs" />
     <Compile Include="Input\Keyboard.cs" />

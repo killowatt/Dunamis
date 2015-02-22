@@ -5,6 +5,15 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
+    public enum TextureFilter
+    {
+        Nearest,
+        Linear,
+        Anisotropic2X = 2,
+        Anisotropic4X = 4,
+        Anisotropic8X = 8,
+        Anisotropic16X = 16
+    }
     public class Texture // TODO: refactor like mesh
     {
         internal int TextureId;
@@ -145,10 +154,10 @@ namespace Dunamis.Graphics
             _textureFilter = textureFilter;
             _mipmappingEnabled = mipmappingEnabled;
         }
-        public Texture Copy()
-        {
-
-        }
+        //public Texture Copy()
+        //{
+            
+        //}
         #endregion
 
         #region Constructors

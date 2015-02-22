@@ -3,6 +3,17 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
+    public enum ShaderState
+    {
+        Static,
+        Dynamic
+    }
+    public enum ShaderType
+    {
+        Vertex,
+        Fragment,
+        Geometry
+    }
     public abstract class Shader // TODO: automatically add input and camera uniforms at top of shader and tell user to write just main?
     {
         internal int ShaderProgram; // TODO: IDisposable shader/mesh/texture?

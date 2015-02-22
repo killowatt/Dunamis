@@ -33,7 +33,7 @@ namespace DunamisExamples.Examples
             renderer = new Renderer(window, false); // Create our renderer using our window, enabling vsync.
             renderer.ClearColor = new Color3(12, 12, 12); // Set our clear color to an almost black color.
 
-            k = new Keyboard(window);
+            k = window.Keyboard;
 
             Texture t = new Texture("Resources/Untitled.png", TextureFilter.Nearest, true);
 

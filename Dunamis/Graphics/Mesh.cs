@@ -3,6 +3,12 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
+    public enum MeshType
+    {
+        Static,
+        Dynamic,
+        Stream
+    }
     public class Mesh 
     {
         internal VertexArray VertexArray;

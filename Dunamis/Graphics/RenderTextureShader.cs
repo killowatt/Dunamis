@@ -2,7 +2,7 @@
 {
     public abstract class RenderTextureShader : Shader
     {
-        public Texture Texture; // TODO: implement solid black/white textures as static textures in tex class
+        public Texture Texture; // TODO: TEXTURE CLASS: color paramter; makes texture a single uniform color of 1x1
 
         public override void Initialize()
         {

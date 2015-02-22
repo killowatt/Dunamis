@@ -189,3 +189,4 @@ FakesAssemblies/
 !/Libraries/OpenTK.dll
 !/Libraries/freetype6.dll
 !/Libraries/SharpFont.dll
+!/Libraries/openal32.dll

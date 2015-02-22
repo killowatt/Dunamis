@@ -8,16 +8,18 @@ using OpenTK.Platform;
 namespace Dunamis.Graphics
 {
     public class Renderer // TODO: implement safe mode for performance
-    { // TODO: window switching? additional settings i.e. transparencY?
+    { // TODO: window switching?
+        // TODO: more additional settings?
         internal GraphicsContext GraphicsContext;
         int renderHeight;
         int renderWidth;
 
-        public Camera Camera;
-
         RenderTexture _renderTexture;
         RenderTextureMesh _renderTextureMesh;
         RenderTextureShader _renderTextureShader;
+        bool _transparencyEnabled;
+
+        public Camera Camera;
 
         #region Properties
         public Color3 ClearColor
@@ -42,6 +44,27 @@ namespace Dunamis.Graphics
                 _renderTextureShader = _renderTexture.Shader;
                 _renderTextureMesh.Shader = _renderTexture.Shader;
                 _renderTextureShader.Texture = _renderTexture.Color;
+            }
+        }
+        public bool TransparencyEnabled
+        {
+            get
+            {
+                return _transparencyEnabled;
+            }
+            set
+            {
+                if (value)
+                {
+                    GL.Enable(EnableCap.Blend);
+                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                    _transparencyEnabled = true;
+                }
+                else
+                {
+                    GL.Disable(EnableCap.Blend);
+                    _transparencyEnabled = false;
+                }
             }
         }
         public bool VerticalSync
@@ -69,7 +92,7 @@ namespace Dunamis.Graphics
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, RenderTexture.FrameBuffer);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
-        public void Display() // TODO: implement IDRAWABLE
+        public void Display() // TODO: make IDRAWABLE BETTER
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
             GL.Viewport(0, 0, renderWidth, renderHeight);

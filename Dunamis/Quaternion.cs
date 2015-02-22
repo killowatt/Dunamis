@@ -54,13 +54,6 @@ namespace Dunamis
             _quaternion.Normalize();
         }
 
-        public void ToAxisAngle(out Vector3 axis, out float angle)
-        {
-            OTK.Vector3 ov;
-            _quaternion.ToAxisAngle(out ov, out angle);
-            axis = ov;
-        }
-
         public static Quaternion FromAxisAngle(Vector3 axis, float degrees)
         {
             return new Quaternion(OTK.Quaternion.FromAxisAngle((OTK.Vector3)axis, degrees));

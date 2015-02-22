@@ -1,5 +1,6 @@
 ﻿#pragma warning disable 612
 #pragma warning disable 618
+using System;
 using System.Collections.Generic;
 using Dunamis.Graphics;
 using OpenTK.Input;
@@ -10,12 +11,9 @@ namespace Dunamis.Input
     {
         KeyboardDevice device;
         HashSet<Key> _downKeys;
-        private Window _window;
 
-        internal HashSet<Key> State
-        {
-            get { return _downKeys; }
-        }
+        public event EventHandler<DunamisKeyboardEventArgs> KeyDown;
+        public event EventHandler<DunamisKeyboardEventArgs> KeyUp;
 
         #region Methods
         public bool IsKeyDown(Key key)
@@ -30,25 +28,33 @@ namespace Dunamis.Input
         #endregion
 
         #region Events
-        private void KeyDown(object sender, KeyboardKeyEventArgs arguments)
+        private void _KeyDown(object sender, KeyboardKeyEventArgs arguments)
         {
-            if (!_window.Focused) return;
             _downKeys.Add((Key)arguments.Key);
+            Down(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
         }
-        private void KeyUp(object sender, KeyboardKeyEventArgs arguments)
+        private void _KeyUp(object sender, KeyboardKeyEventArgs arguments)
         {
-            if (!_window.Focused) return;
             _downKeys.Remove((Key)arguments.Key);
+            Up(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
         }
         #endregion
 
         internal Keyboard(Window window)
         {
             _downKeys = new HashSet<Key>();
-            _window = window;
 
-            window.NativeWindow.KeyDown += KeyDown;
-            window.NativeWindow.KeyUp += KeyUp;
+            window.NativeWindow.KeyDown += _KeyDown;
+            window.NativeWindow.KeyUp += _KeyUp;
+        }
+    }
+
+    public class DunamisKeyboardEventArgs : EventArgs
+    {
+        public Key Key;
+        public DunamisKeyboardEventArgs(Key k)
+        {
+            this.Key = k;
         }
     }
 }

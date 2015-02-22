@@ -1,5 +1,6 @@
 ﻿#pragma warning disable 612
 #pragma warning disable 618
+using System;
 using System.Collections.Generic;
 using Dunamis.Graphics;
 using OpenTK.Input;
@@ -16,6 +17,11 @@ namespace Dunamis.Input
         private int _currentY = 0;
         private int _xDelta = 0;
         private int _yDelta = 0;
+
+        public event EventHandler<DunamisMouseButtonEventArgs> ButtonDown;
+        public event EventHandler<DunamisMouseButtonEventArgs> ButtonUp;
+        public event EventHandler<DunamisMouseMoveEventArgs> Move;
+        public event EventHandler<DunamisMouseWheelEventArgs> Wheel;
 
         #region Properties
         public int X
@@ -68,20 +74,23 @@ namespace Dunamis.Input
         #endregion
 
         #region Events
-        private void ButtonDown(object sender, MouseButtonEventArgs arguments)
+        private void _ButtonDown(object sender, MouseButtonEventArgs arguments)
         {
             if (!_window.Focused) return;
             _downButtons.Add((Button)arguments.Button);
+            ButtonDown(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
         }
-        private void ButtonUp(object sender, MouseButtonEventArgs arguments)
+        private void _ButtonUp(object sender, MouseButtonEventArgs arguments)
         {
             if (!_window.Focused) return;
             _downButtons.Remove((Button)arguments.Button);
+            ButtonUp(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
         }
         private void WheelMove(object sender, MouseWheelEventArgs e)
         {
             if (!_window.Focused) return;
             _wheelPosition = e.ValuePrecise;
+            Wheel(sender, new DunamisMouseWheelEventArgs(e.Value, e.ValuePrecise));
         }
         private void MouseMove(object sender, MouseMoveEventArgs e)
         {
@@ -90,6 +99,7 @@ namespace Dunamis.Input
             _currentY = e.Y;
             _xDelta = e.XDelta;
             _yDelta = e.YDelta;
+            Move(sender, new DunamisMouseMoveEventArgs(e.X, e.Y, e.XDelta, e.YDelta));
         }
         #endregion
 
@@ -97,8 +107,8 @@ namespace Dunamis.Input
         {
             _downButtons = new HashSet<Button>();
             _window = window;
-            window.NativeWindow.MouseDown += ButtonDown;
-            window.NativeWindow.MouseUp += ButtonUp;
+            window.NativeWindow.MouseDown += _ButtonDown;
+            window.NativeWindow.MouseUp += _ButtonUp;
             window.NativeWindow.MouseWheel += WheelMove;
             window.NativeWindow.MouseMove += MouseMove;
         }
@@ -108,6 +118,41 @@ namespace Dunamis.Input
         {
             _xDelta = 0;
             _yDelta = 0;
+        }
+    }
+
+    public class DunamisMouseMoveEventArgs
+    {
+        public int X, Y, XDelta, YDelta;
+
+        public DunamisMouseMoveEventArgs(int x, int y, int xDelta, int yDelta)
+        {
+            X = x;
+            Y = y;
+            XDelta = xDelta;
+            YDelta = yDelta;
+        }
+    }
+
+    public class DunamisMouseButtonEventArgs
+    {
+        public Button Button;
+
+        public DunamisMouseButtonEventArgs(Button button)
+        {
+            Button = button;
+        }
+    }
+
+    public class DunamisMouseWheelEventArgs
+    {
+        public int Position;
+        public float PositionPrecise;
+
+        public DunamisMouseWheelEventArgs(int position, float precise)
+        {
+            Position = position;
+            PositionPrecise = precise;
         }
     }
 }

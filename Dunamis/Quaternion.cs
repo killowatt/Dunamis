@@ -1,14 +1,38 @@
 ﻿using System;
+using OTK = OpenTK;
 
 namespace Dunamis
 {
     public class Quaternion
     {
-        public float X;
-        public float Y;
-        public float Z;
-        // We're getting IMAGINARY up in this class.
-        public float W;
+        private OTK.Quaternion _quaternion;
+
+        internal OTK.Quaternion OpenTK
+        {
+            get { return _quaternion; }
+            set { _quaternion = value; }
+        }
+
+        public float X
+        {
+            get { return _quaternion.X; }
+            set { _quaternion.X = value; }
+        }
+        public float Y
+        {
+            get { return _quaternion.Y; }
+            set { _quaternion.Y = value; }
+        }
+        public float Z
+        {
+            get { return _quaternion.Z; }
+            set { _quaternion.Z = value; }
+        }
+        public float W
+        {
+            get { return _quaternion.W; }
+            set { _quaternion.W = value; }
+        }
 
         public static readonly Quaternion Identity = new Quaternion(0, 0, 0, 1);
 
@@ -20,12 +44,19 @@ namespace Dunamis
             W = w;
         }
 
-        //https://github.com/mrdoob/three.js/blob/master/src/math/Quaternion.js
+        internal Quaternion(OTK.Quaternion q)
+        {
+            _quaternion = q;
+        }
+
+        public void Normalize()
+        {
+            _quaternion.Normalize();
+        }
+
         public static Quaternion FromAxisAngle(Vector3 axis, float degrees)
         {
-            float sin = (float)Math.Sin(degrees / 2f);
-
-            return new Quaternion(axis.X * sin, axis.Y * sin, axis.Z * sin, (float)Math.Cos(degrees / 2f));
+            return new Quaternion(OTK.Quaternion.FromAxisAngle((OTK.Vector3)axis, degrees));
         }
 
         public static Quaternion FromAxisAngle(Vector3 axis, Angle angle)
@@ -33,93 +64,72 @@ namespace Dunamis
             return Quaternion.FromAxisAngle(axis, angle.Degrees);
         }
 
-        public static Quaternion FromAngles(float pitch, float roll, float yaw, EulerOrder order = EulerOrder.XYZ)
+        public static Quaternion FromAngles(float pitch, float roll, float yaw)
         {
-            Quaternion q = new Quaternion();
-
-            float c1 = (float)Math.Cos(pitch / 2);
-            float c2 = (float)Math.Cos(roll / 2);
-            float c3 = (float)Math.Cos(yaw / 2);
-            float s1 = (float)Math.Sin(pitch / 2);
-            float s2 = (float)Math.Sin(roll / 2);
-            float s3 = (float)Math.Sin(yaw / 2);
-
-            if (order == EulerOrder.XYZ)
-            {
-                q.X = s1 * c2 * c3 + c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 - s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 + s1 * s2 * c3;
-                q.W = c1 * c2 * c3 - s1 * s2 * s3;
-            }
-            else if (order == EulerOrder.YXZ)
-            {
-                q.X = s1 * c2 * c3 + c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 - s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 - s1 * s2 * c3;
-                q.W = c1 * c2 * c3 + s1 * s2 * s3;
-            }
-            else if (order == EulerOrder.ZXY)
-            {
-                q.X = s1 * c2 * c3 - c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 + s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 + s1 * s2 * c3;
-                q.W = c1 * c2 * c3 - s1 * s2 * s3;
-            }
-            else if (order == EulerOrder.ZYX)
-            {
-                q.X = s1 * c2 * c3 - c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 + s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 - s1 * s2 * c3;
-                q.W = c1 * c2 * c3 + s1 * s2 * s3;
-            }
-            else if (order == EulerOrder.YZX)
-            {
-                q.X = s1 * c2 * c3 + c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 + s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 - s1 * s2 * c3;
-                q.W = c1 * c2 * c3 - s1 * s2 * s3;
-            }
-            else if (order == EulerOrder.XZY)
-            {
-                q.X = s1 * c2 * c3 - c1 * s2 * s3;
-                q.Y = c1 * s2 * c3 - s1 * c2 * s3;
-                q.Z = c1 * c2 * s3 + s1 * s2 * c3;
-                q.W = c1 * c2 * c3 + s1 * s2 * s3;
-            }
-
-            return q;
+            return new Quaternion(OTK.Quaternion.FromEulerAngles(pitch, yaw, roll));
         }
 
-        public static Quaternion FromAngles(Vector3 angles, EulerOrder order = EulerOrder.XYZ)
+        public static Quaternion FromAngles(Vector3 angles)
         {
-            return FromAngles(angles.X, angles.Y, angles.Z, order);
+            return FromAngles(angles.X, angles.Y, angles.Z);
         }
 
-        public static float Dot(Quaternion q, Vector4 v)
+        public static Quaternion Conjugate(Quaternion q)
         {
-            return q.X * v.X + q.Y * v.Y + q.Z * v.Z + q.W * v.W; 
+            return new Quaternion(OTK.Quaternion.Conjugate(q.OpenTK));
+        }
+
+        public static Quaternion Invert(Quaternion q)
+        {
+            return new Quaternion(OTK.Quaternion.Invert(q.OpenTK));
+        }
+
+        public static Quaternion Slerp(Quaternion a, Quaternion b, float blend)
+        {
+            return new Quaternion(OTK.Quaternion.Slerp(a.OpenTK, b.OpenTK, blend));
+        }
+
+        #region Operators
+
+        public static Quaternion operator +(Quaternion a, Quaternion b)
+        {
+            a.OpenTK = a.OpenTK + b.OpenTK;
+            return a;
+        }
+
+        public static Quaternion operator -(Quaternion a, Quaternion b)
+        {
+            a.OpenTK = a.OpenTK - b.OpenTK;
+            return a;
         }
 
         public static Quaternion operator *(Quaternion a, Quaternion b)
         {
-            Quaternion q = new Quaternion();
-
-            q.X = a.X * b.W + a.W * b.X + a.Y * b.Z - a.Z * b.Y;
-            q.Y = a.Y * b.W + a.W * b.Y + a.Z * b.X - a.X * b.Z;
-            q.Z = a.Z * b.W + a.W * b.Z + a.X * b.Y - a.Y * b.X;
-            q.W = a.W * b.W - a.X * b.X - a.Y * b.Y - a.Z * b.Z;
-
-            return q;
+            a.OpenTK = a.OpenTK * b.OpenTK;
+            return a;
         }
-    }
 
-    public enum EulerOrder
-    {
-        XYZ,
-        YXZ,
-        ZXY,
-        ZYX,
-        YZX,
-        XZY
+        public static Quaternion operator *(Quaternion a, float scalar)
+        {
+            a.OpenTK = a.OpenTK * scalar;
+            return a;
+        }
+
+        public static Quaternion operator *(float scalar, Quaternion a)
+        {
+            a.OpenTK = a.OpenTK * scalar;
+            return a;
+        }
+
+        public static bool operator ==(Quaternion left, Quaternion right)
+        {
+            return left.OpenTK == right.OpenTK;
+        }
+
+        public static bool operator !=(Quaternion left, Quaternion right)
+        {
+            return left.OpenTK != right.OpenTK;
+        }
+        #endregion
     }
 }

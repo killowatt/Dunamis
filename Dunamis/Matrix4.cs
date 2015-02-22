@@ -88,6 +88,22 @@
         {
             return OpenTK.Matrix4.CreateRotationZ(angle);
         }
+        public static Matrix4 CreateTranslation(Vector3 vector)
+        {
+            return OpenTK.Matrix4.CreateTranslation(vector);
+        }
+        public static Matrix4 CreateScale(Vector3 scale)
+        {
+            return OpenTK.Matrix4.CreateScale(scale);
+        }
+        public static Matrix4 CreateScale(float scale)
+        {
+            return OpenTK.Matrix4.CreateScale(scale);
+        }
+        public static Matrix4 CreateOrthographic(float width, float height, float zNear, float zFar)
+        {
+            return OpenTK.Matrix4.CreateOrthographic(width, height, zNear, zFar);
+        }
         public static Matrix4 LookAt(Vector3 eye, Vector3 target, Vector3 up)
         {
             return OpenTK.Matrix4.LookAt(eye, target, up);

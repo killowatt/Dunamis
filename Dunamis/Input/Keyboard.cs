@@ -14,6 +14,7 @@ namespace Dunamis.Input
 
         public event EventHandler<DunamisKeyboardEventArgs> KeyDown;
         public event EventHandler<DunamisKeyboardEventArgs> KeyUp;
+        public event EventHandler<DunamisKeyboardEventArgs> KeyPress;
 
         #region Methods
         public bool IsKeyDown(Key key)
@@ -31,12 +32,19 @@ namespace Dunamis.Input
         private void _KeyDown(object sender, KeyboardKeyEventArgs arguments)
         {
             _downKeys.Add((Key)arguments.Key);
-            Down(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
+            if(KeyDown != null)
+                KeyDown(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
         }
         private void _KeyUp(object sender, KeyboardKeyEventArgs arguments)
         {
             _downKeys.Remove((Key)arguments.Key);
-            Up(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
+            if(KeyUp != null)
+                KeyUp(sender, new DunamisKeyboardEventArgs((Key)arguments.Key));
+        }
+        private void _KeyPress(object sender, OpenTK.KeyPressEventArgs e)
+        {
+            if(KeyPress != null)
+                KeyPress(sender, new DunamisKeyboardEventArgs(e.KeyChar));
         }
         #endregion
 
@@ -46,15 +54,23 @@ namespace Dunamis.Input
 
             window.NativeWindow.KeyDown += _KeyDown;
             window.NativeWindow.KeyUp += _KeyUp;
+            window.NativeWindow.KeyPress += _KeyPress;
         }
     }
 
     public class DunamisKeyboardEventArgs : EventArgs
     {
         public Key Key;
+        public char KeyChar;
+
         public DunamisKeyboardEventArgs(Key k)
         {
             this.Key = k;
+        }
+
+        public DunamisKeyboardEventArgs(char k)
+        {
+            this.KeyChar = k;
         }
     }
 }

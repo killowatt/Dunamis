@@ -78,19 +78,22 @@ namespace Dunamis.Input
         {
             if (!_window.Focused) return;
             _downButtons.Add((Button)arguments.Button);
-            ButtonDown(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
+            if(ButtonDown != null)
+                ButtonDown(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
         }
         private void _ButtonUp(object sender, MouseButtonEventArgs arguments)
         {
             if (!_window.Focused) return;
             _downButtons.Remove((Button)arguments.Button);
-            ButtonUp(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
+            if(ButtonUp != null)
+                ButtonUp(sender, new DunamisMouseButtonEventArgs((Button)arguments.Button));
         }
         private void WheelMove(object sender, MouseWheelEventArgs e)
         {
             if (!_window.Focused) return;
             _wheelPosition = e.ValuePrecise;
-            Wheel(sender, new DunamisMouseWheelEventArgs(e.Value, e.ValuePrecise));
+            if(Wheel != null)
+                Wheel(sender, new DunamisMouseWheelEventArgs(e.Value, e.ValuePrecise, e.Delta));
         }
         private void MouseMove(object sender, MouseMoveEventArgs e)
         {
@@ -99,7 +102,8 @@ namespace Dunamis.Input
             _currentY = e.Y;
             _xDelta = e.XDelta;
             _yDelta = e.YDelta;
-            Move(sender, new DunamisMouseMoveEventArgs(e.X, e.Y, e.XDelta, e.YDelta));
+            if(Move != null)
+                Move(sender, new DunamisMouseMoveEventArgs(e.X, e.Y, e.XDelta, e.YDelta));
         }
         #endregion
 
@@ -148,11 +152,13 @@ namespace Dunamis.Input
     {
         public int Position;
         public float PositionPrecise;
+        public int Delta;
 
-        public DunamisMouseWheelEventArgs(int position, float precise)
+        public DunamisMouseWheelEventArgs(int position, float precise, int delta)
         {
             Position = position;
             PositionPrecise = precise;
+            Delta = delta;
         }
     }
 }

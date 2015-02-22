@@ -17,6 +17,7 @@ namespace Dunamis.Graphics
         internal NativeWindow NativeWindow;
 
         public event EventHandler Closing;
+        public event EventHandler Resize;
         public readonly Mouse Mouse;
         public readonly Keyboard Keyboard;
 
@@ -178,6 +179,11 @@ namespace Dunamis.Graphics
             IsClosing();
             Close();
         }
+        private void WindowResize(object sender, EventArgs e)
+        {
+            if(Resize != null)
+                Resize(sender, e);
+        }
         #endregion
 
         #region Constructors
@@ -185,6 +191,7 @@ namespace Dunamis.Graphics
         {
             NativeWindow = new NativeWindow(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.GetDisplay((DisplayIndex)display));
             NativeWindow.Closing += WindowClosing;
+            NativeWindow.Resize += WindowResize;
 
             Keyboard = new Keyboard(this);
             Mouse = new Mouse(this);
@@ -192,6 +199,7 @@ namespace Dunamis.Graphics
             Type = type;
             Visible = visible;
         }
+
         public Window(int width, int height, string title, WindowType type, int display)
             : this(width, height, title, type, display, true)
         {

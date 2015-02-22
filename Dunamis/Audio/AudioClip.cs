@@ -9,75 +9,72 @@ namespace Dunamis.Audio
 {
     public class AudioClip
     {
-        private uint _alSource;
-        private AudioSource _source;
-        private AudioClipState _state = AudioClipState.Playing;
+        public uint DeviceSource;
+        public AudioSource Source;
+        public AudioClipState State = AudioClipState.Playing;
 
-        public AudioClipState State => _state;
-        public AudioSource Source => _source;
-        public uint DeviceSource => _alSource;
         public bool Looping = false;
 
         public AudioClip(AudioSource source)
         {
-            _source = source;
-            AL.GenSource(out _alSource);
+            Source = source;
+            AL.GenSource(out DeviceSource);
             RequeueBuffers();
         }
 
         public void Play()
         {
-            AL.SourcePlay(_alSource);
-            _state = AudioClipState.Playing;
+            AL.SourcePlay(DeviceSource);
+            State = AudioClipState.Playing;
         }
 
         public void Pause()
         {
-            AL.SourcePause(_alSource);
-            _state = AudioClipState.Paused;
+            AL.SourcePause(DeviceSource);
+            State = AudioClipState.Paused;
         }
 
         private void RequeueBuffers()
         {
-            if (_source.Streaming)
+            if (Source.Streaming)
             {
                 List<uint> buffers = new List<uint>();
-                for (int i = 0; i < 4 && _source.State == AudioSourceState.Playing; i++)
-                    buffers.Add(_source.GenBuffers().First());
-                AL.SourceQueueBuffers(_alSource, buffers.Count, buffers.ToArray());
+                for (int i = 0; i < 4 && Source.State == AudioSourceState.Playing; i++)
+                    buffers.Add(Source.GenBuffers().First());
+                AL.SourceQueueBuffers(DeviceSource, buffers.Count, buffers.ToArray());
             }
             else
-                AL.SourceQueueBuffer((int)_alSource, (int)_source.GenBuffers().First());
+                AL.SourceQueueBuffer((int)DeviceSource, (int)Source.GenBuffers().First());
         }
 
         internal void Process()
         {
-            if (_state == AudioClipState.Playing)
+            if (State == AudioClipState.Playing)
             {
-                if (_source.State == AudioSourceState.Ended && AL.GetSourceState(_alSource) == ALSourceState.Stopped)
+                if (Source.State == AudioSourceState.Ended && AL.GetSourceState(DeviceSource) == ALSourceState.Stopped)
                 {
-                    AL.SourceStop(_alSource);
-                    _state = AudioClipState.Ended;
+                    AL.SourceStop(DeviceSource);
+                    State = AudioClipState.Ended;
                     if (Looping)
                     {
-                        _state = AudioClipState.Playing;
+                        State = AudioClipState.Playing;
                         int bufferCount = 0;
-                        AL.GetSource(_alSource, ALGetSourcei.BuffersQueued, out bufferCount);
-                        AL.SourceUnqueueBuffers((int)_alSource, bufferCount);
-                        _source.Reset();
+                        AL.GetSource(DeviceSource, ALGetSourcei.BuffersQueued, out bufferCount);
+                        AL.SourceUnqueueBuffers((int)DeviceSource, bufferCount);
+                        Source.Reset();
                         RequeueBuffers();
-                        AL.SourcePlay(_alSource);
+                        AL.SourcePlay(DeviceSource);
                     }
                 }
                 int buffersProcessed = 0;
-                AL.GetSource(_alSource, ALGetSourcei.BuffersProcessed, out buffersProcessed);
+                AL.GetSource(DeviceSource, ALGetSourcei.BuffersProcessed, out buffersProcessed);
                 while (buffersProcessed > 0)
                 {
                     uint buffer = 0;
-                    AL.SourceUnqueueBuffers(_alSource, 1, ref buffer);
-                    if (_source.State == AudioSourceState.Ended) break;
-                    _source.FillBuffer(buffer);
-                    AL.SourceQueueBuffer((int)_alSource, (int)buffer);
+                    AL.SourceUnqueueBuffers(DeviceSource, 1, ref buffer);
+                    if (Source.State == AudioSourceState.Ended) break;
+                    Source.FillBuffer(buffer);
+                    AL.SourceQueueBuffer((int)DeviceSource, (int)buffer);
                     buffersProcessed--;
                 }
             }

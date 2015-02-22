@@ -145,6 +145,10 @@ namespace Dunamis.Graphics
             _textureFilter = textureFilter;
             _mipmappingEnabled = mipmappingEnabled;
         }
+        public Texture Copy()
+        {
+
+        }
         #endregion
 
         #region Constructors

@@ -35,6 +35,7 @@
             set
             {
                 _view = value;
+                _viewCalculated = true;
             }
         }
         public Matrix4 Projection

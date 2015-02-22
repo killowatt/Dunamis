@@ -81,6 +81,19 @@ namespace Dunamis
             Y *= scale;
             Z *= scale;
         }
+        public void ApplyQuaternion(Quaternion q)
+        {
+            Quaternion i = new Quaternion();
+            i.X = q.W * X + q.Y * Z - q.Z * Y;
+            i.Y = q.W * Y + q.Z * X - q.X * Z;
+            i.Z = q.W * Z + q.X * Y - q.Y * X;
+            i.W = -q.X * X - q.Y * Y - q.Z * Z;
+
+            X = i.X * q.W + i.W * -q.X + i.Y * -q.Z - i.Z * -q.Y;
+            Y = i.Y * q.W + i.W * -q.Y + i.Z * -q.X - i.X * -q.Z;
+            Z = i.Z * q.W + i.W * -q.Z + i.X * -q.Y - i.Y * -q.X;
+        }
+
         public static float Dot(Vector3 left, Vector3 right)
         {
             return left.X * right.X + left.Y * right.Y + left.Z * right.Z;

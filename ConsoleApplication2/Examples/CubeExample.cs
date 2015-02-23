@@ -25,7 +25,7 @@ namespace DunamisExamples.Examples
 
         public CubeExample()
         {
-        }
+        } 
 
         public override void Run()
         {
@@ -42,10 +42,10 @@ namespace DunamisExamples.Examples
             xxxx = new ShaderTest4();
             // ourShader.Texture = Texture.Default;
             //cube = new Cube(ourShader); // Create our cube using our shader.
-            cube = new Mesh(RenderTextureMesh.AVertices, RenderTextureMesh.ATextureCoordinates, new float[0],
-                RenderTextureMesh.AIndices, ourShader);
-            xxxxddddd = new Mesh(Cube.AVertices, Cube.ATextureCoordinates, new float[0],
-                Cube.AIndices, ourShader);
+            cube = new Mesh(RenderTextureMesh.RenderTextureVertices, RenderTextureMesh.RenderTextureTextureCoordinates, new float[0],
+                RenderTextureMesh.RenderTextureIndices, ourShader);
+            xxxxddddd = new Mesh(Cube.CubeVertices, Cube.CubeTextureCoordinates, new float[0],
+                Cube.CubeIndices, ourShader);
             sprite = new Sprite(200, 200, t);
             sprite.X = 0;
             sprite.Y = 200;

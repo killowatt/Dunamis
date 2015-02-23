@@ -56,6 +56,11 @@ namespace Dunamis.Graphics
                 }
                 return _transform;
             }
+            set
+            {
+                _transform = value;
+                _transformCalculated = true;
+            }
         }
         public Vector3 Position
         {

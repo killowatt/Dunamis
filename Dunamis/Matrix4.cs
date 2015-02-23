@@ -10,6 +10,10 @@
         public static readonly Matrix4 Identity = OpenTK.Matrix4.Identity; // TODO: lmao
 
         #region Methods
+        public Quaternion ExtractRotation()
+        {
+            return new Quaternion(((OpenTK.Matrix4)this).ExtractRotation());
+        }
         public bool Equals(Matrix4 other)
         {
             return Row0.Equals(other.Row0) && Row1.Equals(other.Row1) && Row2.Equals(other.Row2) && Row3.Equals(other.Row3);

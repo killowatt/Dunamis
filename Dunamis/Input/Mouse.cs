@@ -18,12 +18,15 @@ namespace Dunamis.Input
         private int _xDelta = 0;
         private int _yDelta = 0;
 
+        public bool Locked = false;
+
         public event EventHandler<DunamisMouseButtonEventArgs> ButtonDown;
         public event EventHandler<DunamisMouseButtonEventArgs> ButtonUp;
         public event EventHandler<DunamisMouseMoveEventArgs> Move;
         public event EventHandler<DunamisMouseWheelEventArgs> Wheel;
 
         #region Properties
+
         public int X
         {
             get

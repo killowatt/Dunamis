@@ -20,6 +20,8 @@ namespace Dunamis.Graphics
         public event EventHandler Resize;
         public readonly Mouse Mouse;
         public readonly Keyboard Keyboard;
+        
+
 
         #region Properties
         public int Width
@@ -59,7 +61,7 @@ namespace Dunamis.Graphics
         {
             get
             {
-                return NativeWindow.X;
+                return NativeWindow.Y;
             }
             set
             {
@@ -88,6 +90,7 @@ namespace Dunamis.Graphics
                 NativeWindow.Visible = value;
             }
         }
+
         public bool CursorVisible
         {
             get
@@ -158,6 +161,10 @@ namespace Dunamis.Graphics
         {
             // If the mouse doesn't move, the mouse delta values don't get updated.
             Mouse.ResetDelta();
+            if(Mouse.Locked)
+            {
+                System.Windows.Forms.Cursor.Position = new Point(X + Width / 2, Y + Height / 2);
+            }
             NativeWindow.ProcessEvents();
         }
         public void Close()

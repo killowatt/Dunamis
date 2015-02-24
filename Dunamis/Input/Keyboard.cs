@@ -26,6 +26,11 @@ namespace Dunamis.Input
         {
             return !IsKeyDown(key);
         }
+
+        public KeyboardState GetState()
+        {
+            return new KeyboardState(_downKeys);
+        }
         #endregion
 
         #region Events

@@ -74,6 +74,11 @@ namespace Dunamis.Input
         {
             return !IsButtonDown(button);
         }
+
+        public MouseState GetState()
+        {
+            return new MouseState(this);
+        }
         #endregion
 
         #region Events

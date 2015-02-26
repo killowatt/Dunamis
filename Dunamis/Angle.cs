@@ -4,7 +4,14 @@ namespace Dunamis
 {
     public struct Angle
     {
+        /// <summary>
+        /// The value of this angle in radians.
+        /// </summary>
         public float Radians;
+
+        /// <summary>
+        /// The value of this angle in degrees.
+        /// </summary>
         public float Degrees
         {
             get
@@ -18,22 +25,36 @@ namespace Dunamis
         }
 
         #region Methods
-        //public void Clamp(Angle first, Angle second)
-        //{
-        //    float first
-        //}
+        /// <summary>
+        /// Creates a new angle from the specified number of degrees.
+        /// </summary>
+        /// <param name="degrees">The value of the angle to be created, in degrees.</param>
+        /// <returns>A new angle with the specified value.</returns>
         public static Angle CreateDegrees(float degrees)
         {
             return new Angle(degrees * (float)Math.PI / 180);
         }
+        /// <summary>
+        /// Creates a new angle from the specified number of radians.
+        /// </summary>
+        /// <param name="radians">The value of the angle to be created, in radians.</param>
+        /// <returns>A new angle with the specified value.</returns>
         public static Angle CreateRadians(float radians)
         {
             return new Angle(radians);
         }
+        /// <summary>
+        /// Creates a new angle representing one full circle (2π radians or 360 degrees).
+        /// </summary>
+        /// <returns></returns>
         public static Angle Full()
         {
             return new Angle((float)Math.PI * 2);
         }
+        /// <summary>
+        /// Creates a new angle representing a half circle (π radians or 180 degrees).
+        /// </summary>
+        /// <returns></returns>
         public static Angle Half()
         {
             return new Angle((float)Math.PI);
@@ -42,6 +63,10 @@ namespace Dunamis
         //{
         //    return new Angle(Full
         //}
+        /// <summary>
+        /// Creates a new angle representing a quarter of a circle (0.5π radians or 90 degrees).
+        /// </summary>
+        /// <returns></returns>
         public static Angle Quarter()
         {
             return new Angle((float)Math.PI / 2);

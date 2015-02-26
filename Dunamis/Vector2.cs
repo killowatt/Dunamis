@@ -4,7 +4,13 @@ namespace Dunamis
 {
     public struct Vector2
     {
+        /// <summary>
+        /// The X component of this vector.
+        /// </summary>
         public float X;
+        /// <summary>
+        /// The Y component of this vector.
+        /// </summary>
         public float Y;
 
         public static readonly Vector2 UnitX = new Vector2(1, 0);

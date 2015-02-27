@@ -245,7 +245,7 @@
         /// <param name="row1">The second row of the matrix.</param>
         /// <param name="row2">The third row of the matrix.</param>
         /// <param name="row3">The fourth row of the matrix.</param>
-        public Matrix4(Vector4 row0 = Vector4.Zero, Vector4 row1 = Vector4.Zero, Vector4 row2 = Vector4.Zero, Vector4 row3 = Vector4.Zero)
+        public Matrix4(Vector4 row0, Vector4 row1, Vector4 row2, Vector4 row3)
         {
             Row0 = row0;
             Row1 = row1;

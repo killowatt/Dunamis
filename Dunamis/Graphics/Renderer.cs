@@ -100,65 +100,9 @@ namespace Dunamis.Graphics
             Draw(_renderTextureMesh);
             GraphicsContext.SwapBuffers();
         }
-        public void Draw(Mesh mesh) // TODO: Include a way to override mesh shader through this method.
+        public void Draw(IDrawable renderable)
         {
-            GL.BindVertexArray(mesh.VertexArray.VertexArrayObject);
-            GL.UseProgram(mesh.Shader.ShaderProgram);
-
-            if (!mesh.Shader.Initialized || mesh.Shader.State == ShaderState.Dynamic)
-            { 
-                mesh.Shader.Model = mesh.Transform;
-                mesh.Shader.View = Camera.View;
-                mesh.Shader.Projection = Camera.Projection;
-            }
-            if (!mesh.Shader.Initialized)
-            {
-                mesh.Shader.Initialize();
-                mesh.Shader.Initialized = true;
-            }
-            if (mesh.Shader.State == ShaderState.Dynamic)
-            {
-                mesh.Shader.Update();
-            }
-       
-            GL.DrawElements(PrimitiveType.Triangles, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
-        }
-        public void Draw(Sprite sprite)
-        {
-            GL.Disable(EnableCap.DepthTest); // TODO: maybe do this better?
-
-            if (!sprite.Buffered)
-            {
-                sprite.Mesh.Vertices = sprite.Vertices;
-                sprite.Buffered = true;
-            }
-
-            GL.BindVertexArray(sprite.Mesh.VertexArray.VertexArrayObject);
-            GL.UseProgram(sprite.Mesh.Shader.ShaderProgram);
-
-            if (!sprite.Mesh.Shader.Initialized || sprite.Mesh.Shader.State == ShaderState.Dynamic)
-            {
-                //mesh.Shader.Model = mesh.Transform;
-                sprite.Mesh.Shader.Projection = Camera.Projection2D;
-                //mesh.Shader.Projection = Camera.Projection;
-            }
-            if (!sprite.Mesh.Shader.Initialized)
-            {
-                sprite.Mesh.Shader.Initialize();
-                sprite.Mesh.Shader.Initialized = true;
-            }
-            if (sprite.Mesh.Shader.State == ShaderState.Dynamic)
-            {
-                sprite.Mesh.Shader.Update();
-            }
-
-            GL.DrawElements(PrimitiveType.Triangles, sprite.Mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
-
-            GL.Enable(EnableCap.DepthTest);
-        }
-        public void Draw(Text text)
-        {
-            Draw(text.Sprite);
+            renderable.Draw(this);
         }
         public Renderer(IntPtr handle, int width, int height) // TODO: make a not terrible constructor
         {

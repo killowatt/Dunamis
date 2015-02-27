@@ -9,7 +9,7 @@ namespace Dunamis.Graphics
         Dynamic,
         Stream
     }
-    public class Mesh 
+    public class Mesh : IDrawable
     {
         internal VertexArray VertexArray;
         public Shader Shader;
@@ -192,6 +192,29 @@ namespace Dunamis.Graphics
                 _scale = scale;
                 _transformCalculated = false;
             }
+        }
+        public void Draw(Renderer renderer)
+        {
+            GL.BindVertexArray(VertexArray.VertexArrayObject);
+            GL.UseProgram(Shader.ShaderProgram);
+
+            if (!Shader.Initialized || Shader.State == ShaderState.Dynamic)
+            {
+                Shader.Model = Transform;
+                Shader.View = renderer.Camera.View;
+                Shader.Projection = renderer.Camera.Projection;
+            }
+            if (!Shader.Initialized)
+            {
+                Shader.Initialize();
+                Shader.Initialized = true;
+            }
+            if (Shader.State == ShaderState.Dynamic)
+            {
+                Shader.Update();
+            }
+
+            GL.DrawElements(PrimitiveType.Triangles, Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
         }
         #endregion
 

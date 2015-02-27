@@ -7,7 +7,7 @@ using SharpFont;
 
 namespace Dunamis.Graphics
 {
-    public class Text // TODO: Fix er up. 
+    public class Text : IDrawable // TODO: Fix er up. 
     {
         Sprite sprite;
         Texture texture;
@@ -158,6 +158,11 @@ namespace Dunamis.Graphics
                     rendered = false;
                 }
             }
+        }
+
+        public void Draw(Renderer renderer)
+        {
+            renderer.Draw(Sprite);
         }
 
         public Text(string text, Font font)

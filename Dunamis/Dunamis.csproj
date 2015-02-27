@@ -102,6 +102,7 @@
       <DependentUpon>DunamisControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphics\Font.cs" />
+    <Compile Include="Graphics\IDrawable.cs" />
     <Compile Include="Graphics\Mesh.cs" />
     <Compile Include="Graphics\Text.cs" />
     <Compile Include="Graphics\PixelFormat.cs" />

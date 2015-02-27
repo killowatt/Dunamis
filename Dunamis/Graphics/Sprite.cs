@@ -1,10 +1,10 @@
 ﻿using System;
 using Dunamis.Common.Shaders;
-using OpenTK.Graphics.ES20;
+using OpenTK.Graphics.OpenGL;
 
 namespace Dunamis.Graphics
 {
-    public class Sprite
+    public class Sprite : IDrawable
     {
         internal Mesh Mesh;
         float[] vertices;
@@ -70,6 +70,36 @@ namespace Dunamis.Graphics
         {
             get { return Mesh.Roll; }
             set { Mesh.Roll = value; }
+        }
+
+        public void Draw(Renderer renderer)
+        {
+            GL.Disable(EnableCap.DepthTest); // TODO: maybe do this better?
+
+            if (!Buffered)
+            {
+                Mesh.Vertices = Vertices;
+                Buffered = true;
+            }
+
+            GL.BindVertexArray(Mesh.VertexArray.VertexArrayObject);
+            GL.UseProgram(Mesh.Shader.ShaderProgram);
+
+            if (!Mesh.Shader.Initialized || Mesh.Shader.State == ShaderState.Dynamic)
+                Mesh.Shader.Projection = renderer.Camera.Projection2D;
+            if (!Mesh.Shader.Initialized)
+            {
+                Mesh.Shader.Initialize();
+                Mesh.Shader.Initialized = true;
+            }
+            if (Mesh.Shader.State == ShaderState.Dynamic)
+            {
+                Mesh.Shader.Update();
+            }
+
+            GL.DrawElements(PrimitiveType.Triangles, Mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero);
+
+            GL.Enable(EnableCap.DepthTest);
         }
 
         public Sprite(int width, int height, int x, int y, Texture texture)

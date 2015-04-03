@@ -186,8 +186,4 @@ FakesAssemblies/
 *.nvuser
 
 ## Exceptions
-!/Libraries/OpenTK.dll
-!/Libraries/freetype6.dll
-!/Libraries/SharpFont.dll
-!/Libraries/openal32.dll
-!/Libraries/NVorbis.dll
+#!/Libraries/OpenTK.dll
